@@ -1,0 +1,4 @@
+# Skip formatting for folders/files:
+cypress/reports
+.history
+README.md

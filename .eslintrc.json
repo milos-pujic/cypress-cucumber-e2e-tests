@@ -1,0 +1,60 @@
+{
+  "plugins": [
+    "cypress",
+    "chai-friendly",
+    "prettier",
+    "import"
+  ],
+  "env": {
+    "browser": true,
+    "cypress/globals": true
+  },
+  "extends": [
+    "plugin:cypress/recommended",
+    "plugin:chai-friendly/recommended"
+  ],
+  "rules": {
+    "no-unused-expressions": "error",
+    "chai-friendly/no-unused-expressions": 2,
+    "sort-keys": "off",
+    "indent": [
+      "error",
+      2,
+      {
+        "SwitchCase": 1
+      }
+    ],
+    "no-duplicate-imports": [
+      "error",
+      {
+        "includeExports": true
+      }
+    ],
+    "comma-dangle": [
+      "error",
+      "never"
+    ],
+    "quotes": [
+      "error",
+      "single"
+    ],
+    "semi": [
+      "error",
+      "always"
+    ],
+    "no-unused-vars": "off",
+    "max-len": [
+      "warn",
+      {
+        "code": 150,
+        "tabWidth": 2
+      }
+    ],
+    "cypress/no-unnecessary-waiting": "off",
+    "cypress/no-pause": "error",
+    "prettier/prettier": [
+      "error"
+    ],
+    "import/no-unused-modules": [1, {"unusedExports": true}]
+  }
+}

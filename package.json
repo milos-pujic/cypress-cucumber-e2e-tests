@@ -1,0 +1,38 @@
+{
+  "name": "cypress-cucumber-base",
+  "version": "1.0.0",
+  "description": "Cypress Cucumber Base E2E Testing Framework",
+  "main": "index.js",
+  "scripts": {
+    "prepare": "husky install",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "clean": "npm run clean:results && npm run clean:docker && npm run clean:modules",
+    "clean:modules": "rimraf ./node_modules",
+    "clean:results": "rimraf ./cypress/reports ./cypress/videos ./cypress/screenshots",
+    "clean:docker": "rimraf ./.docker"
+  },
+  "keywords": [
+    "Cypress",
+    "JS",
+    "JavaScript",
+    "Cucumber",
+    "Gherkin"
+  ],
+  "author": "Levi9",
+  "license": "ISC",
+  "devDependencies": {
+    "@badeball/cypress-cucumber-preprocessor": "^15.1.5",
+    "@bahmutov/cypress-esbuild-preprocessor": "^2.2.0",
+    "@cypress/xpath": "^2.0.3",
+    "cypress": "^12.8.1",
+    "eslint": "^8.36.0",
+    "eslint-config-prettier": "^8.7.0",
+    "eslint-plugin-chai-friendly": "^0.7.2",
+    "eslint-plugin-cypress": "^2.12.1",
+    "eslint-plugin-import": "^2.27.5",
+    "eslint-plugin-prettier": "^4.2.1",
+    "husky": "^8.0.0",
+    "lint-staged": "^13.2.0",
+    "prettier": "^2.8.4"
+  }
+}
