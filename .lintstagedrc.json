@@ -6,6 +6,5 @@
   "*.ts": [
     "eslint --fix",
     "prettier --write"
-  ],
-  "*.feature": "prettier --write"
+  ]
 }

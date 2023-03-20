@@ -24,6 +24,7 @@
     "@badeball/cypress-cucumber-preprocessor": "^15.1.5",
     "@bahmutov/cypress-esbuild-preprocessor": "^2.2.0",
     "@cypress/xpath": "^2.0.3",
+    "@faker-js/faker": "^7.6.0",
     "cypress": "^12.8.1",
     "eslint": "^8.36.0",
     "eslint-config-prettier": "^8.7.0",

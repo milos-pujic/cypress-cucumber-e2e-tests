@@ -1,3 +1,10 @@
 {
-  "include": ["./node_modules/cypress", "cypress/**/*.js", "cypress/**/*.ts"]
+  "compilerOptions": {
+    "checkJs": true
+  },
+  "include": [
+    "./node_modules/cypress",
+    "cypress/**/*.js",
+    "cypress/**/*.ts"
+  ]
 }
