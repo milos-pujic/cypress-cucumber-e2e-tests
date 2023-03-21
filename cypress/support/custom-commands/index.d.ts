@@ -8,14 +8,14 @@ declare namespace Cypress {
      * @param username username
      * @param password password
      */
-    loginViaUI(username: string, password: string): Chainable<any>;
+    loginViaUI(username: any, password: any): Chainable<any>;
     /**
      * Login via API call with username and password.
      *
      * @param username username
      * @param password password
      */
-    loginViaApi(username: string, password: string): Chainable<any>;
+    loginViaApi(username: any, password: any): Chainable<any>;
     /**
      * Contact hotel from the Front page by filling in all contact fields and clicking on Submit button.
      *
@@ -25,6 +25,6 @@ declare namespace Cypress {
      * @param subject contact subject
      * @param message contact description
      */
-    sendMessage(name: any, email: string, phone: string, subject: any, message: string): Chainable<any>;
+    sendMessage(name: any, email: any, phone: any, subject: any, message: any): Chainable<any>;
   }
 }
