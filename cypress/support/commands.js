@@ -25,3 +25,4 @@
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
 import './custom-commands/login';
 import './custom-commands/messages';
+import './custom-commands/booking-management';
