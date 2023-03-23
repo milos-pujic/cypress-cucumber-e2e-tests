@@ -1,4 +1,4 @@
-import { When, Then } from '@badeball/cypress-cucumber-preprocessor';
+import { When, Then, Step } from '@badeball/cypress-cucumber-preprocessor';
 import { faker } from '@faker-js/faker';
 
 When('Visitor {string} tries to contact property regarding {string} by filling up all mandatory fields with valid data', (fullName, subject) => {
@@ -6,7 +6,7 @@ When('Visitor {string} tries to contact property regarding {string} by filling u
 });
 
 When('Visitor tries to contact property regarding {string} without filling up name field', (subject) => {
-  cy.sendMessage(null, faker.internet.email(), faker.phone.number(), subject, faker.lorem.lines(5));
+  Step(this, `Visitor '' tries to contact property regarding '${subject}' by filling up all mandatory fields with valid data`);
 });
 
 When('Visitor {string} tries to contact property regarding {string} without filling up email field', (fullName, subject) => {
@@ -18,7 +18,7 @@ When('Visitor {string} tries to contact property regarding {string} without fill
 });
 
 When('Visitor {string} tries to contact property without filling up subject field', (fullName) => {
-  cy.sendMessage(fullName, faker.internet.email(), faker.phone.number(), null, faker.lorem.lines(5));
+  Step(this, `Visitor '${fullName}' tries to contact property regarding '' by filling up all mandatory fields with valid data`);
 });
 
 When('Visitor {string} tries to contact property regarding {string} without filling up message field', (fullName, subject) => {

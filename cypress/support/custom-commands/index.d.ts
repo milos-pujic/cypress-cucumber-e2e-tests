@@ -8,14 +8,14 @@ declare namespace Cypress {
      * @param username username
      * @param password password
      */
-    loginViaUI(username: any, password: any): Chainable<any>;
+    loginViaUI(username: string | null, password: string | null): Chainable<any>;
     /**
      * Login via API call with username and password.
      *
      * @param username username
      * @param password password
      */
-    loginViaApi(username: any, password: any): Chainable<any>;
+    loginViaApi(username: string, password: string): Chainable<any>;
     /**
      * Contact hotel from the Front page by filling in all contact fields and clicking on Submit button.
      *
@@ -25,7 +25,7 @@ declare namespace Cypress {
      * @param subject contact subject
      * @param message contact description
      */
-    sendMessage(name: any, email: any, phone: any, subject: any, message: any): Chainable<any>;
+    sendMessage(name: string | null, email: string | null, phone: string | null, subject: string | null, message: string | null): Chainable<any>;
     /**
      * Create Hotel Room from the Room Management page by filling up all room details and clicking on Create button.
      *
@@ -68,5 +68,31 @@ declare namespace Cypress {
      * @param roomId room id
      */
     deleteRoomViaApi(roomId: string): Chainable<any>;
+    /**
+     * Book a Hotel from the Front page by filling in all booking fields and clicking on Book button.
+     *
+     * @param roomName booking room name
+     * @param firstName booking first name
+     * @param lastName booking last name
+     * @param email booking email
+     * @param phone booking phone
+     */
+    bookRoom(roomName: string | null, firstName: string | null, lastName: string | null, email: string | null, phone: string | null): Chainable<any>;
+    /**
+     * Book a Hotel from the Front page by filling in all booking fields but without the dates and clicking on Book button.
+     *
+     * @param roomName booking room name
+     * @param firstName booking first name
+     * @param lastName booking last name
+     * @param email booking email
+     * @param phone booking phone
+     */
+    bookRoomWithNoDates(
+      roomName: string | null,
+      firstName: string | null,
+      lastName: string | null,
+      email: string | null,
+      phone: string | null
+    ): Chainable<any>;
   }
 }

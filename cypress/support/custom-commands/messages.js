@@ -1,29 +1,29 @@
 const enterContactName = (name) => {
-  if (name != null) {
+  if (name != null && name != undefined && name != '') {
     cy.get('[data-testid="ContactName"]').type(name);
   }
 };
 
 const enterContactEmail = (email) => {
-  if (email != null) {
+  if (email != null && email != undefined && email != '') {
     cy.get('[data-testid="ContactEmail"]').type(email);
   }
 };
 
 const enterContactPhone = (phone) => {
-  if (phone != null) {
+  if (phone != null && phone != undefined && phone != '') {
     cy.get('[data-testid="ContactPhone"]').type(phone);
   }
 };
 
 const enterContactSubject = (subject) => {
-  if (subject != null) {
+  if (subject != null && subject != undefined && subject != '') {
     cy.get('[data-testid="ContactSubject"]').type(subject);
   }
 };
 
 const enterContactMessage = (message) => {
-  if (message != null) {
+  if (message != null && message != undefined && message != '') {
     if (message.length < 50) {
       cy.get('[data-testid="ContactDescription"]').clear().type(message);
     } else {
