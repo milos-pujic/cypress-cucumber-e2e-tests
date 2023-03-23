@@ -26,3 +26,4 @@
 import './custom-commands/login';
 import './custom-commands/messages';
 import './custom-commands/room-management';
+import './custom-commands/booking';
