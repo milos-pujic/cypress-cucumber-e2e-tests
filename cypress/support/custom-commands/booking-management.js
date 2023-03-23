@@ -3,19 +3,19 @@ import { getApiUrl } from '../env-utility';
 const apiUrl = getApiUrl();
 
 const enterRoomName = (roomName) => {
-  if (roomName != null) {
+  if (roomName != null && roomName != undefined && roomName != '') {
     cy.get('[data-testid="roomName"]').type(roomName);
   }
 };
 
 const enterRoomPrice = (roomPrice) => {
-  if (roomPrice != null) {
+  if (roomPrice != null && roomPrice != undefined && roomPrice != '') {
     cy.get('#roomPrice').type(roomPrice);
   }
 };
 
 const selectRoomType = (roomType) => {
-  if (roomType != null) {
+  if (roomType != null && roomType != undefined && roomType != '') {
     cy.get('#type').select(roomType);
   }
 };

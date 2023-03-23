@@ -1,4 +1,4 @@
-import { When, Then } from '@badeball/cypress-cucumber-preprocessor';
+import { When, Then, Step } from '@badeball/cypress-cucumber-preprocessor';
 
 const validRoomTypes = ['Single', 'Twin', 'Double', 'Family', 'Suite'];
 
@@ -19,6 +19,20 @@ When(
     const hasViews = hasFeature('views', features);
     const accessible = isAccessible(accessibility);
     cy.createRoom(roomName, roomPrice, parsedRoomType(roomType), accessible, hasWifi, hasTv, hasRadio, hasRefreshments, hasSafe, hasViews);
+  }
+);
+
+When(
+  'User creates new {string} type {string} room priced at {string} GBP with {string} without filling up room name field',
+  (roomType, accessibility, roomPrice, features) => {
+    Step(this, `User creates new '${roomType}' type '${accessibility}' room '' priced at '${roomPrice}' GBP with '${features}'`);
+  }
+);
+
+When(
+  'User creates new {string} type {string} room {string} with {string} without filling up room price field',
+  (roomType, accessibility, roomName, features) => {
+    Step(this, `User creates new '${roomType}' type '${accessibility}' room '${roomName}' priced at '' GBP with '${features}'`);
   }
 );
 
@@ -50,3 +64,9 @@ Then(
     });
   }
 );
+
+Then('User will get validation/mandatory error message: {string}', (message) => {
+  cy.get('div.alert').within(() => {
+    cy.get('p').contains(message);
+  });
+});
