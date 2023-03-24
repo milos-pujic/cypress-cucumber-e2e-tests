@@ -1,41 +1,41 @@
 Feature: Contact Hotel
 
-  Vistors must be able to contact the property by filling up all mandatory fields on conctact form with valid data and clicking Submit button.
-  If any of the mandatory fields is missing, proper mandatory message must be displayed.
-  If any of the fields is filled in with invalid data, validation message must be displayed.
+  Visitors must be able to contact the property by filling up all mandatory fields on contact form with valid data and clicking Submit button.
+  If any of the mandatory fields is missing, proper mandatory error message must be displayed.
+  If any of the fields is filled in with invalid data, proper validation error message must be displayed.
 
   Background: Visitor is on the Front Page
     Given Visitor is on the Front Page
 
-  Scenario: Vistor must be able to contact the property by fillin up all mandatory fields
-    When Visitor 'John Doe' tries to contact property regarding 'Special Accomodation' by filling up all mandatory fields with valid data
-    Then Visitor 'John Doe' will get Thanks for getting in touch message regarding subject 'Special Accomodation'
+  Scenario: Visitor must be able to contact the property by filling up all mandatory fields
+    When Visitor 'John Doe' tries to contact property regarding 'Special Accommodation' by filling up all mandatory fields with valid data
+    Then Visitor 'John Doe' will get Thanks for getting in touch message regarding subject 'Special Accommodation'
 
-  Scenario: Vistor must NOT be able to contact the property without filling up name field
-    When Visitor tries to contact property regarding 'Special Accomodation' without filling up name field
+  Scenario: Visitor must NOT be able to contact the property without filling up name field
+    When Visitor tries to contact property regarding 'Special Accommodation' without filling up name field
     Then Visitor will get mandatory error message: 'Name may not be blank'
 
-  Scenario: Vistor must NOT be able to contact the property without filling up email field
-    When Visitor 'John Doe' tries to contact property regarding 'Special Accomodation' without filling up email field
+  Scenario: Visitor must NOT be able to contact the property without filling up email field
+    When Visitor 'John Doe' tries to contact property regarding 'Special Accommodation' without filling up email field
     Then Visitor will get mandatory error message: 'Email may not be blank'
 
-  Scenario: Vistor must NOT be able to contact the property without filling up phone field
-    When Visitor 'John Doe' tries to contact property regarding 'Special Accomodation' without filling up phone field
+  Scenario: Visitor must NOT be able to contact the property without filling up phone field
+    When Visitor 'John Doe' tries to contact property regarding 'Special Accommodation' without filling up phone field
     Then Visitor will get mandatory error message: 'Phone may not be blank'
     And Visitor will get validation error message: 'Phone must be between 11 and 21 characters'
 
-  Scenario: Vistor must NOT be able to contact the property without filling up subject field
+  Scenario: Visitor must NOT be able to contact the property without filling up subject field
     When Visitor 'John Doe' tries to contact property without filling up subject field
     Then Visitor will get mandatory error message: 'Subject may not be blank'
     And Visitor will get validation error message: 'Subject must be between 5 and 100 characters'
 
-  Scenario: Vistor must NOT be able to contact the property without filling up message field
-    When Visitor 'John Doe' tries to contact property regarding 'Special Accomodation' without filling up message field
+  Scenario: Visitor must NOT be able to contact the property without filling up message field
+    When Visitor 'John Doe' tries to contact property regarding 'Special Accommodation' without filling up message field
     Then Visitor will get mandatory error message: 'Message may not be blank'
     And Visitor will get validation error message: 'Message must be between 20 and 2000 characters'
 
-  Scenario Outline: Vistor must NOT be able to contact the property by filling up email with invalid value: <invalid_email>
-    When Visitor 'John Doe' tries to contact property regarding 'Special Accomodation' by filling up email with invalid value: '<invalid_email>'
+  Scenario Outline: Visitor must NOT be able to contact the property by filling up email with invalid value: <invalid_email>
+    When Visitor 'John Doe' tries to contact property regarding 'Special Accommodation' by filling up email with invalid value: '<invalid_email>'
     Then Visitor will get validation error message: 'must be a well-formed email address'
     Examples:
       | invalid_email                 |
@@ -56,23 +56,23 @@ Feature: Contact Hotel
       | email@example..com            |
       | Abc..123@example.com          |
 
-  Scenario Outline: Vistor must NOT be able to contact the property by filling up the phone with invalid length value: <invalid_phone>
-    When Visitor 'John Doe' tries to contact property regarding 'Special Accomodation' by filling up phone with invalid value: '<invalid_phone>'
+  Scenario Outline: Visitor must NOT be able to contact the property by filling up the phone with invalid length value: <invalid_phone>
+    When Visitor 'John Doe' tries to contact property regarding 'Special Accommodation' by filling up phone with invalid value: '<invalid_phone>'
     Then Visitor will get validation error message: 'Phone must be between 11 and 21 characters'
     Examples:
       | invalid_phone          |
       | 1234567890             |
       | 1234567890123456789012 |
 
-  Scenario Outline: Vistor must be able to contact the property by filling up phone with valid length value: <valid_phone>
-    When Visitor 'John Doe' tries to contact property regarding 'Special Accomodation' by filling up phone with valid value: '<valid_phone>'
-    Then Visitor 'John Doe' will get Thanks for getting in touch message regarding subject 'Special Accomodation'
+  Scenario Outline: Visitor must be able to contact the property by filling up phone with valid length value: <valid_phone>
+    When Visitor 'John Doe' tries to contact property regarding 'Special Accommodation' by filling up phone with valid value: '<valid_phone>'
+    Then Visitor 'John Doe' will get Thanks for getting in touch message regarding subject 'Special Accommodation'
     Examples:
       | valid_phone           |
       | 12345678901           |
       | 123456789012345678901 |
 
-  Scenario Outline: Vistor must NOT be able to contact the property by filling up the subject with invalid length value of <subject_length>, less than 5 and more than 100 characters
+  Scenario Outline: Visitor must NOT be able to contact the property by filling up the subject with invalid length value of <subject_length>, less than 5 and more than 100 characters
     When Visitor 'John Doe' tries to contact property by filling up subject with value length of <subject_length> characters
     Then Visitor will get validation error message: 'Subject must be between 5 and 100 characters'
     Examples:
@@ -80,7 +80,7 @@ Feature: Contact Hotel
       | 4              |
       | 101            |
 
-  Scenario Outline: Vistor must be able to contact the property by filling up the subject with valid length value of <subject_length>, between 5 and 100 characters
+  Scenario Outline: Visitor must be able to contact the property by filling up the subject with valid length value of <subject_length>, between 5 and 100 characters
     When Visitor 'John Doe' tries to contact property by filling up subject with value length of <subject_length> characters
     Then Visitor 'John Doe' will get Thanks for getting in touch message
     Examples:
@@ -88,17 +88,17 @@ Feature: Contact Hotel
       | 5              |
       | 100            |
 
-  Scenario Outline: Vistor must NOT be able to contact the property by filling up the message with invalid length value of <message_length>, less than 20 and more than 2000 characters
-    When Visitor 'John Doe' tries to contact property regarding 'Special Accomodation' by filling up message with value length of <message_length> characters
+  Scenario Outline: Visitor must NOT be able to contact the property by filling up the message with invalid length value of <message_length>, less than 20 and more than 2000 characters
+    When Visitor 'John Doe' tries to contact property regarding 'Special Accommodation' by filling up message with value length of <message_length> characters
     Then Visitor will get validation error message: 'Message must be between 20 and 2000 characters'
     Examples:
       | message_length |
       | 19             |
       | 2001           |
 
-  Scenario Outline: Vistor must be able to contact the property by filling up the message with valid length value of <message_length>, between 20 and 2000 characters
-    When Visitor 'John Doe' tries to contact property regarding 'Special Accomodation' by filling up message with value length of <message_length> characters
-    Then Visitor 'John Doe' will get Thanks for getting in touch message regarding subject 'Special Accomodation'
+  Scenario Outline: Visitor must be able to contact the property by filling up the message with valid length value of <message_length>, between 20 and 2000 characters
+    When Visitor 'John Doe' tries to contact property regarding 'Special Accommodation' by filling up message with value length of <message_length> characters
+    Then Visitor 'John Doe' will get Thanks for getting in touch message regarding subject 'Special Accommodation'
     Examples:
       | message_length |
       | 20             |

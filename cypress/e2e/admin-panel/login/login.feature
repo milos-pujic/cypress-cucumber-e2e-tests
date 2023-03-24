@@ -1,7 +1,7 @@
 Feature: Login
 
   Administrators must be able to login with correct username and password.
-  Users must not be able to login with invalid combination of username and password or empty username or passowrd.
+  Users must not be able to login with invalid combination of username and password or empty username or password.
 
   Background: User is on Booking Management Login Page
     Given User is on the Booking Management Login Page

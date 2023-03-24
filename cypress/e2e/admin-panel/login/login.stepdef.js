@@ -22,7 +22,7 @@ When('Tries to login with only valid username', () => {
 
 When('Tries to login with wrong password', () => {
   cy.fixture('users.json').then((users) => {
-    cy.loginViaUI(users.admin.username, 'wrongpassword');
+    cy.loginViaUI(users.admin.username, 'wrong_password');
   });
 });
 
