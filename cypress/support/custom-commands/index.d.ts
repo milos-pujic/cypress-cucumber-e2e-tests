@@ -63,11 +63,29 @@ declare namespace Cypress {
      */
     createRoomViaApi(name: string, price: string, type: string, accessible: string, features: Array): Chainable<any>;
     /**
-     * Delete Hotel Room via API call using Room ID.
+     * Delete Booking via API call using Booking ID.
+     *
+     * @param bookingId booking id
+     */
+    deleteBookingViaApi(bookingId: any): Chainable<any>;
+    /**
+     * Delete All Booking for a Hotel Room via API call using Room ID.
+     *
+     * @param roomId
+     */
+    deleteAllBookingsViaApi(roomId: any): Chainable<any>;
+    /**
+     * Delete a Hotel Room via API call using Room ID.
      *
      * @param roomId room id
      */
     deleteRoomViaApi(roomId: string): Chainable<any>;
+    /**
+     * Delete All Rooms with the same name via API call using Room Name.
+     *
+     * @param roomName room name
+     */
+    deleteAllRoomsViaApi(roomName: any): Chainable<any>;
     /**
      * Book a Hotel from the Front page by filling in all booking fields and clicking on Book button.
      *

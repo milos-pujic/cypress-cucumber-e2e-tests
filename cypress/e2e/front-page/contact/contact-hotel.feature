@@ -1,4 +1,4 @@
-Feature: Contact
+Feature: Contact Hotel
 
   Vistors must be able to contact the property by filling up all mandatory fields on conctact form with valid data and clicking Submit button.
   If any of the mandatory fields is missing, proper mandatory message must be displayed.

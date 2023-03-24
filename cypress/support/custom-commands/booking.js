@@ -1,5 +1,5 @@
 const clickBookThisRoom = (roomName) => {
-  cy.xpath(`//div[./div/img[contains(@alt,'${roomName}')]]//button`).click();
+  cy.xpath(`//div[./div/img[contains(@alt,'${roomName}')]]//button`).last().click();
 };
 
 const enterFirstName = (firstName) => {
@@ -27,9 +27,11 @@ const enterPhone = (phone) => {
 };
 
 const setBookingDates = () => {
-  // Set booking dates from today until last day in calendar
-  cy.get('.rbc-today').trigger('mousedown', { which: 1 });
-  cy.get(':last-child > .rbc-row-bg > :last-child').trigger('mousemove').trigger('mouseup');
+  cy.get('.rbc-toolbar').find('button:contains("Next")').click();
+  cy.get('.rbc-month-view > .rbc-month-row').first().find('.rbc-day-bg:not(.rbc-off-range-bg)').first().as('start');
+  cy.get('.rbc-month-view > .rbc-month-row').last().find('.rbc-day-bg:not(.rbc-off-range-bg)').last().as('end');
+  cy.get('@start').trigger('mousedown');
+  cy.get('@end').trigger('mousemove').trigger('mouseup');
 };
 
 const clickBook = () => {
@@ -37,22 +39,20 @@ const clickBook = () => {
 };
 
 Cypress.Commands.add('bookRoom', (roomName, firstName, lastName, email, phone) => {
-  cy.contains('home page').click();
-  cy.clickBookThisRoom(roomName);
-  cy.enterFirstName(firstName);
-  cy.enterLastName(lastName);
-  cy.enterEmail(email);
-  cy.enterPhone(phone);
-  cy.setBookingDates();
-  cy.clickBook();
+  clickBookThisRoom(roomName);
+  enterFirstName(firstName);
+  enterLastName(lastName);
+  enterEmail(email);
+  enterPhone(phone);
+  setBookingDates();
+  clickBook();
 });
 
 Cypress.Commands.add('bookRoomWithNoDates', (roomName, firstName, lastName, email, phone) => {
-  cy.contains('home page').click();
-  cy.clickBookThisRoom(roomName);
-  cy.enterFirstName(firstName);
-  cy.enterLastName(lastName);
-  cy.enterEmail(email);
-  cy.enterPhone(phone);
-  cy.clickBook();
+  clickBookThisRoom(roomName);
+  enterFirstName(firstName);
+  enterLastName(lastName);
+  enterEmail(email);
+  enterPhone(phone);
+  clickBook();
 });
