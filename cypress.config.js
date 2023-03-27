@@ -25,9 +25,9 @@ module.exports = defineConfig({
   screenshotsFolder: 'cypress/screenshots',
   screenshotOnRunFailure: true,
   video: true,
-  videoUploadOnPasses: false,
+  videoUploadOnPasses: true,
   retries: {
-    runMode: 2,
+    runMode: 1,
     openMode: 0
   },
   defaultCommandTimeout: 4000,

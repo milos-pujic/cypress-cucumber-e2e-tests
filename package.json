@@ -10,7 +10,7 @@
     "clean:modules": "rimraf ./node_modules",
     "clean:results": "rimraf ./cypress/reports ./cypress/videos ./cypress/screenshots",
     "clean:docker": "rimraf ./.docker",
-    "cy2:ci:run": "CYPRESS_API_URL='http://director:1234' cy2 run --config-file cypress.ci.config.js --record --key xxx --parallel --ci-build-id '${CI-BUILD-ID}'"
+    "cy2:run": "CYPRESS_API_URL='http://localhost:1234' cy2 run --config projectId='cypress-cucumber' --record --key xxx --parallel --ci-build-id `date +%s`"
 
   },
   "keywords": [
