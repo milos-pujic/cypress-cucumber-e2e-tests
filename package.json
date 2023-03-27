@@ -9,7 +9,9 @@
     "clean": "npm run clean:results && npm run clean:docker && npm run clean:modules",
     "clean:modules": "rimraf ./node_modules",
     "clean:results": "rimraf ./cypress/reports ./cypress/videos ./cypress/screenshots",
-    "clean:docker": "rimraf ./.docker"
+    "clean:docker": "rimraf ./.docker",
+    "cy2:ci:run": "CYPRESS_API_URL='http://director:1234' cy2 run --config-file cypress.ci.config.js --record --key xxx --parallel --ci-build-id '${CI-BUILD-ID}'"
+
   },
   "keywords": [
     "Cypress",
@@ -21,19 +23,20 @@
   "author": "Levi9",
   "license": "ISC",
   "devDependencies": {
-    "@badeball/cypress-cucumber-preprocessor": "^15.1.5",
+    "@badeball/cypress-cucumber-preprocessor": "^16.0.0",
     "@bahmutov/cypress-esbuild-preprocessor": "^2.2.0",
     "@cypress/xpath": "^2.0.3",
     "@faker-js/faker": "^7.6.0",
+    "cy2": "^4.0.6",
     "cypress": "^12.8.1",
     "eslint": "^8.36.0",
-    "eslint-config-prettier": "^8.7.0",
+    "eslint-config-prettier": "^8.8.0",
     "eslint-plugin-chai-friendly": "^0.7.2",
     "eslint-plugin-cypress": "^2.12.1",
     "eslint-plugin-import": "^2.27.5",
     "eslint-plugin-prettier": "^4.2.1",
-    "husky": "^8.0.0",
+    "husky": "^8.0.3",
     "lint-staged": "^13.2.0",
-    "prettier": "^2.8.4"
+    "prettier": "^2.8.7"
   }
 }

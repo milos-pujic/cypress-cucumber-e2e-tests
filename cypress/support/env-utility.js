@@ -1,13 +1,15 @@
 export function getUrl() {
   let environment = Cypress.env('ENV');
-  if (environment == null) return 'https://automationintesting.online';
-  else if (environment == 'production') return 'https://www.production-website.com';
-  else if (environment == 'staging') return 'https://staging-website.com';
+  if (environment == null) return 'http://localhost';
+  else if (environment == 'qa') return 'https://automationintesting.online';
+  else if (environment == 'local') return 'http://localhost';
+  else if (environment == 'docker') return 'http://rbp-proxy';
 }
 
 export function getApiUrl() {
   let environment = Cypress.env('ENV');
-  if (environment == null) return 'https://automationintesting.online';
-  else if (environment == 'production') return 'http://productionrestapi.adequateshop.com/api';
-  else if (environment == 'staging') return 'http://stagingrestapi.adequateshop.com/api';
+  if (environment == null) return 'http://localhost';
+  else if (environment == 'qa') return 'https://automationintesting.online';
+  else if (environment == 'local') return 'http://localhost';
+  else if (environment == 'docker') return 'http://rbp-proxy';
 }
