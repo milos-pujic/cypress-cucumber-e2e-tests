@@ -8,11 +8,11 @@
     "output": "cypress/reports/html/cucumber-report.html"
   },
   "messages": {
-    "enabled": false,
+    "enabled": true,
     "output": "cypress/reports/messages/cucumber-messages.ndjson"
   },
   "json": {
-    "enabled": false,
+    "enabled": true,
     "output": "cypress/reports/json/cucumber-report.json"
   },
   "filterSpecs": true,
