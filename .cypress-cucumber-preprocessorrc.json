@@ -1,6 +1,6 @@
 {
   "stepDefinitions": [
-    "cypress/e2e/**/[filepath].stepdef.js",
+    "cypress/e2e/features/**/[filepath].stepdef.js",
     "cypress/e2e/common/**/*.js"
   ],
   "html": {

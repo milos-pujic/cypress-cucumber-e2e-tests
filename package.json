@@ -8,7 +8,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "clean": "npm run clean:results && npm run clean:docker && npm run clean:modules",
     "clean:modules": "rimraf ./node_modules",
-    "clean:results": "rimraf ./cypress/reports ./cypress/videos ./cypress/screenshots",
+    "clean:results": "rimraf ./cypress/reports ./cypress/videos ./cypress/screenshots ./cypress/downloads",
     "clean:docker": "rimraf ./.docker",
     "cy2:run": "CYPRESS_API_URL='http://localhost:1234' cy2 run --config projectId='cypress-cucumber' --record --key xxx --parallel --ci-build-id `date +%Y-%m-%d`"
 
