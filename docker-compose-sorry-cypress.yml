@@ -1,0 +1,87 @@
+version: '3.7'
+services:
+  # Sorry Cypress Minio Docker Compose from https://github.com/sorry-cypress/sorry-cypress repository
+  mongo:
+    image: mongo:latest
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: 'sorry-cypress'
+      MONGO_INITDB_ROOT_PASSWORD: 'cypress-sorry'
+    volumes:
+      - ./.docker/mongo/data/db:/data/db
+    ports:
+      - 27017:27017
+
+  director:
+    image: agoldis/sorry-cypress-director:latest
+    environment:
+      DASHBOARD_URL: http://localhost:8080
+      INACTIVITY_TIMEOUT_SECONDS: 600
+      EXECUTION_DRIVER: '../execution/mongo/driver'
+      MONGODB_URI: 'mongodb://sorry-cypress:cypress-sorry@mongo:27017'
+      MONGODB_DATABASE: 'sorry-cypress'
+      SCREENSHOTS_DRIVER: '../screenshots/minio.driver'
+      GITLAB_JOB_RETRIES: 'false'
+      MINIO_ACCESS_KEY: 'sorry-cypress'
+      MINIO_SECRET_KEY: 'cypress-sorry'
+      MINIO_ENDPOINT: 'localhost'
+      MINIO_URL: 'http://localhost'
+      MINIO_PORT: '9000'
+      MINIO_USESSL: 'false'
+      MINIO_BUCKET: sorry-cypress
+      PROBE_LOGGER: 'false'
+    ports:
+      - 1234:1234
+      - 9000:9000
+      - 9090:9090
+    depends_on:
+      - mongo
+
+  api:
+    image: agoldis/sorry-cypress-api:latest
+    environment:
+      MONGODB_URI: 'mongodb://sorry-cypress:cypress-sorry@mongo:27017'
+      MONGODB_DATABASE: 'sorry-cypress'
+      APOLLO_PLAYGROUND: 'false'
+    ports:
+      - 4000:4000
+    depends_on:
+      - mongo
+
+  dashboard:
+    image: agoldis/sorry-cypress-dashboard:latest
+    environment:
+      GRAPHQL_SCHEMA_URL: http://localhost:4000
+      GRAPHQL_CLIENT_CREDENTIALS: ''
+      PORT: 8080
+      CI_URL: ''
+    ports:
+      - 8080:8080
+    depends_on:
+      - mongo
+      - api
+
+  storage:
+    image: minio/minio
+    network_mode: service:director
+    environment:
+      MINIO_ROOT_USER: 'sorry-cypress'
+      MINIO_ROOT_PASSWORD: 'cypress-sorry'
+    volumes:
+      - ./.docker/minio/data:/data
+    command: minio server --console-address ':9090' /data
+
+  createbuckets:
+    image: minio/mc
+    network_mode: service:director
+    depends_on:
+      - storage
+    entrypoint: >
+      /bin/sh -c '
+      sleep 3;
+      /usr/bin/mc config host add myminio http://localhost:9000 sorry-cypress cypress-sorry;
+      /usr/bin/mc rm -r --dangerous --force myminio/sorry-cypress;
+      /usr/bin/mc mb myminio/sorry-cypress;
+      /usr/bin/mc anonymous set download myminio/sorry-cypress;
+      /usr/bin/mc anonymous set public myminio/sorry-cypress;
+      exit 0;
+      '
