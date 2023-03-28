@@ -5,7 +5,13 @@
 
 version: 2
 updates:
+# For npm packages
   - package-ecosystem: 'npm'
     directory: '/'
     schedule:
       interval: 'daily'
+  # For github actions
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "monthly"
