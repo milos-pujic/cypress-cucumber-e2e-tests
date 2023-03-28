@@ -10,8 +10,7 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-      # Install NPM dependencies, cache them correctly
-      # and run all Cypress tests
+      # Install NPM dependencies, cache them correctly and run all Cypress tests
       - name: Cypress run
         uses: cypress-io/github-action@v5
         with:
@@ -25,14 +24,14 @@ jobs:
           name: cypress-screenshots
           path: cypress/screenshots
           retention-days: 5
-      # Test run videos were always captured, so this action uses "always()" condition
+      # Test run videos are always captured, so this action uses "always()" condition
       - uses: actions/upload-artifact@v3
         if: always()
         with:
           name: cypress-videos
           path: cypress/videos
           retention-days: 5
-      # Test run reports were always captured, so this action uses "always()" condition
+      # Test run reports are always captured, so this action uses "always()" condition
       - uses: actions/upload-artifact@v3
         if: always()
         with:
