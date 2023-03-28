@@ -49,3 +49,23 @@ jobs:
         uses: cypress-io/github-action@v5
         with:
           env: ENV=local
+      # after the test run completes store videos and any screenshots
+      # NOTE: screenshots will be generated only if E2E test failed thus we store screenshots only on failures
+      # Alternative: create and commit an empty cypress/screenshots folder to always have something to upload
+      - uses: actions/upload-artifact@v3
+        if: failure()
+        with:
+          name: cypress-screenshots
+          path: cypress/screenshots
+      # Test run videos were always captured, so this action uses "always()" condition
+      - uses: actions/upload-artifact@v3
+        if: always()
+        with:
+          name: cypress-videos
+          path: cypress/videos
+      # Test run reports were always captured, so this action uses "always()" condition
+      - uses: actions/upload-artifact@v3
+        if: always()
+        with:
+          name: cypress-reports
+          path: cypress/reports
