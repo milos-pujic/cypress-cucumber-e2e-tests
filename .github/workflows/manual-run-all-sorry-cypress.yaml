@@ -19,7 +19,6 @@ on:
         options:
         - electron
         - chrome
-        - firefox
 
 env:
   CYPRESS_DIRECTOR_URL: ${{ secrets.CYPRESS_DIRECTOR_URL }}
@@ -37,29 +36,20 @@ jobs:
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v3
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: 18
-      - name: Cache Build
-        uses: actions/cache@v3
-        env:
-          cache-name: cache-build
-        with:
-          path: |
-            ./*
-            !./cypress/reports/*
-            !./cypress/screenshots/*
-            !./cypress/videos/*
-            !./cypress/downloads/*
-          key: ${{ github.sha }}
+          node-version: 19
+          cache: 'npm'
+          cache-dependency-path: package-lock.json
       - name: Install Dependencies
-        run: npm install
+        run: npm ci
 
   run-all-cypress-tests:
     name: Run All E2E Test
     runs-on: ubuntu-latest
-    container: cypress/browsers:node18.12.0-chrome103-ff107
     timeout-minutes: 15
     needs: [install-dependencies]
     strategy:
@@ -70,18 +60,8 @@ jobs:
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v3
-      - name: Cache Build
-        uses: actions/cache@v3
-        env:
-          cache-name: cache-build
         with:
-          path: |
-            ./*
-            !./cypress/reports/*
-            !./cypress/screenshots/*
-            !./cypress/videos/*
-            !./cypress/downloads/*
-          key: ${{ github.sha }}
+          ref: ${{ github.event.pull_request.head.sha }}
       - id: execute-tests
         name: Execute Cypress Tests
         run: npm run cy2:ci:run -- --env ENV=${{ inputs.environment }} --browser ${{ inputs.browser }} --headless
