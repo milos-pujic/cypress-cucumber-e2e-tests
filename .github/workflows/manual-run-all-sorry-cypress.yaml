@@ -45,7 +45,7 @@ jobs:
           cache: 'npm'
           cache-dependency-path: package-lock.json
       - name: Install Dependencies
-        run: npm ci
+        run: npm install
 
   run-all-cypress-tests:
     name: Run All E2E Test
