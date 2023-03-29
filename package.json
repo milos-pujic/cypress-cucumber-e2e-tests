@@ -29,7 +29,7 @@
     "@faker-js/faker": "^7.6.0",
     "cy2": "^4.0.6",
     "cypress": "^12.8.1",
-    "eslint": "^8.36.0",
+    "eslint": "^8.37.0",
     "eslint-config-prettier": "^8.8.0",
     "eslint-plugin-chai-friendly": "^0.7.2",
     "eslint-plugin-cypress": "^2.12.1",
