@@ -30,7 +30,7 @@ test:
     # install dependencies
     - npm ci
     # run Cypress tests
-    - npx cypress run --browser chrome --env ENV=production
+    - npx cypress run --browser chrome --env ENV=prod
   artifacts:
     when: always
     paths:
