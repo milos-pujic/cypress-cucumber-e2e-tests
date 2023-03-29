@@ -1,4 +1,4 @@
-name: Manual Run All E2E Tests on Local Restful Booker Platform
+name: Manual Run All E2E Tests with Sorry-Cypress
 
 on:
   workflow_dispatch:
