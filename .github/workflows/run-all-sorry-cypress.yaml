@@ -43,8 +43,6 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 19
-          cache: 'npm'
-          cache-dependency-path: package-lock.json
       - id: cache-node
         name: Cache Node
         uses: actions/cache@v3
@@ -112,8 +110,6 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 19
-          cache: 'npm'
-          cache-dependency-path: package-lock.json
       - id: cache-node
         name: Cache Node
         uses: actions/cache@v3
@@ -150,8 +146,6 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 19
-          cache: 'npm'
-          cache-dependency-path: package-lock.json
       - id: cache-node
         name: Cache Node
         uses: actions/cache@v3
