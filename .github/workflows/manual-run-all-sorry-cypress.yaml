@@ -62,6 +62,12 @@ jobs:
         uses: actions/checkout@v3
         with:
           ref: ${{ github.event.pull_request.head.sha }}
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 19
+          cache: 'npm'
+          cache-dependency-path: package-lock.json
       - id: execute-tests
         name: Execute Cypress Tests
         run: npm run cy2:ci:run -- --env ENV=${{ inputs.environment }} --browser ${{ inputs.browser }} --headless
