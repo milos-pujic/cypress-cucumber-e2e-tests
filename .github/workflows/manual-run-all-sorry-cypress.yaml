@@ -1,0 +1,85 @@
+name: Manual Run All E2E Tests on Local Restful Booker Platform
+
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Environment to run Tests'
+        required: true
+        default: 'prod'
+        type: choice
+        options:
+        - prod
+        - local
+      browser:
+        description: 'Environment to run Tests'
+        required: true
+        default: 'electron'
+        type: choice
+        options:
+        - electron
+        - chrome
+        - firefox
+        - edge
+
+env:
+  CYPRESS_DIRECTOR_URL: ${{ secrets.CYPRESS_DIRECTOR_URL }}
+  CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
+  CYPRESS_CI_BUILD_ID: ${{ inputs.environment }}-${{ inputs.browser }}-${{ github.run_id }}
+
+jobs:
+  install-dependencies:
+    name: Install Dependencies with cache
+    runs-on: ubuntu-latest
+    container: cypress/browsers:node16.16.0-chrome107-ff107-edge
+    timeout-minutes: 15
+    env:
+      CI: 1
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+      - name: Cache Build
+        uses: actions/cache@v3
+        env:
+          cache-name: cache-build
+        with:
+          path: |
+            ./*
+            !./cypress/reports/*
+            !./cypress/screenshots/*
+            !./cypress/videos/*
+            !./cypress/downloads/*
+          key: ${{ github.sha }}
+      - name: Install Dependencies
+        run: npm install
+
+  run-all-cypress-tests:
+    name: Run All E2E Test
+    runs-on: ubuntu-latest
+    container: cypress/browsers:node16.16.0-chrome107-ff107-edge
+    timeout-minutes: 15
+    needs: [install-dependencies]
+    strategy:
+      fail-fast: false
+      matrix:
+        containers: [1, 2]
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+      - name: Cache Build
+        uses: actions/cache@v3
+        env:
+          cache-name: cache-build
+        with:
+          path: |
+            ./*
+            !./cypress/reports/*
+            !./cypress/screenshots/*
+            !./cypress/videos/*
+            !./cypress/downloads/*
+          key: ${{ github.sha }}
+      - id: execute-tests
+        name: Execute Cypress Tests
+        run: npm run cy2:ci:run -- --env ENV=${{ inputs.environment }} --browser ${{ inputs.browser }} --headless
