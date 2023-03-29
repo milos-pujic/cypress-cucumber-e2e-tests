@@ -55,9 +55,7 @@ jobs:
             !./cypress/screenshots/*
             !./cypress/videos/*
             !./cypress/downloads/*
-          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-build-${{ env.cache-name }}-
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}-${{ hashFiles('**/package.json') }}
       - name: Install Dependencies
         run: npm install
 
@@ -93,9 +91,7 @@ jobs:
             !./cypress/screenshots/*
             !./cypress/videos/*
             !./cypress/downloads/*
-          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-build-${{ env.cache-name }}-
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}-${{ hashFiles('**/package.json') }}
       - id: install-cypress
         name: Install Cypress
         run: ./node_modules/.bin/cypress install
