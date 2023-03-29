@@ -52,7 +52,7 @@ jobs:
             !./cypress/downloads/*
           key: ${{ github.sha }}
       - name: Install Dependencies
-        run: npm install
+        run: npm ci
 
   run-all-cypress-tests:
     name: Run All E2E Test
