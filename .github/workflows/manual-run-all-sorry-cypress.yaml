@@ -6,11 +6,11 @@ on:
       environment:
         description: 'Environment to run Tests'
         required: true
-        default: 'prod'
+        default: 'local'
         type: choice
         options:
-        - prod
         - local
+        - prod
       browser:
         description: 'Browser in which to run Tests'
         required: true
@@ -59,10 +59,80 @@ jobs:
       - name: Install Dependencies
         run: npm install
 
+  start-rbp-and-run-all-e2e-tests:
+    if: ${{ inputs.environment == 'local' }}
+    name: Start Restful Booker Platform and Run All E2E Test
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    needs: [install-dependencies]
+    services:
+        rbp-booking:
+          image: mwinteringham/restfulbookerplatform_booking:1.6.24c7b22
+          ports:
+            - 3000:3000
+        rbp-room:
+          image: mwinteringham/restfulbookerplatform_room:1.6.24c7b22
+          ports:
+            - 3001:3001
+        rbp-branding:
+          image: mwinteringham/restfulbookerplatform_branding:1.6.24c7b22
+          ports:
+            - 3002:3002
+        rbp-assets:
+          image: mwinteringham/restfulbookerplatform_assets:1.6.24c7b22
+          ports:
+            - 3003:3003
+        rbp-auth:
+          image: mwinteringham/restfulbookerplatform_auth:1.6.24c7b22
+          ports:
+            - 3004:3004
+        rbp-report:
+          image: mwinteringham/restfulbookerplatform_report:1.6.24c7b22
+          ports:
+            - 3005:3005
+        rbp-message:
+          image: mwinteringham/restfulbookerplatform_message:1.6.24c7b22
+          ports:
+            - 3006:3006
+        rbp-proxy:
+          image: mwinteringham/restfulbookerplatform_proxy:latest
+          ports:
+            - 80:80
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 19
+          cache: 'npm'
+          cache-dependency-path: package-lock.json
+      - name: Cache Build
+        uses: actions/cache@v3
+        env:
+          cache-name: cache-build
+        with:
+          path: |
+            ./*
+            !./cypress/reports/*
+            !./cypress/screenshots/*
+            !./cypress/videos/*
+            !./cypress/downloads/*
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}-${{ hashFiles('**/package.json') }}
+      - id: install-cypress
+        name: Install Cypress
+        run: ./node_modules/.bin/cypress install
+      - id: execute-tests
+        name: Execute Cypress Tests
+        run: npm run cy2:ci:run -- --env ENV=${{ inputs.environment }} --browser ${{ inputs.browser }} --headless
+
   run-all-cypress-tests:
+    if: ${{ inputs.environment == 'prod' }}
     name: Run All E2E Test
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 30
     needs: [install-dependencies]
     strategy:
       fail-fast: false
