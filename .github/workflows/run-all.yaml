@@ -1,4 +1,4 @@
-name: Manual Run All E2E Tests
+name: Run All E2E Tests
 
 on:
   workflow_dispatch:
@@ -19,6 +19,8 @@ on:
         options:
         - electron
         - chrome
+        - firefox
+        - edge
 
 jobs:
   start-rbp-and-run-all-e2e-tests:
@@ -60,31 +62,34 @@ jobs:
           ports:
             - 80:80
     steps:
-      - name: Checkout
+      - id: checkout-repository
+        name: Checkout Repository
         uses: actions/checkout@v3
-      # Install NPM dependencies, cache them correctly and run all Cypress tests
-      - name: Cypress run
+      - id: cypress-run
+        name: Cypress Run
         uses: cypress-io/github-action@v5
         with:
           env: ENV=local
-      # After the test run completes store videos and any screenshots
-      # NOTE: screenshots will be generated only if E2E test failed thus we store screenshots only on failures
-      # Alternative: create and commit an empty cypress/screenshots folder to always have something to upload
-      - uses: actions/upload-artifact@v3
+          browser: ${{ inputs.browser }}
+      - id: upload-screenshots
+        name: Upload Screenshots
+        uses: actions/upload-artifact@v3
         if: failure()
         with:
           name: cypress-screenshots
           path: cypress/screenshots
           retention-days: 5
-      # Test run videos are always captured, so this action uses "always()" condition
-      - uses: actions/upload-artifact@v3
+      - id: upload-videos
+        name: Upload Videos
+        uses: actions/upload-artifact@v3
         if: always()
         with:
           name: cypress-videos
           path: cypress/videos
           retention-days: 5
-      # Test run reports are always captured, so this action uses "always()" condition
-      - uses: actions/upload-artifact@v3
+      - id: upload-reports
+        name: Upload Reports
+        uses: actions/upload-artifact@v3
         if: always()
         with:
           name: cypress-reports
@@ -97,31 +102,34 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 30
     steps:
-      - name: Checkout
+      - id: checkout-repository
+        name: Checkout Repository
         uses: actions/checkout@v3
-      # Install NPM dependencies, cache them correctly and run all Cypress tests
-      - name: Cypress run
+      - id: cypress-run
+        name: Cypress Run
         uses: cypress-io/github-action@v5
         with:
           env: ENV=prod
-      # after the test run completes store videos and any screenshots
-      # NOTE: screenshots will be generated only if E2E test failed thus we store screenshots only on failures
-      # Alternative: create and commit an empty cypress/screenshots folder to always have something to upload
-      - uses: actions/upload-artifact@v3
+          browser: ${{ inputs.browser }}
+      - id: upload-screenshots
+        name: Upload Screenshots
+        uses: actions/upload-artifact@v3
         if: failure()
         with:
           name: cypress-screenshots
           path: cypress/screenshots
           retention-days: 5
-      # Test run videos are always captured, so this action uses "always()" condition
-      - uses: actions/upload-artifact@v3
+      - id: upload-videos
+        name: Upload Videos
+        uses: actions/upload-artifact@v3
         if: always()
         with:
           name: cypress-videos
           path: cypress/videos
           retention-days: 5
-      # Test run reports are always captured, so this action uses "always()" condition
-      - uses: actions/upload-artifact@v3
+      - id: upload-reports
+        name: Upload Reports
+        uses: actions/upload-artifact@v3
         if: always()
         with:
           name: cypress-reports
