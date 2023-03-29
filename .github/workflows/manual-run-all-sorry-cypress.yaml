@@ -65,6 +65,10 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 30
     needs: [install-dependencies]
+    strategy:
+      fail-fast: false
+      matrix:
+        containers: [1, 2]
     services:
         rbp-booking:
           image: mwinteringham/restfulbookerplatform_booking:1.6.24c7b22
