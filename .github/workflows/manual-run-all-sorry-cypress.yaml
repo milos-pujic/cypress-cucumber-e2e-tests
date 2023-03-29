@@ -6,7 +6,7 @@ on:
       environment:
         description: 'Environment to run Tests'
         required: true
-        default: 'local'
+        default: 'prod'
         type: choice
         options:
         - local
