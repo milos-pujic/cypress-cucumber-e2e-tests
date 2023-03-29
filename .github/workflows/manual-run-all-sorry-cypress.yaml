@@ -96,6 +96,9 @@ jobs:
           key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
             ${{ runner.os }}-build-${{ env.cache-name }}-
+      - id: install-cypress
+        name: Install Cypress
+        run: ./node_modules/.bin/cypress install
       - id: execute-tests
         name: Execute Cypress Tests
         run: npm run cy2:ci:run -- --env ENV=${{ inputs.environment }} --browser ${{ inputs.browser }} --headless
