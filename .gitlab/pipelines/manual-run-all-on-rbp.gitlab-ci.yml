@@ -1,0 +1,40 @@
+stages:
+  - build
+  - test
+
+## Set environment variables for folders in "cache" job settings for npm modules and Cypress binary
+variables:
+  npm_config_cache: '$CI_PROJECT_DIR/.npm'
+  CYPRESS_CACHE_FOLDER: '$CI_PROJECT_DIR/cache/Cypress'
+
+cache:
+  key: ${CI_COMMIT_REF_SLUG}
+  paths:
+    - .cache/*
+    - cache/Cypress
+    - node_modules
+    - .npm/
+    - build
+
+## Install NPM dependencies and Cypress
+install:
+  image: cypress/browsers:node16.16.0-chrome107-ff107-edge
+  stage: build
+  script:
+    - npm ci
+
+test:
+  image: cypress/browsers:node16.16.0-chrome107-ff107-edge
+  stage: test
+  script:
+    # install dependencies
+    - npm ci
+    # run Cypress tests
+    - npx cypress run --browser chrome --env ENV=production
+  artifacts:
+    when: always
+    paths:
+      - cypress/videos/**/*.mp4
+      - cypress/screenshots/**/*.png
+      - cypress/reports/**/*.*
+    expire_in: 1 day
