@@ -44,6 +44,20 @@ jobs:
           node-version: 19
           cache: 'npm'
           cache-dependency-path: package-lock.json
+      - name: Cache Build
+        uses: actions/cache@v3
+        env:
+          cache-name: cache-build
+        with:
+          path: |
+            ./*
+            !./cypress/reports/*
+            !./cypress/screenshots/*
+            !./cypress/videos/*
+            !./cypress/downloads/*
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-build-${{ env.cache-name }}-
       - name: Install Dependencies
         run: npm install
 
@@ -68,6 +82,20 @@ jobs:
           node-version: 19
           cache: 'npm'
           cache-dependency-path: package-lock.json
+      - name: Cache Build
+        uses: actions/cache@v3
+        env:
+          cache-name: cache-build
+        with:
+          path: |
+            ./*
+            !./cypress/reports/*
+            !./cypress/screenshots/*
+            !./cypress/videos/*
+            !./cypress/downloads/*
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-build-${{ env.cache-name }}-
       - id: execute-tests
         name: Execute Cypress Tests
         run: npm run cy2:ci:run -- --env ENV=${{ inputs.environment }} --browser ${{ inputs.browser }} --headless
