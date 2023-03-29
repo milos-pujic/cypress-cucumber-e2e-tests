@@ -1,4 +1,4 @@
-name: Manual Run All E2E Tests with Sorry-Cypress
+name: Run All E2E Tests with Sorry-Cypress
 
 on:
   workflow_dispatch:
@@ -32,31 +32,30 @@ jobs:
     timeout-minutes: 15
     env:
       CI: 1
-
     steps:
-      - name: Checkout Repository
+      - id: checkout-repository
+        name: Checkout Repository
         uses: actions/checkout@v3
         with:
           ref: ${{ github.event.pull_request.head.sha }}
-      - name: Setup Node.js
+      - id: setup-node
+        name: Setup Node.js
         uses: actions/setup-node@v3
         with:
           node-version: 19
           cache: 'npm'
           cache-dependency-path: package-lock.json
-      - name: Cache Build
+      - id: cache-node
+        name: Cache Node
         uses: actions/cache@v3
         env:
-          cache-name: cache-build
+          cache-name: cache-node
         with:
-          path: |
-            ./*
-            !./cypress/reports/*
-            !./cypress/screenshots/*
-            !./cypress/videos/*
-            !./cypress/downloads/*
-          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}-${{ hashFiles('**/package.json') }}
-      - name: Install Dependencies
+          path: node_modules
+          key: ${{ runner.os }}-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+      - id: install-dependencies
+        name: Install Dependencies
+        if: steps.cache-node.outputs.cache-hit != 'true'
         run: npm install
 
   start-rbp-and-run-all-e2e-tests:
@@ -103,28 +102,26 @@ jobs:
           ports:
             - 80:80
     steps:
-      - name: Checkout Repository
+      - id: checkout-repository
+        name: Checkout Repository
         uses: actions/checkout@v3
         with:
           ref: ${{ github.event.pull_request.head.sha }}
-      - name: Setup Node.js
+      - id: setup-node
+        name: Setup Node.js
         uses: actions/setup-node@v3
         with:
           node-version: 19
           cache: 'npm'
           cache-dependency-path: package-lock.json
-      - name: Cache Build
+      - id: cache-node
+        name: Cache Node
         uses: actions/cache@v3
         env:
-          cache-name: cache-build
+          cache-name: cache-node
         with:
-          path: |
-            ./*
-            !./cypress/reports/*
-            !./cypress/screenshots/*
-            !./cypress/videos/*
-            !./cypress/downloads/*
-          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}-${{ hashFiles('**/package.json') }}
+          path: node_modules
+          key: ${{ runner.os }}-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
       - id: install-cypress
         name: Install Cypress
         run: ./node_modules/.bin/cypress install
@@ -142,30 +139,27 @@ jobs:
       fail-fast: false
       matrix:
         containers: [1, 2]
-
     steps:
-      - name: Checkout Repository
+      - id: checkout-repository
+        name: Checkout Repository
         uses: actions/checkout@v3
         with:
           ref: ${{ github.event.pull_request.head.sha }}
-      - name: Setup Node.js
+      - id: setup-node
+        name: Setup Node.js
         uses: actions/setup-node@v3
         with:
           node-version: 19
           cache: 'npm'
           cache-dependency-path: package-lock.json
-      - name: Cache Build
+      - id: cache-node
+        name: Cache Node
         uses: actions/cache@v3
         env:
-          cache-name: cache-build
+          cache-name: cache-node
         with:
-          path: |
-            ./*
-            !./cypress/reports/*
-            !./cypress/screenshots/*
-            !./cypress/videos/*
-            !./cypress/downloads/*
-          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}-${{ hashFiles('**/package.json') }}
+          path: node_modules
+          key: ${{ runner.os }}-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
       - id: install-cypress
         name: Install Cypress
         run: ./node_modules/.bin/cypress install
