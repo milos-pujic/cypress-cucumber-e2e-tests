@@ -12,7 +12,7 @@ on:
         - prod
         - local
       browser:
-        description: 'Environment to run Tests'
+        description: 'Browser in which to run Tests'
         required: true
         default: 'electron'
         type: choice
@@ -20,7 +20,6 @@ on:
         - electron
         - chrome
         - firefox
-        - edge
 
 env:
   CYPRESS_DIRECTOR_URL: ${{ secrets.CYPRESS_DIRECTOR_URL }}
@@ -31,7 +30,6 @@ jobs:
   install-dependencies:
     name: Install Dependencies with cache
     runs-on: ubuntu-latest
-    container: cypress/browsers:node16.16.0-chrome107-ff107-edge
     timeout-minutes: 15
     env:
       CI: 1
@@ -39,6 +37,10 @@ jobs:
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v3
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
       - name: Cache Build
         uses: actions/cache@v3
         env:
@@ -52,12 +54,12 @@ jobs:
             !./cypress/downloads/*
           key: ${{ github.sha }}
       - name: Install Dependencies
-        run: npm ci
+        run: npm install
 
   run-all-cypress-tests:
     name: Run All E2E Test
     runs-on: ubuntu-latest
-    container: cypress/browsers:node16.16.0-chrome107-ff107-edge
+    container: cypress/browsers:node18.12.0-chrome103-ff107
     timeout-minutes: 15
     needs: [install-dependencies]
     strategy:
