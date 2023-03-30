@@ -11,7 +11,7 @@ updates:
     schedule:
       interval: 'daily'
   # For github actions
-  - package-ecosystem: "github-actions"
-    directory: "/"
+  - package-ecosystem: 'github-actions'
+    directory: '/.github/workflows'
     schedule:
-      interval: "monthly"
+      interval: 'daily'
