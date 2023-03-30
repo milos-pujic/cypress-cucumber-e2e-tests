@@ -1,7 +1,6 @@
 import { Before, After } from '@badeball/cypress-cucumber-preprocessor';
 
 Before(() => {
-  cy.setCookie('banner', 'true');
   cy.wrap([]).as('roomIds');
   cy.wrap([]).as('roomNames');
   cy.wrap(false).as('roomsCreated');
