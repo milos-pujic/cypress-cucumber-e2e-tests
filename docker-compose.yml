@@ -73,7 +73,7 @@ services:
       GITLAB_JOB_RETRIES: 'false'
       MINIO_ACCESS_KEY: 'sorry-cypress'
       MINIO_SECRET_KEY: 'cypress-sorry'
-      MINIO_ENDPOINT: 'localhost'
+      MINIO_ENDPOINT: 'director'
       MINIO_URL: 'http://localhost'
       MINIO_PORT: '9000'
       MINIO_USESSL: 'false'
@@ -135,3 +135,50 @@ services:
       /usr/bin/mc anonymous set public myminio/sorry-cypress;
       exit 0;
       '
+  e2e-chrome:
+    image: e2e
+    build: .
+    depends_on:
+      - director
+    deploy:
+      mode: replicated
+      replicas: 2
+    environment:
+      - CYPRESS_API_URL=http://director:1234
+    command:
+      - /bin/bash
+      - -c
+      - |
+        npx cy2 run --config projectId='cypress-cucumber' --env ENV=docker --browser chrome --record --key xxx --parallel --ci-build-id chrome_`date +%Y-%m-%d_%R`
+
+  e2e-firefox:
+    image: e2e
+    build: .
+    depends_on:
+      - director
+    deploy:
+      mode: replicated
+      replicas: 2
+    environment:
+      - CYPRESS_API_URL=http://director:1234
+    command:
+      - /bin/bash
+      - -c
+      - |
+        npx cy2 run --config projectId='cypress-cucumber',video=false --env ENV=docker --browser firefox --record --key xxx --parallel --ci-build-id firefox_`date +%Y-%m-%d_%R`
+
+  e2e-edge:
+    image: e2e
+    build: .
+    depends_on:
+      - director
+    deploy:
+      mode: replicated
+      replicas: 2
+    environment:
+      - CYPRESS_API_URL=http://director:1234
+    command:
+      - /bin/bash
+      - -c
+      - |
+        npx cy2 run --config projectId='cypress-cucumber' --env ENV=docker --browser edge --record --key xxx --parallel --ci-build-id edge_`date +%Y-%m-%d_%R`
