@@ -83,7 +83,7 @@ jobs:
         uses: actions/upload-artifact@v3
         if: failure()
         with:
-          name: cypress-screenshots-(${{ strategy.job-index }}-of-${{ strategy.job-total }})
+          name: cypress-screenshots-(${{ strategy.job-index + 1 }}-of-${{ strategy.job-total }})
           path: cypress/screenshots
           retention-days: 5
       - id: upload-videos
@@ -91,7 +91,7 @@ jobs:
         uses: actions/upload-artifact@v3
         if: always()
         with:
-          name: cypress-videos-(${{ strategy.job-index }}-of-${{ strategy.job-total }})
+          name: cypress-videos-(${{ strategy.job-index + 1 }}-of-${{ strategy.job-total }})
           path: cypress/videos
           retention-days: 5
       - id: upload-reports
@@ -99,7 +99,7 @@ jobs:
         uses: actions/upload-artifact@v3
         if: always()
         with:
-          name: cypress-reports-(${{ strategy.job-index }}-of-${{ strategy.job-total }})
+          name: cypress-reports-(${{ strategy.job-index + 1 }}-of-${{ strategy.job-total }})
           path: cypress/reports
           retention-days: 5
 
@@ -130,7 +130,7 @@ jobs:
         uses: actions/upload-artifact@v3
         if: failure()
         with:
-          name: cypress-screenshots-(${{ strategy.job-index }}-of-${{ strategy.job-total }})
+          name: cypress-screenshots-(${{ strategy.job-index + 1 }}-of-${{ strategy.job-total }})
           path: cypress/screenshots
           retention-days: 5
       - id: upload-videos
@@ -138,7 +138,7 @@ jobs:
         uses: actions/upload-artifact@v3
         if: always()
         with:
-          name: cypress-videos-(${{ strategy.job-index }}-of-${{ strategy.job-total }})
+          name: cypress-videos-(${{ strategy.job-index + 1 }}-of-${{ strategy.job-total }})
           path: cypress/videos
           retention-days: 5
       - id: upload-reports
@@ -146,6 +146,6 @@ jobs:
         uses: actions/upload-artifact@v3
         if: always()
         with:
-          name: cypress-reports-(${{ strategy.job-index }}-of-${{ strategy.job-total }})
+          name: cypress-reports-(${{ strategy.job-index + 1 }}-of-${{ strategy.job-total }})
           path: cypress/reports
           retention-days: 5
