@@ -5,7 +5,7 @@ Feature: Login
 
   Background: User is on Booking Management Login Page
     Given User is on the Booking Management Login Page
-    
+
   Scenario: Administrator is able to login with correct username and password
     When Tries to login with valid username and password
     Then User is Logged In
