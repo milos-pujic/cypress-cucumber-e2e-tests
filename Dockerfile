@@ -1,4 +1,4 @@
-FROM cypress/browsers:node16.16.0-chrome107-ff107-edge
+FROM cypress/browsers:node18.12.0-chrome103-ff107
 
 RUN node --version
 RUN npm --version
