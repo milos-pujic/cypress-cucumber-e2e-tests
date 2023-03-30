@@ -146,6 +146,6 @@ jobs:
         uses: actions/upload-artifact@v3
         if: always()
         with:
-          name: cypress-reports
+          name: cypress-reports-${{ strategy.job-index }}
           path: cypress/reports
           retention-days: 5
