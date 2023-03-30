@@ -12,7 +12,6 @@
     "clean:docker": "rimraf ./.docker",
     "cy2:run": "CYPRESS_API_URL='http://localhost:1234' cy2 run --config projectId='cypress-cucumber' --record --key xxx --parallel --ci-build-id `date +%Y-%m-%d`",
     "cy2:ci:run": "CYPRESS_API_URL=${CYPRESS_DIRECTOR_URL} cy2 run --config projectId='cypress-cucumber' --record --key ${CYPRESS_RECORD_KEY} --parallel --ci-build-id ${CYPRESS_CI_BUILD_ID}"
-
   },
   "keywords": [
     "Cypress",
@@ -30,6 +29,7 @@
     "@faker-js/faker": "^7.6.0",
     "cy2": "^4.0.6",
     "cypress": "^12.9.0",
+    "cypress-split": "^1.3.2",
     "eslint": "^8.37.0",
     "eslint-config-prettier": "^8.8.0",
     "eslint-plugin-chai-friendly": "^0.7.2",

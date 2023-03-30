@@ -1,4 +1,4 @@
-name: Run All E2E Tests with Sorry-Cypress
+name: Run All E2E Tests in parallel with Sorry-Cypress
 
 on:
   workflow_dispatch:
