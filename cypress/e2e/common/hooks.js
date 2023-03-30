@@ -1,6 +1,7 @@
 import { Before, After } from '@badeball/cypress-cucumber-preprocessor';
 
 Before(() => {
+  if (Cypress.isBrowser('!firefox')) cy.setCookie('banner', 'true');
   cy.wrap([]).as('roomIds');
   cy.wrap([]).as('roomNames');
   cy.wrap(false).as('roomsCreated');
