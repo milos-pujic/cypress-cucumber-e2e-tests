@@ -1,4 +1,4 @@
-Feature: Mandatory Data Validation on Contact Hotel
+Feature: Contact Hotel
 
   Visitors must be able to contact the property by filling up all mandatory fields with valid values on contact form with valid data and clicking Submit button.
   If any of the mandatory fields is missing, proper mandatory error message must be displayed.
