@@ -1,3 +1,4 @@
+@login
 Feature: Login
 
   Administrators must be able to login with correct username and password.

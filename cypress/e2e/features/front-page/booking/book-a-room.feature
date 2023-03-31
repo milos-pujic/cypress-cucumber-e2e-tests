@@ -1,3 +1,4 @@
+@booking
 Feature: Booking a Room
 
   Visitor must be able to book a room for available dates by filling up all mandatory fields with valid values, selecting available date and clicking on Book button.
