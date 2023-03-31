@@ -1,3 +1,4 @@
+@management @room-management
 Feature: Rooms Management
 
   Logged in Users (Administrators), must be able to create new rooms through Room Management page by filling up all mandatory fields and selecting room room features.
