@@ -155,9 +155,9 @@ If some feature is complex and there are different `@Background` for group them 
 
 If you have problems describing feature you can use next template, known as a Feature Injection template:
 
-  In order to `<meet some goal>`</br>
-  As a `<type of stakeholder>`</br>
-  I want `<a feature>`</br>
+    In order to <meet some goal>
+    As a <type of stakeholder>
+    I want <a feature>
 
 By starting with the goal or value that the feature provides, you’re making it explicit to everyone who ever works on this feature why they’re giving up their precious time. You’re also offering people an opportunity to think about other ways that the goal could be met.
 
