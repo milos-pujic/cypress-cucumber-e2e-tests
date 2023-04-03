@@ -3,7 +3,7 @@
 Cypress Cucumber E2E Testing Framework project represents a starting point for writing tests in Cypress with Cucumber.</br>
 Provided tests are based on examples how to define and use utility functions, explicit wait for some element, usage of **faker** for generating random data and possible solutions for organizing tests using separated files with locators of the elements.
 
-## IDE Setup for Cypress Cucumber E2E Testing Framework
+## IDE Setup
 
 - Install [Visual Studio Code](https://code.visualstudio.com/download)
   - _Recommended extensions in Visual Studio Code:_
@@ -20,6 +20,16 @@ Provided tests are based on examples how to define and use utility functions, ex
   - Make sure the path to the project is correct `<local_path>\cypress-cucumber-e2e-tests`
 - In the terminal, execute the following command: ```npm install```
   - The command will install all found in the package.json
+
+## Used Libraries
+
+- [Cypress Cucumber Preprocessor](https://github.com/badeball/cypress-cucumber-preprocessor)
+- [Cypress Split](https://github.com/bahmutov/cypress-split)
+- [Faker JS](https://github.com/faker-js/faker)
+- [Sorry-Cypress](https://docs.sorry-cypress.dev/) and [cy2](https://github.com/sorry-cypress/cy2)
+- [Prettier](https://prettier.io/)
+- [Husky](https://typicode.github.io/husky/#/)
+- [Lint Staged](https://github.com/okonet/lint-staged)
 
 ## Launch Cypress and Execute test cases
 
