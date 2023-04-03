@@ -192,7 +192,7 @@ In this repo there are examples for AWS as public accessible Sorry Cypress and f
 
 #### Host Sorry-Cypress on AWS
 
-> :warning: WARNING!!! :warning:
+> :warning: !!! WARNING !!! :warning:
 >
 > Hosting Sorry-Cypress on AWS is **NOT FREE**. At the end of section you will find rough estimation of price per month for using the resources used to host Sorry Cypress.
 
@@ -220,34 +220,6 @@ Here's a rough estimator of price / month for using the resources used. The actu
 #### Start Sorry-Cypress on Docker Locally
 
 Inside this repository there is [docker-compose-sorry-cypress.yml](./docker-compose-sorry-cypress.yml) Docker Compose file which can be used to locally start full sorry-cypress kit. Read more on [Sorry-cypress Docker Images](https://docs.sorry-cypress.dev/cloud-setup/docker-images).
-
-![Sorry-Cypress Dashboard](/docs/imgs/Sorry-Cypress-Dashboard.png)
-
-We are using Sorry Cypress Dashboard to:
-
-- Run Cypress Tests in parallel
-- Upload screenshots and videos to your own storage (AWS S3 Bucket)
-- Browse test results, failures, screenshots and video recordings
-
-Inside Sorry Cypress Dashboard [foleon-artie project](https://cypress-dashboard.staging.foleon.cloud/foleon-artie/runs) is created.
-Each time GitHub Action Workflow is triggered, containing Cypress Test execution, it is configured to communicate with Sorry Cypress Dashboard.
-
-![Sorry-Cypress Artie](/docs/imgs/Sorry-Cypress-Artie.png)
-
-With each Workflow Run new Run on Sorry Cypress dashboard will be created with unique Run ID based on Workflow name:
-
-- Manual Run of All Test: `manual-run-all-tests-${environment}-${github_run_id}`
-- Nightly Run of All Tests on Staging: `nightly-run-all-tests-staging-${github_run_id}`
-- Manual Run of Tests with Tags: `manual-run-tag-tests-${environment}-${github_run_id}`
-- Pull Request Tests: `pull-request-PR-${pull_request_number}-${github_run_id}`
-
-where:
-
-- `${environment}` - Environment on which Cypress test are executing, selected by user workflow was started.
-- `${github_run_id}` - Unique number for each workflow run within a repository. This number does not change if you re-run the workflow run.
-- `${pull_request_number}` - Number of Pull Request within a repository.
-
-This setup of GitHub Action Workflow, Sorry Cypress and Unique Run ID enable us to also re-run failed (or any) tests in previously executed jobs.
 
 ## Gherkin standards and rules
 
