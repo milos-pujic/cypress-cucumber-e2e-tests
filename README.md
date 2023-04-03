@@ -192,7 +192,9 @@ In this repo there are examples for AWS as public accessible Sorry Cypress and f
 
 #### Host Sorry-Cypress on AWS
 
-> :warning: Before going on with Hosting Sorry-Cypress on AWS, have in mind that hosting it on AWS is **NOT FREE**. At the end of section you will find rough estimation of price per month for using the resources used to host Sorry Cypress.
+> :warning: WARNING!!! :warning:
+>
+> Hosting Sorry-Cypress on AWS is **NOT FREE**. At the end of section you will find rough estimation of price per month for using the resources used to host Sorry Cypress.
 
 Inside this repository there is [sorry-cypress-stack.yml](./.aws/sorry-cypress-stack.yml) AWS Cloud Formation template which can be used to deploy full sorry-cypress kit in just 5 minutes on AWS. Read more on [Sorry-cypress installation instructions for AWS](https://docs.sorry-cypress.dev/cloud-setup/aws).
 
@@ -218,7 +220,6 @@ Here's a rough estimator of price / month for using the resources used. The actu
 #### Start Sorry-Cypress on Docker Locally
 
 Inside this repository there is [docker-compose-sorry-cypress.yml](./docker-compose-sorry-cypress.yml) Docker Compose file which can be used to locally start full sorry-cypress kit. Read more on [Sorry-cypress Docker Images](https://docs.sorry-cypress.dev/cloud-setup/docker-images).
-
 
 ![Sorry-Cypress Dashboard](/docs/imgs/Sorry-Cypress-Dashboard.png)
 
