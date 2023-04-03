@@ -192,7 +192,7 @@ In this repo there are examples for AWS as public accessible Sorry Cypress and f
 
 #### Host Sorry-Cypress on AWS
 
-> :warning: !!! WARNING !!! :warning:
+> :warning: **WARNING** :warning:
 >
 > Hosting Sorry-Cypress on AWS is **NOT FREE**. At the end of section you will find rough estimation of price per month for using the resources used to host Sorry Cypress.
 
