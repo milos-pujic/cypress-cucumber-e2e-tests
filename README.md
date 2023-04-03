@@ -211,7 +211,7 @@ The stack creates [AWS Application Load Balancer](https://docs.aws.amazon.com/el
 
 For example, if the access URL created by the stack is: `http://sorry-cypress-1502240720.us-east-1.elb.amazonaws.com`, and `DirectorPort=8080` then director service will be available at `http://sorry-cypress-1502240720.us-east-1.elb.amazonaws.com:8080`.
 
-Here's a rough estimator of price / month for using the resources used. The actual usage might be higher (or lower) based on actual usage.
+Here's a rough estimaton of price / month for using the resources used. The actual usage might be higher (or lower) based on actual usage.
 
 - Fargate pricing based on calculator 35,55 USD (1 vCPU, 2GB RAM) or 17,78 USD (0.5 vCPU, 1GB RAM)
 - EC2 Application Load Balancer based on calculator 19,35 USD (0.5 GB / hour, 0.5 connections / second)
