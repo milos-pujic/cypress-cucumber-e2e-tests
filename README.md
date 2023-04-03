@@ -59,6 +59,47 @@ Some of predefined scripts in [`package.json`](./package.json) are doing same th
 - `npm run cy:open:local` or `npm run cy:open:prod` - Open Cypress UI to execute tests against Local or Production environnement
 - `npm run cy:run:local` or `npm run cy:run:prod` - Execute All tests without opening the Cypress UI against Local or Production environnement
 
+## Gherkin standards and rules
+
+### Describing Features
+
+Every feature must only contain scenarios related to that it. When grouping scenarios under one feature make sure that `@Background` for that feature is common for all of scenarios.
+If some feature is complex and there are different `@Background` for group them in multiple feature file.
+
+If you have problems describing feature you can use next template, known as a Feature Injection template:
+
+    In order to <meet some goal>
+    As a <type of stakeholder>
+    I want <a feature>
+
+By starting with the goal or value that the feature provides, you’re making it explicit to everyone who ever works on this feature why they’re giving up their precious time. You’re also offering people an opportunity to think about other ways that the goal could be met.
+
+### Writing Scenarios
+
+Using Given-When-Then in sequence is a great reminder for several great test design ideas. It suggests that pre-conditions and post-conditions need to be identified and separated. It suggests that the purpose of the test should be clearly communicated, and that each scenario should check one and only one thing. When there is only one action under test, people are forced to look beyond the mechanics of test execution and really identify a clear purpose.
+
+When used correctly, Given-When-Then helps teams design specifications and checks that are easy to understand and maintain. As tests will be focused on one particular action, they will be less brittle and easier to diagnose and troubleshoot. When the parameters and expectations are clearly separated, it’s easier to evaluate if we need to add more examples, and discover missing cases.
+
+#### General Rules
+
+To prevents most of accidental misuse of Given-When-Then use:
+
+- Write **_Given_** in Past tense as Passive sentences - these statements are describing preconditions and parameters (values rather than actions)
+- Write **_When_** in Present tense as Active sentences - these statements are describing action under test
+- Write **_Then_** in Future tense as Passive sentences - these statements are describing post-conditions and expectations (values rather than actions)
+
+Make sure that there is only **one** **_When_** statement for each scenario.
+
+Also make sure that there are no **and** conjunctions in sentences. If there is, it must be split into separate step.
+
+### Matching Step Definition with Cucumber Expressions
+
+- To match Gherkin Scenario Step text **_Cucumber Expression_** are used
+- When writing **_Cucumber Expressions_** matchers always make sure that at least similar words and plurals are covered and will be matched by using:
+  - [Optional text](https://github.com/cucumber/cucumber-expressions#optional-text)
+  - [Alternative text](https://github.com/cucumber/cucumber-expressions#alternative-text)
+  - [Escaping](https://github.com/cucumber/cucumber-expressions#escaping)
+
 ## Github Actions Workflows
 
 All Github Actions Workflows are configured in [**GitHub Folder**](./.github/workflows/) yaml files.
@@ -220,44 +261,3 @@ Here's a rough estimaton of price / month for using the resources used. The actu
 #### Start Sorry-Cypress on Docker Locally
 
 Inside this repository there is [docker-compose-sorry-cypress.yml](./docker-compose-sorry-cypress.yml) Docker Compose file which can be used to locally start full sorry-cypress kit. Read more on [Sorry-cypress Docker Images](https://docs.sorry-cypress.dev/cloud-setup/docker-images).
-
-## Gherkin standards and rules
-
-### Describing Features
-
-Every feature must only contain scenarios related to that it. When grouping scenarios under one feature make sure that `@Background` for that feature is common for all of scenarios.
-If some feature is complex and there are different `@Background` for group them in multiple feature file.
-
-If you have problems describing feature you can use next template, known as a Feature Injection template:
-
-    In order to <meet some goal>
-    As a <type of stakeholder>
-    I want <a feature>
-
-By starting with the goal or value that the feature provides, you’re making it explicit to everyone who ever works on this feature why they’re giving up their precious time. You’re also offering people an opportunity to think about other ways that the goal could be met.
-
-### Writing Scenarios
-
-Using Given-When-Then in sequence is a great reminder for several great test design ideas. It suggests that pre-conditions and post-conditions need to be identified and separated. It suggests that the purpose of the test should be clearly communicated, and that each scenario should check one and only one thing. When there is only one action under test, people are forced to look beyond the mechanics of test execution and really identify a clear purpose.
-
-When used correctly, Given-When-Then helps teams design specifications and checks that are easy to understand and maintain. As tests will be focused on one particular action, they will be less brittle and easier to diagnose and troubleshoot. When the parameters and expectations are clearly separated, it’s easier to evaluate if we need to add more examples, and discover missing cases.
-
-#### General Rules
-
-To prevents most of accidental misuse of Given-When-Then use:
-
-- Write **_Given_** in Past tense as Passive sentences - these statements are describing preconditions and parameters (values rather than actions)
-- Write **_When_** in Present tense as Active sentences - these statements are describing action under test
-- Write **_Then_** in Future tense as Passive sentences - these statements are describing post-conditions and expectations (values rather than actions)
-
-Make sure that there is only **one** **_When_** statement for each scenario.
-
-Also make sure that there are no **and** conjunctions in sentences. If there is, it must be split into separate step.
-
-### Matching Step Definition with Cucumber Expressions
-
-- To match Gherkin Scenario Step text **_Cucumber Expression_** are used
-- When writing **_Cucumber Expressions_** matchers always make sure that at least similar words and plurals are covered and will be matched by using:
-  - [Optional text](https://github.com/cucumber/cucumber-expressions#optional-text)
-  - [Alternative text](https://github.com/cucumber/cucumber-expressions#alternative-text)
-  - [Escaping](https://github.com/cucumber/cucumber-expressions#escaping)
