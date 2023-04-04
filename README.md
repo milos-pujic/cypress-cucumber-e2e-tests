@@ -5,6 +5,8 @@ Provided tests are based on examples how to define and use utility functions, ex
 
 ## IDE Setup
 
+---
+
 - Install [Visual Studio Code](https://code.visualstudio.com/download)
   - _Recommended extensions in Visual Studio Code:_
     - [Cucumber (Gherkin) Full Support](https://marketplace.visualstudio.com/items?itemName=alexkrechik.cucumberautocomplete)
@@ -22,6 +24,8 @@ Provided tests are based on examples how to define and use utility functions, ex
   - The command will install all found in the package.json
 
 ## Used Libraries
+
+---
 
 - [Cypress Cucumber Preprocessor](https://github.com/badeball/cypress-cucumber-preprocessor)
 - [Cypress Split](https://github.com/bahmutov/cypress-split)
@@ -60,6 +64,8 @@ Some of predefined scripts in [`package.json`](./package.json) are doing same th
 - `npm run cy:run:local` or `npm run cy:run:prod` - Execute All tests without opening the Cypress UI against Local or Production environnement
 
 ## Gherkin standards and rules
+
+---
 
 ### Describing Features
 
@@ -102,96 +108,11 @@ Also make sure that there are no **and** conjunctions in sentences. If there is,
 
 ## Local Environment
 
-
-
-## Github Actions Workflows
-
-All Github Actions Workflows are configured in [**GitHub Folder**](./.github/workflows/) yaml files.
-
-They all can be found by navigating to [GitHub Repository > Actions]( https://github.com/milos-pujic/cypress-cucumber-e2e-tests/actions).
-
-![GitHub Actions Workflows](/docs/imgs/GitHub-Actions.png)
-
-There are 4 GitHub Actions Workflows setup for Foleon Artie repository:
-
-- [Run All E2E Tests](https://github.com/milos-pujic/cypress-cucumber-e2e-tests/actions/workflows/run-all.yaml)
-- [Run All E2E Tests in parallel](https://github.com/milos-pujic/cypress-cucumber-e2e-tests/actions/workflows/run-all-parallel.yaml)
-- [Run All E2E Tests in parallel with Sorry-Cypress](https://github.com/milos-pujic/cypress-cucumber-e2e-tests/actions/workflows/run-all-parallel-sorry-cypress.yaml)
-
-### Run All E2E Tests
-
-This GitHub Action Workflow Executes All Cypress Cucumber E2E Tests on `local` (default) or `prod` environnement using `electron` (default), `chrome`, `firefox` or `edge` browser from defined branch (by default it is `main`).
-
-If `local` environnement is selected, Restful Booker Platform will be started inside GitHub Services and tests will run against it.
-If `prod` environnement is selected, tests will run against live version of Restful Booker Platform available at [automationintesting.online](https://automationintesting.online/).
-
-GitHub Action Workflow configuration file of this workflow is [run-all.yaml](./.github/workflows/run-all.yaml).
-
-This workflow is only triggered Manually. Steps to trigger it:
-
-1. Open [Run All E2E Tests](https://github.com/milos-pujic/cypress-cucumber-e2e-tests/actions/workflows/run-all.yaml)
-2. Click on `Run workflow` button
-    - (which opens sub-modal where `Branch`, `Environnement to run Tests` and `Browser in which to run Tests` can be selected)
-3. Select `Branch`, `Environnement to run Tests` and `Browser in which to run Tests`
-4. Click on `Run workflow` button
-
-![Run All E2E Tests](/docs/imgs/Run-All-E2E-Tests.png)
-
-Also, on [Run All E2E Tests](https://github.com/milos-pujic/cypress-cucumber-e2e-tests/actions/workflows/run-all.yaml) page, status of all on-going and previously executed 'Run All E2E Tests' Workflow runs can be found.
-
-### Run All E2E Tests in parallel
-
-This GitHub Action Workflow Executes All Cypress Cucumber E2E Tests in parallel on `local` (default) or `prod` environnement using `electron` (default), `chrome`, `firefox` or `edge` browser from defined branch (by default it is `main`).
-
-If `local` environnement is selected, Restful Booker Platform will be started inside GitHub Services and tests will run against it.
-If `prod` environnement is selected, tests will run against live version of Restful Booker Platform available at [automationintesting.online](https://automationintesting.online/).
-
-Parallel execution is achieved using:
-
-- Cypress Split - Cypress plugin that automatically split the entire list of Cypress specs to run in parallel on any CI
-- GitHub Action Strategy Matrix - Automatically create multiple job runs, from single job, that are based on the combinations of the variables
-
-GitHub Action Workflow configuration file of this workflow is [run-all-parallel.yaml](./.github/workflows/run-all-parallel.yaml).
-
-This workflow is only triggered Manually. Steps to trigger it:
-
-1. Open [Run All E2E Tests in parallel](https://github.com/milos-pujic/cypress-cucumber-e2e-tests/actions/workflows/run-all-parallel.yaml)
-2. Click on `Run workflow` button
-    - (which opens sub-modal where `Branch`, `Environnement to run Tests` and `Browser in which to run Tests` can be selected)
-3. Select `Branch`, `Environnement to run Tests` and `Browser in which to run Tests`
-4. Click on `Run workflow` button
-
-![Run All E2E Tests in parallel](/docs/imgs/Run-All-E2E-Tests-in-parallel.png)
-
-Also, on [Run All E2E Tests in parallel](https://github.com/milos-pujic/cypress-cucumber-e2e-tests/actions/workflows/run-all-parallel.yaml) page, status of all on-going and previously executed 'Run All E2E Tests in parallel' Workflow runs can be found.
-
-### Run All E2E Tests in parallel with Sorry-Cypress
-
-This GitHub Action Workflow Executes All Cypress Cucumber E2E Tests in parallel with Sorry-Cypress on `local` (default) or `prod` environnement using `electron` (default) or `chrome` browser from defined branch (by default it is `main`).
-
-If `local` environnement is selected, Restful Booker Platform will be started inside GitHub Services and tests will run against it.
-If `prod` environnement is selected, tests will run against live version of Restful Booker Platform available at [automationintesting.online](https://automationintesting.online/).
-
-Parallel execution is achieved using:
-
-- GitHub Action Strategy Matrix - Automatically create multiple job runs, from single job, that are based on the combinations of the variables
-- Sorry Cypress - An open-source, on-premise, self-hosted alternative to Cypress Cloud
-
-GitHub Action Workflow configuration file of this workflow is [run-all-parallel-sorry-cypress.yaml](./.github/workflows/run-all-parallel-sorry-cypress.yaml).
-
-This workflow is only triggered Manually. Steps to trigger it:
-
-1. Open [Run All E2E Tests in parallel with Sorry-Cypress](https://github.com/milos-pujic/cypress-cucumber-e2e-tests/actions/workflows/run-all-parallel-sorry-cypress.yaml)
-2. Click on `Run workflow` button
-    - (which opens sub-modal where `Branch`, `Environnement to run Tests` and `Browser in which to run Tests` can be selected)
-3. Select `Branch`, `Environnement to run Tests` and `Browser in which to run Tests`
-4. Click on `Run workflow` button
-
-![Run All E2E Tests in parallel with Sorry-Cypress](/docs/imgs/Run-All-E2E-Tests-in-parallel-with-Sorry-Cypress.png)
-
-Also, on [Run All E2E Tests in parallel with Sorry-Cypress](https://github.com/milos-pujic/cypress-cucumber-e2e-tests/actions/workflows/run-all-parallel-sorry-cypress.yaml) page, status of all on-going and previously executed 'Run All E2E Tests in parallel with Sorry-Cypress' Workflow runs can be found.
+---
 
 ## Sorry Cypress
+
+---
 
 Sorry-Cypress is an open-source, self-hosted alternative to paid Cypress Cloud solution and it enables us to:
 
@@ -314,3 +235,92 @@ Where:
 > :bangbang: IMPORTANT :bangbang:
 >
 > If you want to have parallel execution, just run same command **WITH SAME** --ci-build-id flag value in multiple terminals.
+
+## Github Actions Workflows
+
+---
+
+All Github Actions Workflows are configured in [**GitHub Folder**](./.github/workflows/) yaml files.
+
+They all can be found by navigating to [GitHub Repository > Actions]( https://github.com/milos-pujic/cypress-cucumber-e2e-tests/actions).
+
+![GitHub Actions Workflows](/docs/imgs/GitHub-Actions.png)
+
+There are 4 GitHub Actions Workflows setup for Foleon Artie repository:
+
+- [Run All E2E Tests](https://github.com/milos-pujic/cypress-cucumber-e2e-tests/actions/workflows/run-all.yaml)
+- [Run All E2E Tests in parallel](https://github.com/milos-pujic/cypress-cucumber-e2e-tests/actions/workflows/run-all-parallel.yaml)
+- [Run All E2E Tests in parallel with Sorry-Cypress](https://github.com/milos-pujic/cypress-cucumber-e2e-tests/actions/workflows/run-all-parallel-sorry-cypress.yaml)
+
+### Run All E2E Tests
+
+This GitHub Action Workflow Executes All Cypress Cucumber E2E Tests on `local` (default) or `prod` environnement using `electron` (default), `chrome`, `firefox` or `edge` browser from defined branch (by default it is `main`).
+
+If `local` environnement is selected, Restful Booker Platform will be started inside GitHub Services and tests will run against it.
+If `prod` environnement is selected, tests will run against live version of Restful Booker Platform available at [automationintesting.online](https://automationintesting.online/).
+
+GitHub Action Workflow configuration file of this workflow is [run-all.yaml](./.github/workflows/run-all.yaml).
+
+This workflow is only triggered Manually. Steps to trigger it:
+
+1. Open [Run All E2E Tests](https://github.com/milos-pujic/cypress-cucumber-e2e-tests/actions/workflows/run-all.yaml)
+2. Click on `Run workflow` button
+    - (which opens sub-modal where `Branch`, `Environnement to run Tests` and `Browser in which to run Tests` can be selected)
+3. Select `Branch`, `Environnement to run Tests` and `Browser in which to run Tests`
+4. Click on `Run workflow` button
+
+![Run All E2E Tests](/docs/imgs/Run-All-E2E-Tests.png)
+
+Also, on [Run All E2E Tests](https://github.com/milos-pujic/cypress-cucumber-e2e-tests/actions/workflows/run-all.yaml) page, status of all on-going and previously executed 'Run All E2E Tests' Workflow runs can be found.
+
+### Run All E2E Tests in parallel
+
+This GitHub Action Workflow Executes All Cypress Cucumber E2E Tests in parallel on `local` (default) or `prod` environnement using `electron` (default), `chrome`, `firefox` or `edge` browser from defined branch (by default it is `main`).
+
+If `local` environnement is selected, Restful Booker Platform will be started inside GitHub Services and tests will run against it.
+If `prod` environnement is selected, tests will run against live version of Restful Booker Platform available at [automationintesting.online](https://automationintesting.online/).
+
+Parallel execution is achieved using:
+
+- Cypress Split - Cypress plugin that automatically split the entire list of Cypress specs to run in parallel on any CI
+- GitHub Action Strategy Matrix - Automatically create multiple job runs, from single job, that are based on the combinations of the variables
+
+GitHub Action Workflow configuration file of this workflow is [run-all-parallel.yaml](./.github/workflows/run-all-parallel.yaml).
+
+This workflow is only triggered Manually. Steps to trigger it:
+
+1. Open [Run All E2E Tests in parallel](https://github.com/milos-pujic/cypress-cucumber-e2e-tests/actions/workflows/run-all-parallel.yaml)
+2. Click on `Run workflow` button
+    - (which opens sub-modal where `Branch`, `Environnement to run Tests` and `Browser in which to run Tests` can be selected)
+3. Select `Branch`, `Environnement to run Tests` and `Browser in which to run Tests`
+4. Click on `Run workflow` button
+
+![Run All E2E Tests in parallel](/docs/imgs/Run-All-E2E-Tests-in-parallel.png)
+
+Also, on [Run All E2E Tests in parallel](https://github.com/milos-pujic/cypress-cucumber-e2e-tests/actions/workflows/run-all-parallel.yaml) page, status of all on-going and previously executed 'Run All E2E Tests in parallel' Workflow runs can be found.
+
+### Run All E2E Tests in parallel with Sorry-Cypress
+
+This GitHub Action Workflow Executes All Cypress Cucumber E2E Tests in parallel with Sorry-Cypress on `local` (default) or `prod` environnement using `electron` (default) or `chrome` browser from defined branch (by default it is `main`).
+
+If `local` environnement is selected, Restful Booker Platform will be started inside GitHub Services and tests will run against it.
+If `prod` environnement is selected, tests will run against live version of Restful Booker Platform available at [automationintesting.online](https://automationintesting.online/).
+
+Parallel execution is achieved using:
+
+- GitHub Action Strategy Matrix - Automatically create multiple job runs, from single job, that are based on the combinations of the variables
+- Sorry Cypress - An open-source, on-premise, self-hosted alternative to Cypress Cloud
+
+GitHub Action Workflow configuration file of this workflow is [run-all-parallel-sorry-cypress.yaml](./.github/workflows/run-all-parallel-sorry-cypress.yaml).
+
+This workflow is only triggered Manually. Steps to trigger it:
+
+1. Open [Run All E2E Tests in parallel with Sorry-Cypress](https://github.com/milos-pujic/cypress-cucumber-e2e-tests/actions/workflows/run-all-parallel-sorry-cypress.yaml)
+2. Click on `Run workflow` button
+    - (which opens sub-modal where `Branch`, `Environnement to run Tests` and `Browser in which to run Tests` can be selected)
+3. Select `Branch`, `Environnement to run Tests` and `Browser in which to run Tests`
+4. Click on `Run workflow` button
+
+![Run All E2E Tests in parallel with Sorry-Cypress](/docs/imgs/Run-All-E2E-Tests-in-parallel-with-Sorry-Cypress.png)
+
+Also, on [Run All E2E Tests in parallel with Sorry-Cypress](https://github.com/milos-pujic/cypress-cucumber-e2e-tests/actions/workflows/run-all-parallel-sorry-cypress.yaml) page, status of all on-going and previously executed 'Run All E2E Tests in parallel with Sorry-Cypress' Workflow runs can be found.
