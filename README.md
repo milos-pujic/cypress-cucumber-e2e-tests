@@ -100,6 +100,10 @@ Also make sure that there are no **and** conjunctions in sentences. If there is,
   - [Alternative text](https://github.com/cucumber/cucumber-expressions#alternative-text)
   - [Escaping](https://github.com/cucumber/cucumber-expressions#escaping)
 
+## Local Environment
+
+
+
 ## Github Actions Workflows
 
 All Github Actions Workflows are configured in [**GitHub Folder**](./.github/workflows/) yaml files.
@@ -215,7 +219,7 @@ To run tests using Sorry-Cypress instead of Cypress Cloud `cy2` npm package must
 
 Example of command:
 
-    CYPRESS_API_URL=${CYPRESS_DIRECTOR_URL} cy2 run --config projectId='cypress-cucumber' --record --key ${CYPRESS_RECORD_KEY} --parallel --ci-build-id ${CYPRESS_CI_BUILD_ID}
+    CYPRESS_API_URL=${CYPRESS_DIRECTOR_URL} npx cy2 run --config projectId='cypress-cucumber' --record --key ${CYPRESS_RECORD_KEY} --parallel --ci-build-id ${CYPRESS_CI_BUILD_ID}
 
 Where:
 
@@ -252,12 +256,61 @@ The stack creates [AWS Application Load Balancer](https://docs.aws.amazon.com/el
 
 For example, if the access URL created by the stack is: `http://sorry-cypress-1502240720.us-east-1.elb.amazonaws.com`, and `DirectorPort=8080` then director service will be available at `http://sorry-cypress-1502240720.us-east-1.elb.amazonaws.com:8080`.
 
+With above example in mind, command to run your Cypress Tests with your AWS Hosted Sorry-Cypress will look like:
+
+    CYPRESS_API_URL='http://sorry-cypress-1502240720.us-east-1.elb.amazonaws.com:8080' cy2 npx run --config projectId='cypress-cucumber' --record --key ${CYPRESS_RECORD_KEY} --parallel --ci-build-id ${CYPRESS_CI_BUILD_ID}
+
+Where:
+
+- `${CYPRESS_RECORD_KEY}` - secret record key configured in Template configuration under `DirectorAllowedKeys` property
+- `${CYPRESS_CI_BUILD_ID}` - unique build identifier used by Sorry-Cypress to distinguish cypress test runs one from another, i.e. `aws-build-001`
+
+> :bangbang: IMPORTANT :bangbang:
+>
+> If you want to have parallel execution, just run same command **WITH SAME** --ci-build-id flag value in multiple terminals.
+
 Here's a rough estimaton of price / month for using the resources used. The actual usage might be higher (or lower) based on actual usage.
 
 - Fargate pricing based on calculator 35,55 USD (1 vCPU, 2GB RAM) or 17,78 USD (0.5 vCPU, 1GB RAM)
 - EC2 Application Load Balancer based on calculator 19,35 USD (0.5 GB / hour, 0.5 connections / second)
 - S3 + Cloudwatch = varies based on usage
 
-#### Start Sorry-Cypress on Docker Locally
+#### Start Sorry-Cypress with Docker Locally
 
-Inside this repository there is [docker-compose-sorry-cypress.yml](./docker-compose-sorry-cypress.yml) Docker Compose file which can be used to locally start full sorry-cypress kit. Read more on [Sorry-cypress Docker Images](https://docs.sorry-cypress.dev/cloud-setup/docker-images).
+Inside this repository there is [docker-compose-sorry-cypress.yml](./docker-compose-sorry-cypress.yml) Docker Compose file which can be used to locally start full sorry-cypress kit with Docker. Read more on [Sorry-cypress Docker Images](https://docs.sorry-cypress.dev/cloud-setup/docker-images).
+
+Before you proceed, you should install Docker Desktop depending on your OS and start it:
+
+- [Docker Desktop for Linux](https://docs.docker.com/desktop/install/linux-install/)
+- [Docker Desktop for Windows](https://docs.docker.com/desktop/install/windows-install/)
+- [Docker Desktop for Mac](https://docs.docker.com/desktop/install/mac-install/)
+
+After Docker has been installed on your machine, open the terminal inside `<local_path>\cypress-cucumber-e2e-tests` and use the following command:
+
+    docker compose -f ./docker-compose-sorry-cypress.yml  up -d 
+
+That will start full Sorry-Cypress kit, Director, API, Dashboard with MongoDB and Minio Object Storage.
+
+After everything is up and running you will have:
+
+- Sorry-Cypress Director available at `http://localhost:1234`
+- Sorry-Cypress API available at `http://localhost:4000`
+- Sorry-Cypress Dashboard available at `http://localhost:8080`
+- MongoDB available at `mongodb://sorry-cypress:cypress-sorry@mongo:27017`
+- Minio Object Storage available at `http://localhost:9000`
+  - username: `sorry-cypress`
+  - password: `cypress-sorry`
+
+By default, sorry-cypress-director, will not have any Allowed Keys configured, so it will accept anything for a key, but something must be sent.
+
+Example of command how to run your Cypress Tests with your local Sorry-Cypress:
+
+    CYPRESS_API_URL='http://localhost:1234' cy2 npx run --config projectId='cypress-cucumber' --record --key any-key --parallel --ci-build-id ${CYPRESS_CI_BUILD_ID}
+
+Where:
+
+- `${CYPRESS_CI_BUILD_ID}` - unique build identifier used by Sorry-Cypress to distinguish cypress test runs one from another, i.e. `docker-build-001`
+
+> :bangbang: IMPORTANT :bangbang:
+>
+> If you want to have parallel execution, just run same command **WITH SAME** --ci-build-id flag value in multiple terminals.
