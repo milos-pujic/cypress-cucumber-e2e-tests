@@ -356,4 +356,4 @@ That will:
       - password: `cypress-sorry`
 4. Execute Tests in parallel using Local Restful Booker Platform and Local Sorry Cypress.
 
-Progress and results can be followed on Sorry-Cypress Dashboard `http://localhost:8080` under runs named `chrome_YYYY-MM-DD_HH:MM`.
+Progress and results can be followed on Sorry-Cypress Dashboard `http://localhost:8080` under run named `chrome_YYYY-MM-DD_HH:MM`.
