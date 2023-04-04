@@ -63,6 +63,8 @@ Some of predefined scripts in [`package.json`](./package.json) are doing same th
 
 ### Describing Features
 
+---
+
 Every feature must only contain scenarios related to that it. When grouping scenarios under one feature make sure that `@Background` for that feature is common for all of scenarios.
 If some feature is complex and there are different `@Background` for group them in multiple feature file.
 
@@ -75,6 +77,8 @@ If you have problems describing feature you can use next template, known as a Fe
 By starting with the goal or value that the feature provides, you’re making it explicit to everyone who ever works on this feature why they’re giving up their precious time. You’re also offering people an opportunity to think about other ways that the goal could be met.
 
 ### Writing Scenarios
+
+---
 
 Using Given-When-Then in sequence is a great reminder for several great test design ideas. It suggests that pre-conditions and post-conditions need to be identified and separated. It suggests that the purpose of the test should be clearly communicated, and that each scenario should check one and only one thing. When there is only one action under test, people are forced to look beyond the mechanics of test execution and really identify a clear purpose.
 
@@ -93,6 +97,8 @@ Make sure that there is only **one** **_When_** statement for each scenario.
 Also make sure that there are no **and** conjunctions in sentences. If there is, it must be split into separate step.
 
 ### Matching Step Definition with Cucumber Expressions
+
+---
 
 - To match Gherkin Scenario Step text **_Cucumber Expression_** are used
 - When writing **_Cucumber Expressions_** matchers always make sure that at least similar words and plurals are covered and will be matched by using:
@@ -155,6 +161,8 @@ Where:
 - `${CYPRESS_CI_BUILD_ID}` - unique build identifier used by Sorry-Cypress to distinguish cypress test runs one from another
 
 ### Hosting Sorry-Cypress
+
+---
 
 To be able to run tests using Sorry Cypress, it must be hosted somewhere.
 
@@ -258,6 +266,8 @@ There are 4 GitHub Actions Workflows setup for Foleon Artie repository:
 
 ### Run All E2E Tests
 
+---
+
 This GitHub Action Workflow Executes All Cypress Cucumber E2E Tests on `local` (default) or `prod` environnement using `electron` (default), `chrome`, `firefox` or `edge` browser from defined branch (by default it is `main`).
 
 If `local` environnement is selected, Restful Booker Platform will be started inside GitHub Services and tests will run against it.
@@ -278,6 +288,8 @@ This workflow is only triggered Manually. Steps to trigger it:
 Also, on [Run All E2E Tests](https://github.com/milos-pujic/cypress-cucumber-e2e-tests/actions/workflows/run-all.yaml) page, status of all on-going and previously executed 'Run All E2E Tests' Workflow runs can be found.
 
 ### Run All E2E Tests in parallel
+
+---
 
 This GitHub Action Workflow Executes All Cypress Cucumber E2E Tests in parallel on `local` (default) or `prod` environnement using `electron` (default), `chrome`, `firefox` or `edge` browser from defined branch (by default it is `main`).
 
@@ -304,6 +316,8 @@ This workflow is only triggered Manually. Steps to trigger it:
 Also, on [Run All E2E Tests in parallel](https://github.com/milos-pujic/cypress-cucumber-e2e-tests/actions/workflows/run-all-parallel.yaml) page, status of all on-going and previously executed 'Run All E2E Tests in parallel' Workflow runs can be found.
 
 ### Run All E2E Tests in parallel with Sorry-Cypress
+
+---
 
 This GitHub Action Workflow Executes All Cypress Cucumber E2E Tests in parallel with Sorry-Cypress on `local` (default) or `prod` environnement using `electron` (default) or `chrome` browser from defined branch (by default it is `main`).
 
