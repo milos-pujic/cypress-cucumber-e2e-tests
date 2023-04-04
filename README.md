@@ -5,8 +5,6 @@ Provided tests are based on examples how to define and use utility functions, ex
 
 ## IDE Setup
 
----
-
 - Install [Visual Studio Code](https://code.visualstudio.com/download)
   - _Recommended extensions in Visual Studio Code:_
     - [Cucumber (Gherkin) Full Support](https://marketplace.visualstudio.com/items?itemName=alexkrechik.cucumberautocomplete)
@@ -24,8 +22,6 @@ Provided tests are based on examples how to define and use utility functions, ex
   - The command will install all found in the package.json
 
 ## Used Libraries
-
----
 
 - [Cypress Cucumber Preprocessor](https://github.com/badeball/cypress-cucumber-preprocessor)
 - [Cypress Split](https://github.com/bahmutov/cypress-split)
@@ -64,8 +60,6 @@ Some of predefined scripts in [`package.json`](./package.json) are doing same th
 - `npm run cy:run:local` or `npm run cy:run:prod` - Execute All tests without opening the Cypress UI against Local or Production environnement
 
 ## Gherkin standards and rules
-
----
 
 ### Describing Features
 
@@ -125,8 +119,6 @@ That will start Restful Booker Platform locally.
 After everything is up and running you will have Restful Booker Platform available at `http://localhost`.
 
 ## Sorry Cypress
-
----
 
 Sorry-Cypress is an open-source, self-hosted alternative to paid Cypress Cloud solution and it enables us to:
 
@@ -251,8 +243,6 @@ Where:
 > If you want to have parallel execution, just run same command **WITH SAME** --ci-build-id flag value in multiple terminals.
 
 ## Github Actions Workflows
-
----
 
 All Github Actions Workflows are configured in [**GitHub Folder**](./.github/workflows/) yaml files.
 
