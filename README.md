@@ -1,6 +1,7 @@
 # Cypress Cucumber E2E Testing Framework
 
-Cypress Cucumber E2E Testing Framework project represents a starting point for writing tests in Cypress with Cucumber.</br>
+Cypress Cucumber E2E Testing Framework project represents a starting point for writing tests in Cypress with Cucumber.
+
 Provided tests are based on examples how to define and use utility functions, explicit wait for some element, usage of **faker** for generating random data and possible solutions for organizing tests using separated files with locators of the elements.
 
 ## IDE Setup
@@ -240,7 +241,7 @@ Where:
 >
 > If you want to have parallel execution, just run same command **WITH SAME** --ci-build-id flag value in multiple terminals.
 
-## Github Actions Workflows
+## Execute Cypress Cucumber Tests using Github Actions Workflows
 
 All Github Actions Workflows are configured in [**GitHub Folder**](./.github/workflows/) yaml files.
 
@@ -326,3 +327,33 @@ This workflow is only triggered Manually. Steps to trigger it:
 ![Run All E2E Tests in parallel with Sorry-Cypress](/docs/imgs/Run-All-E2E-Tests-in-parallel-with-Sorry-Cypress.png)
 
 Also, on [Run All E2E Tests in parallel with Sorry-Cypress](https://github.com/milos-pujic/cypress-cucumber-e2e-tests/actions/workflows/run-all-parallel-sorry-cypress.yaml) page, status of all on-going and previously executed 'Run All E2E Tests in parallel with Sorry-Cypress' Workflow runs can be found.
+
+## Execute Cypress Cucumber Tests using Docker locally
+
+Before you proceed, you should install Docker Desktop depending on your OS and start it:
+
+- [Docker Desktop for Linux](https://docs.docker.com/desktop/install/linux-install/)
+- [Docker Desktop for Windows](https://docs.docker.com/desktop/install/windows-install/)
+- [Docker Desktop for Mac](https://docs.docker.com/desktop/install/mac-install/)
+
+After Docker has been installed on your machine, open the terminal inside `<local_path>\cypress-cucumber-e2e-tests` and use the following commands:
+
+    docker compose build
+    docker compose up -d 
+
+That will:
+
+1. Build Docker Image containing Cypress and your Tests
+2. Start Restful Booker Platform locally
+    - Available at `http://localhost`.
+3. Start Sorry-Cypress Locally
+    - Director available at `http://localhost:1234`
+    - API available at `http://localhost:4000`
+    - Dashboard available at `http://localhost:8080`
+    - MongoDB available at `mongodb://sorry-cypress:cypress-sorry@mongo:27017`
+    - Minio Object Storage available at `http://localhost:9000`
+      - username: `sorry-cypress`
+      - password: `cypress-sorry`
+4. Execute Tests in parallel using Local Restful Booker Platform and Local Sorry Cypress.
+
+Progress and results can be followed on Sorry-Cypress Dashboard `http://localhost:8080` under runs named `chrome_YYYY-MM-DD_HH:MM`.
