@@ -59,6 +59,22 @@ Some of predefined scripts in [`package.json`](./package.json) are doing same th
 - `npm run cy:open:local` or `npm run cy:open:prod` - Open Cypress UI to execute tests against Local or Production environnement
 - `npm run cy:run:local` or `npm run cy:run:prod` - Execute All tests without opening the Cypress UI against Local or Production environnement
 
+## Local Environment
+
+Before you proceed, you should install Docker Desktop depending on your OS and start it:
+
+- [Docker Desktop for Linux](https://docs.docker.com/desktop/install/linux-install/)
+- [Docker Desktop for Windows](https://docs.docker.com/desktop/install/windows-install/)
+- [Docker Desktop for Mac](https://docs.docker.com/desktop/install/mac-install/)
+
+After Docker has been installed on your machine, open the terminal inside `<local_path>\cypress-cucumber-e2e-tests` and use the following command:
+
+    docker compose -f ./docker-compose-restful-booker.yml up -d 
+
+That will start Restful Booker Platform locally.
+
+After everything is up and running you will have Restful Booker Platform available at `http://localhost`.
+
 ## Gherkin standards and rules
 
 ### Describing Features
@@ -99,22 +115,6 @@ Also make sure that there are no **and** conjunctions in sentences. If there is,
   - [Optional text](https://github.com/cucumber/cucumber-expressions#optional-text)
   - [Alternative text](https://github.com/cucumber/cucumber-expressions#alternative-text)
   - [Escaping](https://github.com/cucumber/cucumber-expressions#escaping)
-
-## Local Environment
-
-Before you proceed, you should install Docker Desktop depending on your OS and start it:
-
-- [Docker Desktop for Linux](https://docs.docker.com/desktop/install/linux-install/)
-- [Docker Desktop for Windows](https://docs.docker.com/desktop/install/windows-install/)
-- [Docker Desktop for Mac](https://docs.docker.com/desktop/install/mac-install/)
-
-After Docker has been installed on your machine, open the terminal inside `<local_path>\cypress-cucumber-e2e-tests` and use the following command:
-
-    docker compose -f ./docker-compose-restful-booker.yml up -d 
-
-That will start Restful Booker Platform locally.
-
-After everything is up and running you will have Restful Booker Platform available at `http://localhost`.
 
 ## Sorry Cypress
 
