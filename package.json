@@ -12,8 +12,8 @@
     "clean:docker": "rimraf ./.docker",
     "cy:open:prod": "npx cypress open --env ENV=prod",
     "cy:open:local": "npx cypress open --env ENV=local",
-    "cy:run:prod": "npx cypress open --env ENV=prod",
-    "cy:run:local": "npx cypress open --env ENV=local",
+    "cy:run:prod": "npx cypress run --env ENV=prod",
+    "cy:run:local": "npx cypress run --env ENV=local",
     "cy2:run": "CYPRESS_API_URL='http://localhost:1234' cy2 run --config projectId='cypress-cucumber' --record --key xxx --parallel --ci-build-id `date +%Y-%m-%d`",
     "cy2:run:gha": "CYPRESS_API_URL=${CYPRESS_DIRECTOR_URL} cy2 run --config projectId='cypress-cucumber' --record --key ${CYPRESS_RECORD_KEY} --parallel --ci-build-id ${CYPRESS_CI_BUILD_ID}"
   },
