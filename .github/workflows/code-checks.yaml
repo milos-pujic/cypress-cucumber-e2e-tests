@@ -1,0 +1,94 @@
+name: Code Check on Merge and Pull Request
+
+on:
+  push:
+    branches:
+    - main
+  pull_request:
+    branches:
+      - main
+    types:
+      - opened
+      - reopened
+      - synchronize
+      - labeled
+
+jobs:
+  start-rbp-and-run-pass-e2e-tests:
+    name: Start Restful Booker Platform and Run Passing E2E Test
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    strategy:
+      fail-fast: false
+      matrix:
+        containers: [1, 2]
+    services:
+        rbp-booking:
+          image: mwinteringham/restfulbookerplatform_booking:1.6.24c7b22
+          ports:
+            - 3000:3000
+        rbp-room:
+          image: mwinteringham/restfulbookerplatform_room:1.6.24c7b22
+          ports:
+            - 3001:3001
+        rbp-branding:
+          image: mwinteringham/restfulbookerplatform_branding:1.6.24c7b22
+          ports:
+            - 3002:3002
+        rbp-assets:
+          image: mwinteringham/restfulbookerplatform_assets:1.6.24c7b22
+          ports:
+            - 3003:3003
+        rbp-auth:
+          image: mwinteringham/restfulbookerplatform_auth:1.6.24c7b22
+          ports:
+            - 3004:3004
+        rbp-report:
+          image: mwinteringham/restfulbookerplatform_report:1.6.24c7b22
+          ports:
+            - 3005:3005
+        rbp-message:
+          image: mwinteringham/restfulbookerplatform_message:1.6.24c7b22
+          ports:
+            - 3006:3006
+        rbp-proxy:
+          image: mwinteringham/restfulbookerplatform_proxy:latest
+          ports:
+            - 80:80
+    steps:
+      - id: checkout-repository
+        name: Checkout Repository
+        uses: actions/checkout@v3
+      - id: cypress-run
+        name: Cypress Run
+        uses: cypress-io/github-action@v5
+        with:
+          env: ENV=local,TAGS='not @bug'
+          browser: electron
+        env:
+          SPLIT: ${{ strategy.job-total }}
+          SPLIT_INDEX: ${{ strategy.job-index }}
+      - id: upload-screenshots
+        name: Upload Screenshots
+        uses: actions/upload-artifact@v3
+        if: failure()
+        with:
+          name: cypress-screenshots-(${{ matrix.containers }}-of-${{ strategy.job-total }})
+          path: cypress/screenshots
+          retention-days: 1
+      - id: upload-videos
+        name: Upload Videos
+        uses: actions/upload-artifact@v3
+        if: always()
+        with:
+          name: cypress-videos-(${{ matrix.containers }}-of-${{ strategy.job-total }})
+          path: cypress/videos
+          retention-days: 1
+      - id: upload-reports
+        name: Upload Reports
+        uses: actions/upload-artifact@v3
+        if: always()
+        with:
+          name: cypress-reports-(${{ matrix.containers }}-of-${{ strategy.job-total }})
+          path: cypress/reports
+          retention-days: 1

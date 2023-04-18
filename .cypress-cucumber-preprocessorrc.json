@@ -1,7 +1,7 @@
 {
   "stepDefinitions": [
     "cypress/e2e/features/[filepart]/*.stepdef.js",
-    "cypress/e2e/common/**/*.js"
+    "cypress/e2e/features/support/**/*.js"
   ],
   "html": {
     "enabled": true,

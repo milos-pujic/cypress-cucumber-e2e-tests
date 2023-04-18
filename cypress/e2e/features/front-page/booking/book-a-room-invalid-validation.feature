@@ -41,6 +41,7 @@ Feature: Invalid Data Validation when Booking a Room
       | 3                |
       | 30               |
 
+  @bug
   Scenario Outline: Visitor must NOT be able to book a room by filling up email with invalid value: <invalid_email>
     When Visitor 'John' 'Doe' with an invalid email '<invalid_email>' and phone number '+44 1632 960018' tries to book a room '1408'
     Then Visitor will get validation error message: 'must be a well-formed email address'
