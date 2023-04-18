@@ -63,9 +63,10 @@ jobs:
         name: Cypress Run
         uses: cypress-io/github-action@v5
         with:
-          env: ENV=local,TAGS="not @bug"
           browser: electron
         env:
+          ENV: local
+          TAGS: 'not @bug'
           SPLIT: ${{ strategy.job-total }}
           SPLIT_INDEX: ${{ strategy.job-index }}
       - id: upload-screenshots
