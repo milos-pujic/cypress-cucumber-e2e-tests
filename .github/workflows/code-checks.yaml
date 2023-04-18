@@ -63,7 +63,7 @@ jobs:
         name: Cypress Run
         uses: cypress-io/github-action@v5
         with:
-          env: ENV=local,TAGS='not @bug'
+          env: ENV=local,TAGS="not @bug"
           browser: electron
         env:
           SPLIT: ${{ strategy.job-total }}
