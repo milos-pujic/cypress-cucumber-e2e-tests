@@ -123,7 +123,7 @@ jobs:
         run: ./node_modules/.bin/cypress install
       - id: execute-tests
         name: Execute Cypress Tests
-        run: npm run cy2:run:gha -- --env ENV=${{ inputs.environment }} --browser ${{ inputs.browser }} --headless
+        run: npm run cy:cloud:run:gha -- --env ENV=${{ inputs.environment }} --browser ${{ inputs.browser }} --headless
 
   run-all-cypress-tests:
     if: ${{ inputs.environment == 'prod' }}
@@ -159,4 +159,4 @@ jobs:
         run: ./node_modules/.bin/cypress install
       - id: execute-tests
         name: Execute Cypress Tests
-        run: npm run cy2:run:gha -- --env ENV=${{ inputs.environment }} --browser ${{ inputs.browser }} --headless
+        run: npm run cy:cloud:run:gha -- --env ENV=${{ inputs.environment }} --browser ${{ inputs.browser }} --headless

@@ -2,6 +2,7 @@ const { defineConfig } = require('cypress');
 const createBundler = require('@bahmutov/cypress-esbuild-preprocessor');
 const preprocessor = require('@badeball/cypress-cucumber-preprocessor');
 const createEsbuildPlugin = require('@badeball/cypress-cucumber-preprocessor/esbuild');
+const { cloudPlugin } = require('cypress-cloud/plugin');
 const cypressSplit = require('cypress-split');
 
 async function setupNodeEvents(on, config) {
@@ -15,12 +16,14 @@ async function setupNodeEvents(on, config) {
     })
   );
   cypressSplit(on, config);
+  cloudPlugin(on, config);
   config.defaultCommandTimeout = 4000;
   // Make sure to return the config object as it might have been modified by the plugin.
   return config;
 }
 
 module.exports = defineConfig({
+  projectId: 'cypress-cucumber',
   viewportWidth: 1920,
   viewportHeight: 1080,
   trashAssetsBeforeRuns: false,

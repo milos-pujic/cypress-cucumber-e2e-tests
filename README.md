@@ -27,7 +27,7 @@ Provided tests are based on examples how to define and use utility functions, ex
 - [Cypress Cucumber Preprocessor](https://github.com/badeball/cypress-cucumber-preprocessor)
 - [Cypress Split](https://github.com/bahmutov/cypress-split)
 - [Faker JS](https://github.com/faker-js/faker)
-- [Sorry-Cypress](https://docs.sorry-cypress.dev/) and [cy2](https://github.com/sorry-cypress/cy2)
+- [Sorry-Cypress](https://docs.sorry-cypress.dev/) and [cypress-cloud](https://github.com/currents-dev/cypress-cloud)
 - [Prettier](https://prettier.io/)
 - [Husky](https://typicode.github.io/husky/#/)
 - [Lint Staged](https://github.com/okonet/lint-staged)
@@ -141,11 +141,11 @@ Sorry-Cypress is actually 3 separate applications:
   - set projects configuration like WebHooks, Slack, MS Teams and GitHub integration
   - create and delete entries (projects, runs)
 
-To run tests using Sorry-Cypress instead of Cypress Cloud `cy2` npm package must be used to integrate Cypress with Sorry-Cypress. It does that by setting the environment variable `CYPRESS_API_URL` to point to our **sorry-cypress-director** app. `cy2` command passes down to Cypress all the CLI flags, so we just use it instead of `cypress` when working with Sorry-Cypress. 
+To run tests using Sorry-Cypress instead of Official Cypress Cloud, Currents-Dev Cypress Cloud `cypress-cloud` npm package must be used to integrate Cypress with Sorry-Cypress. It does that by setting the environment variable `CURRENTS_API_URL` to point to our **sorry-cypress-director** app. `cypress-cloud` command passes down to Cypress all the CLI flags, so we just use it instead of `cypress` when working with Sorry-Cypress.
 
 Example of command:
 
-    CYPRESS_API_URL=${CYPRESS_DIRECTOR_URL} npx cy2 run --config projectId='cypress-cucumber' --record --key ${CYPRESS_RECORD_KEY} --parallel --ci-build-id ${CYPRESS_CI_BUILD_ID}
+    CURRENTS_API_URL=${CYPRESS_DIRECTOR_URL} npx cypress-cloud run --record --key ${CYPRESS_RECORD_KEY} --parallel --ci-build-id ${CYPRESS_CI_BUILD_ID}
 
 Where:
 
@@ -184,7 +184,7 @@ For example, if the access URL created by the stack is: `http://sorry-cypress-15
 
 With above example in mind, command to run your Cypress Tests with your AWS Hosted Sorry-Cypress will look like:
 
-    CYPRESS_API_URL='http://sorry-cypress-1502240720.us-east-1.elb.amazonaws.com:8080' cy2 npx run --config projectId='cypress-cucumber' --record --key ${CYPRESS_RECORD_KEY} --parallel --ci-build-id ${CYPRESS_CI_BUILD_ID}
+    CURRENTS_API_URL='http://sorry-cypress-1502240720.us-east-1.elb.amazonaws.com:8080' cypress-cloud npx run --record --key ${CYPRESS_RECORD_KEY} --parallel --ci-build-id ${CYPRESS_CI_BUILD_ID}
 
 Where:
 
@@ -231,7 +231,7 @@ By default, sorry-cypress-director, will not have any Allowed Keys configured, s
 
 Example of command how to run your Cypress Tests with your local Sorry-Cypress:
 
-    CYPRESS_API_URL='http://localhost:1234' cy2 npx run --config projectId='cypress-cucumber' --record --key any-key --parallel --ci-build-id ${CYPRESS_CI_BUILD_ID}
+    CURRENTS_API_URL='http://localhost:1234' cypress-cloud npx run --record --key secret_key --parallel --ci-build-id ${CYPRESS_CI_BUILD_ID}
 
 Where:
 

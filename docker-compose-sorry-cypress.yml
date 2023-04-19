@@ -14,6 +14,7 @@ services:
   director:
     image: agoldis/sorry-cypress-director:latest
     environment:
+      ALLOWED_KEYS: 'secret_key'
       DASHBOARD_URL: http://localhost:8080
       INACTIVITY_TIMEOUT_SECONDS: 600
       EXECUTION_DRIVER: '../execution/mongo/driver'
