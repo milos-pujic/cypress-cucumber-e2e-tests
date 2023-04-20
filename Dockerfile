@@ -6,7 +6,7 @@ RUN npm --version
 WORKDIR /app
 
 # copy project and test files
-COPY package.json package-lock.json cypress.config.js .cypress-cucumber-preprocessorrc.json ./
+COPY package.json package-lock.json cypress.config.js .cypress-cucumber-preprocessorrc.json currents.config.js ./
 COPY cypress ./cypress
 
 # avoid many lines of progress bars during install
