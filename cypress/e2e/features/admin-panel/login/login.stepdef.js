@@ -1,4 +1,4 @@
-import { When, Then } from '@badeball/cypress-cucumber-preprocessor';
+const { When, Then } = require('@badeball/cypress-cucumber-preprocessor');
 
 const redBorder = 'border: 1px solid red';
 

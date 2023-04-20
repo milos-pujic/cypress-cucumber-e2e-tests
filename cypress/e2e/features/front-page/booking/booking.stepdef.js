@@ -1,6 +1,6 @@
 /* eslint-disable max-len */
-import { When, Then, Step } from '@badeball/cypress-cucumber-preprocessor';
-import { faker } from '@faker-js/faker';
+const { When, Then, Step } = require('@badeball/cypress-cucumber-preprocessor');
+const { faker } = require('@faker-js/faker');
 
 When(
   'Visitor {string} {string} with an (invalid )email {string} and phone number {string} tries to book a room {string}',

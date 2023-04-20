@@ -1,5 +1,5 @@
-import { When, Then, Step } from '@badeball/cypress-cucumber-preprocessor';
-import { faker } from '@faker-js/faker';
+const { When, Then, Step } = require('@badeball/cypress-cucumber-preprocessor');
+const { faker } = require('@faker-js/faker');
 
 When('Visitor {string} tries to contact property regarding {string} by filling up all mandatory fields with valid data', (fullName, subject) => {
   cy.sendMessage(fullName, faker.internet.email(), faker.phone.number(), subject, faker.lorem.lines(5));

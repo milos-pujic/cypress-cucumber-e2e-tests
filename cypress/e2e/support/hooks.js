@@ -1,4 +1,4 @@
-import { Before, After } from '@badeball/cypress-cucumber-preprocessor';
+const { Before, After } = require('@badeball/cypress-cucumber-preprocessor');
 
 Before(() => {
   if (Cypress.isBrowser('!firefox')) cy.setCookie('banner', 'true');

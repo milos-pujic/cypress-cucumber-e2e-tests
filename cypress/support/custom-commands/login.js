@@ -1,4 +1,4 @@
-import { getApiUrl } from '../env-utility';
+const { getApiUrl } = require('../env-utility');
 
 const apiUrl = getApiUrl();
 

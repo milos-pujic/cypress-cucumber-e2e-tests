@@ -1,4 +1,4 @@
-import { When, Then, Step } from '@badeball/cypress-cucumber-preprocessor';
+const { When, Then, Step } = require('@badeball/cypress-cucumber-preprocessor');
 
 const validRoomTypes = ['Single', 'Twin', 'Double', 'Family', 'Suite'];
 

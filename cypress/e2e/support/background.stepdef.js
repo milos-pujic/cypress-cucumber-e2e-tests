@@ -1,6 +1,5 @@
-import { Given } from '@badeball/cypress-cucumber-preprocessor';
-
-import { getUrl } from '../../support/env-utility';
+const { Given } = require('@badeball/cypress-cucumber-preprocessor');
+const { getUrl } = require('../../support/env-utility');
 
 const url = getUrl();
 
