@@ -19,6 +19,11 @@ on:
         options:
         - electron
         - chrome
+      skip-bugs:
+        description: 'Skip Test with Known Bugs'
+        required: true
+        default: true
+        type: boolean
 
 env:
   CYPRESS_DIRECTOR_URL: ${{ secrets.CYPRESS_DIRECTOR_URL }}
@@ -122,7 +127,12 @@ jobs:
         name: Install Cypress
         run: ./node_modules/.bin/cypress install
       - id: execute-tests
+        if: ${{ inputs.skip-bugs }}
         name: Execute Cypress Tests
+        run: npm run cy:cloud:run:gha -- --env ENV=${{ inputs.environment }},TAGS='not @bug' --browser ${{ inputs.browser }}
+      - id: execute-tests-bugs
+        if: ${{ !inputs.skip-bugs }}
+        name: Execute Cypress Tests (incl. tests with known bugs)
         run: npm run cy:cloud:run:gha -- --env ENV=${{ inputs.environment }} --browser ${{ inputs.browser }}
 
   run-all-cypress-tests:
@@ -158,5 +168,10 @@ jobs:
         name: Install Cypress
         run: ./node_modules/.bin/cypress install
       - id: execute-tests
+        if: ${{ inputs.skip-bugs }}
         name: Execute Cypress Tests
+        run: npm run cy:cloud:run:gha -- --env ENV=${{ inputs.environment }},TAGS='not @bug' --browser ${{ inputs.browser }}
+      - id: execute-tests-bugs
+        if: ${{ !inputs.skip-bugs }}
+        name: Execute Cypress Tests (incl. tests with known bugs)
         run: npm run cy:cloud:run:gha -- --env ENV=${{ inputs.environment }} --browser ${{ inputs.browser }}

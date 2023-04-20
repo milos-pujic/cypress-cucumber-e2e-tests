@@ -86,7 +86,7 @@ jobs:
           SPLIT_INDEX: ${{ strategy.job-index }}
       - id: cypress-run-bugs
         if: ${{ !inputs.skip-bugs }}
-        name: Cypress Run
+        name: Cypress Run (incl. tests with known bugs)
         uses: cypress-io/github-action@v5
         with:
           env: ENV=local
@@ -144,7 +144,7 @@ jobs:
           SPLIT_INDEX: ${{ strategy.job-index }}
       - id: cypress-run-bugs
         if: ${{ !inputs.skip-bugs }}
-        name: Cypress Run
+        name: Cypress Run (incl. tests with known bugs)
         uses: cypress-io/github-action@v5
         with:
           env: ENV=prod
