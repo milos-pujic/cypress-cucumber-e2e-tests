@@ -7,9 +7,11 @@ Feature: Contact Hotel
   Background: Visitor is on the Front Page
     Given Visitor is on the Front Page
 
+  @sanity
   Scenario: Visitor must be able to contact the property by filling up all mandatory fields
     When Visitor 'John Doe' tries to contact property regarding 'Special Accommodation' by filling up all mandatory fields with valid data
     Then Visitor 'John Doe' will get Thanks for getting in touch message regarding subject 'Special Accommodation'
+
   Scenario: Visitor must NOT be able to contact the property without filling up name field
     When Visitor tries to contact property regarding 'Special Accommodation' without filling up name field
     Then Visitor will get mandatory error message: 'Name may not be blank'

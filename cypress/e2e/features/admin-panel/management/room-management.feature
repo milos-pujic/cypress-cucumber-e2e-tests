@@ -9,6 +9,7 @@ Feature: Rooms Management
     Given User is logged in as Administrator
     And User is on the Rooms Management Page
 
+  @sanity
   Scenario Outline: User must be able to create new room by filling up all mandatory fields
     When User creates new '<room_type>' type '<accessibility>' room '<room_name>' priced at '<room_price>' GBP with '<features>'
     Then New '<room_type>' type '<accessibility>' room '<room_name>' priced at '<room_price>' GBP with '<features>' will be created

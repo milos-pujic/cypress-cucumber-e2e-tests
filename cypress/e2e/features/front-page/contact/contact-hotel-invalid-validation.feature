@@ -7,7 +7,6 @@ Feature: Invalid Data Validation on Contact Hotel
   Background: Visitor is on the Front Page
     Given Visitor is on the Front Page
 
-  @bug
   Scenario Outline: Visitor must NOT be able to contact the property by filling up email with invalid value: <invalid_email>
     When Visitor 'John Doe' tries to contact property regarding 'Special Accommodation' by filling up email with invalid value: '<invalid_email>'
     Then Visitor will get validation error message: 'must be a well-formed email address'

@@ -9,6 +9,7 @@ Feature: Booking a Room
     And User has created 'Single' type 'Accessible' room '1408' priced at '50' GBP with ' WiFi, TV, Refreshments and Safe'
     And Visitor is on the Front Page
 
+  @sanity
   Scenario: Visitor must be able to book a room for available dates by filling up all mandatory fields
     When Visitor 'John' 'Doe' with an email 'john.doe@email.com' and phone number '+44 1632 960018' tries to book a room '1408'
     Then Visitor will get Booking Successful! message
