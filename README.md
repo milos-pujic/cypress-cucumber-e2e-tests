@@ -42,18 +42,18 @@ Open the terminal inside `<local_path>\cypress-cucumber-e2e-tests` and use the f
 - Environnement variables:
   - `ENV`, which can have value `prod` / `local` / `docker`, depending on which environnement you would like to execute your tests (if not defined, `prod` will be used by default)
   - `TAGS`, which can be any of available tags set in Cucumber features. If not set all scenarios will be executed. Tag expression is an infix boolean expression, some examples:
-    - `@management` - Scenarios tagged with `@management` will be filtered
-    - `@management and not @room-management` - Scenarios tagged with `@management` that aren't also tagged with `@room-management` will be filtered
+    - `@sanity` - Scenarios tagged with `@sanity` will be filtered
+    - `@management and not @room-management` - Scenarios tagged with `@management` that are not also tagged with `@room-management` will be filtered
     - `@management and @room-management` - Scenarios tagged with both `@management` and `@room-management` will be filtered
-    - `@room-management or @login` - Scenarios tagged with either `@room-management` or `@login` will be filtered
-    - `(@management or @login) and (not @room-management)` - Scenarios tagged with either `@management` or `@login` that aren't also tagged with `@room-management` will be filtered
+    - `@booking or @contact` - Scenarios tagged with either `@booking` or `@contact` will be filtered
+    - `(@booking or @contact) and (not @bug)` - Scenarios tagged with either `@booking` or `@contact` that are not also tagged with `@bug` will be filtered
 
 Example of above commands with possible variables:
 
 - `npx cypress open --env ENV=local` - Open Cypress UI to execute tests against Local environnement
 - `npx cypress run --env ENV=prod` - Execute All tests without opening the Cypress UI against Production environnement
 - `npx cypress run --spec "**/login.feature" --env ENV=local` - Execute Login feature without opening the Cypress UI on Local environnement
-- `npx cypress run --env ENV=prod,TAGS='(@management or @login) and (not @room-management)'` - Execute tests tagged with `@management` or `@login` which aren't also tagged with `@room-management`, without opening the Cypress UI on Production environnement
+- `npx cypress run --env ENV=prod,TAGS='(@booking or @contact) and (not @bug)'` - Execute tests tagged with `@booking` or `@contact` which are not also tagged with `@bug`, without opening the Cypress UI on Production environnement
 
 Some of predefined scripts in [`package.json`](./package.json) are doing same thing as commands above:
 
@@ -141,7 +141,7 @@ Sorry-Cypress is actually 3 separate applications:
   - set projects configuration like WebHooks, Slack, MS Teams and GitHub integration
   - create and delete entries (projects, runs)
 
-To run tests using Sorry-Cypress instead of Official Cypress Cloud, Currents-Dev Cypress Cloud `cypress-cloud` npm package must be used to integrate Cypress with Sorry-Cypress. It does that by setting the environment variable `CURRENTS_API_URL` to point to our **sorry-cypress-director** app. `cypress-cloud` command passes down to Cypress all the CLI flags, so we just use it instead of `cypress` when working with Sorry-Cypress.
+To run tests using Sorry-Cypress instead of Official Cypress Cloud, Currents-Dev Cypress Cloud `cypress-cloud` npm package must be used to integrate Cypress with Sorry-Cypress. It does that by setting the environment variable `CURRENTS_API_URL` to point to our **sorry-cypress-director** app.
 
 Example of command:
 
@@ -165,13 +165,23 @@ In this repo there are examples for AWS as public accessible Sorry Cypress and f
 
 > :warning: **WARNING** :warning:
 >
-> Hosting Sorry-Cypress on AWS is **NOT FREE**. At the end of section you will find rough estimation of price per month for using the resources used to host Sorry Cypress.
+> Hosting Sorry-Cypress on AWS is **NOT FREE**. :moneybag: :moneybag: :moneybag:
+>
+> Here's a rough estimation of price / month for using the resources used. The actual usage might be higher (or lower) based on actual usage.
+>
+> - Fargate pricing based on calculator 35,55 USD (1 vCPU, 2GB RAM) or 17,78 USD (0.5 vCPU, 1GB RAM)
+> - EC2 Application Load Balancer based on calculator 19,35 USD (0.5 GB / hour, 0.5 connections / second)
+> - S3 + Cloudwatch = varies based on usage
+
 
 Inside this repository there is [sorry-cypress-stack.yml](./.aws/sorry-cypress-stack.yml) AWS Cloud Formation template which can be used to deploy full sorry-cypress kit in just 5 minutes on AWS. Read more on [Sorry-cypress installation instructions for AWS](https://docs.sorry-cypress.dev/cloud-setup/aws).
 
+> :bangbang: IMPORTANT :bangbang:
+>
+> Stack Name - It serves a prefix name for all the entities created by the stack. Keep name of your **unique**, **short** and **with no special characters** as AWS limits service names.
+
 Template Configuration _(slightly changed than one available on `sorry-cypress.dev` page)_:
 
-- StackName _(default: `sorry-cypress-unique`)_ - Defines the stack name, also serves a prefix name for all the entities created by the stack. Please keep it unique, short and no special characters as AWS limits service names.
 - TaskCpu _(default: `512`)_ - The amount of CPU units dedicated to running the services. Sorry-cypress uses AWS Fargate as compute platform, and runs all the services as a single task, i.e. those CPU units are shared among all the services. Read more about at [AWS Documentation](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/task_definition_parameters.html#task_size).
 - TaskMemory _(default: `1024`)_ - The amount of memory units dedicated to running the services. This resource is also shared between the services and defined at task-level. Read more at [AWS Documentation](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/task_definition_parameters.html#task_size).
 - DirectorPort _(default: `8080`)_ - The port number for accessing the director service. You'll need to use it as a destination when configuring cypress agents.
@@ -194,12 +204,6 @@ Where:
 > :bangbang: IMPORTANT :bangbang:
 >
 > If you want to have parallel execution, just run same command **WITH SAME** --ci-build-id flag value in multiple terminals.
-
-Here's a rough estimaton of price / month for using the resources used. The actual usage might be higher (or lower) based on actual usage.
-
-- Fargate pricing based on calculator 35,55 USD (1 vCPU, 2GB RAM) or 17,78 USD (0.5 vCPU, 1GB RAM)
-- EC2 Application Load Balancer based on calculator 19,35 USD (0.5 GB / hour, 0.5 connections / second)
-- S3 + Cloudwatch = varies based on usage
 
 ### Host Sorry-Cypress Locally with Docker
 
@@ -227,7 +231,7 @@ After everything is up and running you will have:
   - username: `sorry-cypress`
   - password: `cypress-sorry`
 
-By default, sorry-cypress-director, will not have any Allowed Keys configured, so it will accept anything for a key, but something must be sent.
+It is configured that by default sorry-cypress-director will have value `secret_key` as Allowed Keys. That value must be sent for `--key` flag, other wise sorry-cypress-director will reject test results.
 
 Example of command how to run your Cypress Tests with your local Sorry-Cypress:
 
@@ -254,6 +258,7 @@ There are 4 GitHub Actions Workflows setup for Foleon Artie repository:
 - [Run All E2E Tests](https://github.com/milos-pujic/cypress-cucumber-e2e-tests/actions/workflows/run-all.yaml)
 - [Run All E2E Tests in parallel](https://github.com/milos-pujic/cypress-cucumber-e2e-tests/actions/workflows/run-all-parallel.yaml)
 - [Run All E2E Tests in parallel with Sorry-Cypress](https://github.com/milos-pujic/cypress-cucumber-e2e-tests/actions/workflows/run-all-parallel-sorry-cypress.yaml)
+- [Sanity Check](https://github.com/milos-pujic/cypress-cucumber-e2e-tests/actions/workflows/sanity-check.yaml)
 
 ### Run All E2E Tests
 
@@ -327,6 +332,19 @@ This workflow is only triggered Manually. Steps to trigger it:
 ![Run All E2E Tests in parallel with Sorry-Cypress](/docs/imgs/Run-All-E2E-Tests-in-parallel-with-Sorry-Cypress.png)
 
 Also, on [Run All E2E Tests in parallel with Sorry-Cypress](https://github.com/milos-pujic/cypress-cucumber-e2e-tests/actions/workflows/run-all-parallel-sorry-cypress.yaml) page, status of all on-going and previously executed 'Run All E2E Tests in parallel with Sorry-Cypress' Workflow runs can be found.
+
+### Sanity Check
+
+This GitHub Action Workflow Executes `@sanity` tagged scenarios of Cucumber E2E Tests on `local` environnement using `electron` browser from `main` or Pull Request source branch.
+
+GitHub Action Workflow configuration file of this workflow is [sanity-check.yaml](.github/workflows/sanity-check.yaml).
+
+This workflow is only triggered automatically on specific events:
+
+- Merge Events on `main` branch
+- Create / Update GitHub Pull Request Events
+
+Also, on [Sanity Check](https://github.com/milos-pujic/cypress-cucumber-e2e-tests/actions/workflows/sanity-check.yaml) page, status of all on-going and previously executed 'Sanity Check' Workflow runs can be found.
 
 ## Execute Cypress Cucumber Tests using Docker locally
 
