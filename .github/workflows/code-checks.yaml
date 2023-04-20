@@ -4,6 +4,13 @@ on:
   push:
     branches:
     - main
+    paths:
+      - 'cypress/**'
+      - '.github/workflows/code-checks.yaml'
+      - '.cypress-cucumber-preprocessorrc.json'
+      - 'cypress.config.js'
+      - 'package-lock.json'
+      - 'package.json'
   pull_request:
     branches:
       - main
@@ -12,6 +19,13 @@ on:
       - reopened
       - synchronize
       - labeled
+    paths:
+      - 'cypress/**'
+      - '.github/workflows/code-checks.yaml'
+      - '.cypress-cucumber-preprocessorrc.json'
+      - 'cypress.config.js'
+      - 'package-lock.json'
+      - 'package.json'
 
 jobs:
   start-rbp-and-run-pass-e2e-tests:
@@ -22,39 +36,39 @@ jobs:
       fail-fast: false
       matrix:
         containers: [1, 2]
-    services:
-        rbp-booking:
-          image: mwinteringham/restfulbookerplatform_booking:1.6.24c7b22
-          ports:
-            - 3000:3000
-        rbp-room:
-          image: mwinteringham/restfulbookerplatform_room:1.6.24c7b22
-          ports:
-            - 3001:3001
-        rbp-branding:
-          image: mwinteringham/restfulbookerplatform_branding:1.6.24c7b22
-          ports:
-            - 3002:3002
-        rbp-assets:
-          image: mwinteringham/restfulbookerplatform_assets:1.6.24c7b22
-          ports:
-            - 3003:3003
-        rbp-auth:
-          image: mwinteringham/restfulbookerplatform_auth:1.6.24c7b22
-          ports:
-            - 3004:3004
-        rbp-report:
-          image: mwinteringham/restfulbookerplatform_report:1.6.24c7b22
-          ports:
-            - 3005:3005
-        rbp-message:
-          image: mwinteringham/restfulbookerplatform_message:1.6.24c7b22
-          ports:
-            - 3006:3006
-        rbp-proxy:
-          image: mwinteringham/restfulbookerplatform_proxy:latest
-          ports:
-            - 80:80
+    # services:
+    #     rbp-booking:
+    #       image: mwinteringham/restfulbookerplatform_booking:1.6.24c7b22
+    #       ports:
+    #         - 3000:3000
+    #     rbp-room:
+    #       image: mwinteringham/restfulbookerplatform_room:1.6.24c7b22
+    #       ports:
+    #         - 3001:3001
+    #     rbp-branding:
+    #       image: mwinteringham/restfulbookerplatform_branding:1.6.24c7b22
+    #       ports:
+    #         - 3002:3002
+    #     rbp-assets:
+    #       image: mwinteringham/restfulbookerplatform_assets:1.6.24c7b22
+    #       ports:
+    #         - 3003:3003
+    #     rbp-auth:
+    #       image: mwinteringham/restfulbookerplatform_auth:1.6.24c7b22
+    #       ports:
+    #         - 3004:3004
+    #     rbp-report:
+    #       image: mwinteringham/restfulbookerplatform_report:1.6.24c7b22
+    #       ports:
+    #         - 3005:3005
+    #     rbp-message:
+    #       image: mwinteringham/restfulbookerplatform_message:1.6.24c7b22
+    #       ports:
+    #         - 3006:3006
+    #     rbp-proxy:
+    #       image: mwinteringham/restfulbookerplatform_proxy:latest
+    #       ports:
+    #         - 80:80
     steps:
       - id: checkout-repository
         name: Checkout Repository
@@ -63,10 +77,9 @@ jobs:
         name: Cypress Run
         uses: cypress-io/github-action@v5
         with:
+          env: TAGS='not @bug'
           browser: electron
         env:
-          ENV: local
-          TAGS: 'not @bug'
           SPLIT: ${{ strategy.job-total }}
           SPLIT_INDEX: ${{ strategy.job-index }}
       - id: upload-screenshots
