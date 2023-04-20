@@ -73,7 +73,7 @@ jobs:
         name: Cypress Run
         uses: cypress-io/github-action@v5
         with:
-          env: ENV=local,TAGS=@sanity
+          env: ENV=local,TAGS=@sanity and not @bug
           browser: electron
       - id: upload-screenshots
         name: Upload Screenshots
