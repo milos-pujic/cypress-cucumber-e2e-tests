@@ -54,14 +54,16 @@ Feature: Invalid Data Validation when Booking a Room
       | email@example@example.com     |
       | .email@example.com            |
       | email..email@example.com      |
-      | あいうえお@example.com        |
       | email@example.com (Joe Smith) |
-      | email@example                 |
       | email@-example.com            |
-      | email@example.web             |
-      | email@111.222.333.44444       |
       | email@example..com            |
       | Abc..123@example.com          |
+    @bug
+    Examples:
+      | あいうえお@example.com  |
+      | email@example.web       |
+      | email@example           |
+      | email@111.222.333.44444 |
 
   Scenario Outline: Visitor must NOT be able to book a room by filling up the phone with invalid length value of <phone_length>, less than 11 and more than 21 characters
     When Visitor 'John' 'Doe' with an email 'john.doe@email.com' tries to book a room '1408' by filling up phone with value length of <phone_length> characters

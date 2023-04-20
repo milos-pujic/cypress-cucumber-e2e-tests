@@ -20,14 +20,19 @@ Feature: Invalid Data Validation on Contact Hotel
       | email@example@example.com     |
       | .email@example.com            |
       | email..email@example.com      |
-      | あいうえお@example.com        |
       | email@example.com (Joe Smith) |
-      | email@example                 |
       | email@-example.com            |
-      | email@example.web             |
-      | email@111.222.333.44444       |
       | email@example..com            |
       | Abc..123@example.com          |
+    @bug
+    Examples:
+      | あいうえお@example.com  |
+      | email@example.web       |
+      | email@example           |
+      | email@111.222.333.44444 |
+
+
+
 
   Scenario Outline: Visitor must NOT be able to contact the property by filling up the phone with invalid length value: <invalid_phone>
     When Visitor 'John Doe' tries to contact property regarding 'Special Accommodation' by filling up phone with invalid value: '<invalid_phone>'
