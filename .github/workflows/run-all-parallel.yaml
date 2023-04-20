@@ -21,6 +21,11 @@ on:
         - chrome
         - firefox
         - edge
+      skip-bugs:
+        description: 'Skip Test with Known Bugs'
+        required: true
+        default: true
+        type: boolean
 
 jobs:
   start-rbp-and-run-all-e2e-tests:
@@ -70,6 +75,17 @@ jobs:
         name: Checkout Repository
         uses: actions/checkout@v3
       - id: cypress-run
+        if: ${{ inputs.skip-bugs }}
+        name: Cypress Run
+        uses: cypress-io/github-action@v5
+        with:
+          env: ENV=local,TAGS=not @bug
+          browser: ${{ inputs.browser }}
+        env:
+          SPLIT: ${{ strategy.job-total }}
+          SPLIT_INDEX: ${{ strategy.job-index }}
+      - id: cypress-run-bugs
+        if: ${{ !inputs.skip-bugs }}
         name: Cypress Run
         uses: cypress-io/github-action@v5
         with:
@@ -117,6 +133,17 @@ jobs:
         name: Checkout Repository
         uses: actions/checkout@v3
       - id: cypress-run
+        if: ${{ inputs.skip-bugs }}
+        name: Cypress Run
+        uses: cypress-io/github-action@v5
+        with:
+          env: ENV=prod,TAGS=not @bug
+          browser: ${{ inputs.browser }}
+        env:
+          SPLIT: ${{ strategy.job-total }}
+          SPLIT_INDEX: ${{ strategy.job-index }}
+      - id: cypress-run-bugs
+        if: ${{ !inputs.skip-bugs }}
         name: Cypress Run
         uses: cypress-io/github-action@v5
         with:
