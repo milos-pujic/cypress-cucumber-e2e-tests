@@ -3,8 +3,8 @@ apiVersion: v1
 kind: Namespace
 metadata:
   labels:
-    kubernetes.io/metadata.name: restful-booking-platform
-  name: restful-booking-platform
+    kubernetes.io/metadata.name: restful-booker-platform
+  name: restful-booker-platform
 
 ---
 apiVersion: v1
@@ -13,7 +13,7 @@ metadata:
   labels:
     app.kubernetes.io/name: rbp-assets
   name: rbp-assets
-  namespace: restful-booking-platform
+  namespace: restful-booker-platform
 spec:
   ports:
     - name: http
@@ -32,7 +32,7 @@ metadata:
   labels:
     app.kubernetes.io/name: rbp-auth
   name: rbp-auth
-  namespace: restful-booking-platform
+  namespace: restful-booker-platform
 spec:
   ports:
     - name: http
@@ -51,7 +51,7 @@ metadata:
   labels:
     app.kubernetes.io/name: rbp-booking
   name: rbp-booking
-  namespace: restful-booking-platform
+  namespace: restful-booker-platform
 spec:
   ports:
     - name: http
@@ -70,7 +70,7 @@ metadata:
   labels:
     app.kubernetes.io/name: rbp-branding
   name: rbp-branding
-  namespace: restful-booking-platform
+  namespace: restful-booker-platform
 spec:
   ports:
     - name: http
@@ -89,7 +89,7 @@ metadata:
   labels:
     app.kubernetes.io/name: rbp-message
   name: rbp-message
-  namespace: restful-booking-platform
+  namespace: restful-booker-platform
 spec:
   ports:
     - name: http
@@ -108,7 +108,7 @@ metadata:
   labels:
     app.kubernetes.io/name: rbp-proxy
   name: rbp-proxy
-  namespace: restful-booking-platform
+  namespace: restful-booker-platform
 spec:
   type: NodePort
   ports:
@@ -129,7 +129,7 @@ metadata:
   labels:
     app.kubernetes.io/name: rbp-report
   name: rbp-report
-  namespace: restful-booking-platform
+  namespace: restful-booker-platform
 spec:
   ports:
     - name: http
@@ -148,7 +148,7 @@ metadata:
   labels:
     app.kubernetes.io/name: rbp-room
   name: rbp-room
-  namespace: restful-booking-platform
+  namespace: restful-booker-platform
 spec:
   ports:
     - name: http
@@ -167,7 +167,7 @@ metadata:
   labels:
     app.kubernetes.io/name: rbp-assets
   name: rbp-assets
-  namespace: restful-booking-platform
+  namespace: restful-booker-platform
 spec:
   replicas: 1
   selector:
@@ -177,7 +177,7 @@ spec:
   template:
     metadata:
       labels:
-        network.kubernetes.io/restful-booking-platform: "true"
+        network.kubernetes.io/restful-booker-platform: "true"
         app.kubernetes.io/name: rbp-assets
     spec:
       containers:
@@ -203,17 +203,17 @@ status: {}
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
-  name: restful-booking-platform
-  namespace: restful-booking-platform
+  name: restful-booker-platform
+  namespace: restful-booker-platform
 spec:
   ingress:
     - from:
         - podSelector:
             matchLabels:
-              network.kubernetes.io/restful-booking-platform: "true"
+              network.kubernetes.io/restful-booker-platform: "true"
   podSelector:
     matchLabels:
-      network.kubernetes.io/restful-booking-platform: "true"
+      network.kubernetes.io/restful-booker-platform: "true"
 
 ---
 apiVersion: apps/v1
@@ -222,7 +222,7 @@ metadata:
   labels:
     app.kubernetes.io/name: rbp-auth
   name: rbp-auth
-  namespace: restful-booking-platform
+  namespace: restful-booker-platform
 spec:
   replicas: 1
   selector:
@@ -232,7 +232,7 @@ spec:
   template:
     metadata:
       labels:
-        network.kubernetes.io/restful-booking-platform: "true"
+        network.kubernetes.io/restful-booker-platform: "true"
         app.kubernetes.io/name: rbp-auth
     spec:
       containers:
@@ -261,7 +261,7 @@ metadata:
   labels:
     app.kubernetes.io/name: rbp-booking
   name: rbp-booking
-  namespace: restful-booking-platform
+  namespace: restful-booker-platform
 spec:
   replicas: 1
   selector:
@@ -271,7 +271,7 @@ spec:
   template:
     metadata:
       labels:
-        network.kubernetes.io/restful-booking-platform: "true"
+        network.kubernetes.io/restful-booker-platform: "true"
         app.kubernetes.io/name: rbp-booking
     spec:
       containers:
@@ -300,7 +300,7 @@ metadata:
   labels:
     app.kubernetes.io/name: rbp-branding
   name: rbp-branding
-  namespace: restful-booking-platform
+  namespace: restful-booker-platform
 spec:
   replicas: 1
   selector:
@@ -310,7 +310,7 @@ spec:
   template:
     metadata:
       labels:
-        network.kubernetes.io/restful-booking-platform: "true"
+        network.kubernetes.io/restful-booker-platform: "true"
         app.kubernetes.io/name: rbp-branding
     spec:
       containers:
@@ -339,7 +339,7 @@ metadata:
   labels:
     app.kubernetes.io/name: rbp-message
   name: rbp-message
-  namespace: restful-booking-platform
+  namespace: restful-booker-platform
 spec:
   replicas: 1
   selector:
@@ -349,7 +349,7 @@ spec:
   template:
     metadata:
       labels:
-        network.kubernetes.io/restful-booking-platform: "true"
+        network.kubernetes.io/restful-booker-platform: "true"
         app.kubernetes.io/name: rbp-message
     spec:
       containers:
@@ -378,7 +378,7 @@ metadata:
   labels:
     app.kubernetes.io/name: rbp-proxy
   name: rbp-proxy
-  namespace: restful-booking-platform
+  namespace: restful-booker-platform
 spec:
   replicas: 1
   selector:
@@ -388,7 +388,7 @@ spec:
   template:
     metadata:
       labels:
-        network.kubernetes.io/restful-booking-platform: "true"
+        network.kubernetes.io/restful-booker-platform: "true"
         app.kubernetes.io/name: rbp-proxy
     spec:
       containers:
@@ -408,7 +408,7 @@ metadata:
   labels:
     app.kubernetes.io/name: rbp-report
   name: rbp-report
-  namespace: restful-booking-platform
+  namespace: restful-booker-platform
 spec:
   replicas: 1
   selector:
@@ -418,7 +418,7 @@ spec:
   template:
     metadata:
       labels:
-        network.kubernetes.io/restful-booking-platform: "true"
+        network.kubernetes.io/restful-booker-platform: "true"
         app.kubernetes.io/name: rbp-report
     spec:
       containers:
@@ -447,7 +447,7 @@ metadata:
   labels:
     app.kubernetes.io/name: rbp-room
   name: rbp-room
-  namespace: restful-booking-platform
+  namespace: restful-booker-platform
 spec:
   replicas: 1
   selector:
@@ -457,7 +457,7 @@ spec:
   template:
     metadata:
       labels:
-        network.kubernetes.io/restful-booking-platform: "true"
+        network.kubernetes.io/restful-booker-platform: "true"
         app.kubernetes.io/name: rbp-room
     spec:
       containers:
