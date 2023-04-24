@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app.kubernetes.io/name: mongo
+  name: mongo
+  namespace: sorry-cypress
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: mongo
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        network.kubernetes.io/sorry-cypress: "true"
+        app.kubernetes.io/name: mongo
+    spec:
+      containers:
+        - env:
+            - name: MONGO_INITDB_ROOT_PASSWORD
+              value: cypress-sorry
+            - name: MONGO_INITDB_ROOT_USERNAME
+              value: sorry-cypress
+          name: mongo
+          image: mongo:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 27017
+          resources: {}
+          volumeMounts:
+            - mountPath: /data/db
+              name: mongo-claim
+      restartPolicy: Always
+      volumes:
+        - name: mongo-claim
+          persistentVolumeClaim:
+            claimName: mongo-claim
+status: {}

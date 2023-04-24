@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app.kubernetes.io/name: rbp-auth
+  name: rbp-auth
+  namespace: restful-booking-platform
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: rbp-auth
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        network.kubernetes.io/restful-booking-platform: "true"
+        app.kubernetes.io/name: rbp-auth
+    spec:
+      containers:
+        - name: rbp-auth
+          image: mwinteringham/restfulbookerplatform_auth:1.6.24c7b22
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 3004
+          resources: {}
+          readinessProbe:
+            httpGet:
+              port: 3004
+              path: /auth/actuator/health
+            initialDelaySeconds: 1
+            periodSeconds: 5
+            timeoutSeconds: 4
+            successThreshold: 2
+            failureThreshold: 3
+      restartPolicy: Always
+status: {}

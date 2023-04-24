@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app.kubernetes.io/name: storage
+  name: storage
+  namespace: sorry-cypress
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: storage
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        network.kubernetes.io/sorry-cypress: "true"
+        app.kubernetes.io/name: storage
+    spec:
+      containers:
+        - args:
+            - minio
+            - server
+            - --console-address
+            - :9090
+            - /data
+          env:
+            - name: MINIO_ROOT_PASSWORD
+              value: cypress-sorry
+            - name: MINIO_ROOT_USER
+              value: sorry-cypress
+          name: storage
+          image: minio/minio
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 9000
+            - containerPort: 9090
+          resources: {}
+          volumeMounts:
+            - mountPath: /data
+              name: storage-claim
+      restartPolicy: Always
+      volumes:
+        - name: storage-claim
+          persistentVolumeClaim:
+            claimName: storage-claim
+status: {}

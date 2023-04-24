@@ -15,6 +15,7 @@
     "cy:run:prod": "npx cypress run --env ENV=prod",
     "cy:run:local": "npx cypress run --env ENV=local",
     "cy:cloud:run": "cypress-cloud run --record --key secret_key --parallel --ci-build-id `date +%Y-%m-%d`",
+    "cy:cloud:run:kube": "CURRENTS_API_URL='http://kube.local:1234' cypress-cloud run --record --key secret_key --parallel --ci-build-id `date +%Y-%m-%d`",
     "cy:cloud:run:gha": "CURRENTS_API_URL=${CYPRESS_DIRECTOR_URL} cypress-cloud run --record --key ${CYPRESS_RECORD_KEY} --parallel --ci-build-id ${CYPRESS_CI_BUILD_ID}"
   },
   "keywords": [

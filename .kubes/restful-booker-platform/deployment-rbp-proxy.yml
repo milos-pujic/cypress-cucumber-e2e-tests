@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app.kubernetes.io/name: rbp-proxy
+  name: rbp-proxy
+  namespace: restful-booking-platform
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: rbp-proxy
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        network.kubernetes.io/restful-booking-platform: "true"
+        app.kubernetes.io/name: rbp-proxy
+    spec:
+      containers:
+        - name: rbp-proxy
+          image: mwinteringham/restfulbookerplatform_proxy:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 80
+          resources: {}
+      restartPolicy: Always
+status: {}

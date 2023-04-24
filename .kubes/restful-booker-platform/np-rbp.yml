@@ -1,0 +1,14 @@
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: restful-booking-platform
+  namespace: restful-booking-platform
+spec:
+  ingress:
+    - from:
+        - podSelector:
+            matchLabels:
+              network.kubernetes.io/restful-booking-platform: "true"
+  podSelector:
+    matchLabels:
+      network.kubernetes.io/restful-booking-platform: "true"

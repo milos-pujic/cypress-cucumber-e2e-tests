@@ -281,7 +281,7 @@ spec:
             - name: ALLOWED_KEYS
               value: secret_key
             - name: DASHBOARD_URL
-              value: http://docker.local:8080
+              value: http://kube.local:8080
             - name: EXECUTION_DRIVER
               value: ../execution/mongo/driver
             - name: GITLAB_JOB_RETRIES
@@ -299,7 +299,7 @@ spec:
             - name: MINIO_SECRET_KEY
               value: cypress-sorry
             - name: MINIO_URL
-              value: http://docker.local
+              value: http://kube.local
             - name: MINIO_USESSL
               value: "false"
             - name: MONGODB_DATABASE
