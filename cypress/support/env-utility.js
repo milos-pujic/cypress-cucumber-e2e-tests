@@ -1,7 +1,8 @@
 const localUrl = 'http://localhost';
+const localKubeUrl = 'http://kube.local';
 const prodUrl = 'https://automationintesting.online';
 const dockerUrl = 'http://rbp-proxy';
-const kubeUrl = 'http://kube.local';
+const kubeUrl = 'http://rbp-proxy.restful-booker-platform';
 
 export function getUrl() {
   let environment = Cypress.env('ENV');
@@ -10,6 +11,7 @@ export function getUrl() {
   else if (environment == 'local') return localUrl;
   else if (environment == 'docker') return dockerUrl;
   else if (environment == 'kube') return kubeUrl;
+  else if (environment == 'localKube') return localKubeUrl;
 }
 
 export function getApiUrl() {
@@ -19,4 +21,5 @@ export function getApiUrl() {
   else if (environment == 'local') return localUrl;
   else if (environment == 'docker') return dockerUrl;
   else if (environment == 'kube') return kubeUrl;
+  else if (environment == 'localKube') return localKubeUrl;
 }

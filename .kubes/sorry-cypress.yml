@@ -236,7 +236,7 @@ spec:
             - name: GRAPHQL_CLIENT_CREDENTIALS
               value: ""
             - name: GRAPHQL_SCHEMA_URL
-              value: http://docker.local:4000
+              value: http://kube.local:4000
             - name: PORT
               value: "8080"
           name: dashboard
@@ -293,7 +293,7 @@ spec:
             - name: MINIO_BUCKET
               value: sorry-cypress
             - name: MINIO_ENDPOINT
-              value: storage
+              value: storage.sorry-cypress
             - name: MINIO_PORT
               value: "9000"
             - name: MINIO_SECRET_KEY
