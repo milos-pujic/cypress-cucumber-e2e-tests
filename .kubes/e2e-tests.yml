@@ -15,12 +15,12 @@ metadata:
   name: scheduled-e2e-chrome
   namespace: e2e-tests
 spec:
-  schedule: '0 14 * * *'
+  timeZone: Europe/Belgrade
+  schedule: '0 9 * * *'
   jobTemplate:
     spec:
       parallelism: 2
       activeDeadlineSeconds: 1800
-      ttlSecondsAfterFinished: 86400
       template:
         metadata:
           name: scheduled-e2e-chrome
@@ -48,12 +48,12 @@ metadata:
   name: scheduled-e2e-firefox
   namespace: e2e-tests
 spec:
-  schedule: '10 14 * * *'
+  timeZone: Europe/Belgrade
+  schedule: '10 9 * * *'
   jobTemplate:
     spec:
       parallelism: 2
       activeDeadlineSeconds: 1800
-      ttlSecondsAfterFinished: 86400
       template:
         metadata:
           name: scheduled-e2e-firefox
@@ -81,12 +81,12 @@ metadata:
   name: scheduled-e2e-electron
   namespace: e2e-tests
 spec:
-  schedule: '20 14 * * *'
+  timeZone: Europe/Belgrade
+  schedule: '20 9 * * *'
   jobTemplate:
     spec:
       parallelism: 2
       activeDeadlineSeconds: 1800
-      ttlSecondsAfterFinished: 86400
       template:
         metadata:
           name: scheduled-e2e-electron
@@ -114,12 +114,12 @@ metadata:
   name: scheduled-e2e-edge
   namespace: e2e-tests
 spec:
-  schedule: '30 14 * * *'
+  timeZone: Europe/Belgrade
+  schedule: '30 9 * * *'
   jobTemplate:
     spec:
       parallelism: 2
       activeDeadlineSeconds: 1800
-      ttlSecondsAfterFinished: 86400
       template:
         metadata:
           name: scheduled-e2e-edge
