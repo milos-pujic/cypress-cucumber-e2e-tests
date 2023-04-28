@@ -26,6 +26,7 @@ Feature: Invalid Data Validation on Contact Hotel
       | Abc..123@example.com          |
     @bug
     Examples:
+      | invalid_email           |
       | あいうえお@example.com  |
       | email@example.web       |
       | email@example           |

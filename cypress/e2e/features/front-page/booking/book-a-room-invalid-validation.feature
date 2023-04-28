@@ -60,6 +60,7 @@ Feature: Invalid Data Validation when Booking a Room
       | Abc..123@example.com          |
     @bug
     Examples:
+      | invalid_email           |
       | あいうえお@example.com  |
       | email@example.web       |
       | email@example           |
