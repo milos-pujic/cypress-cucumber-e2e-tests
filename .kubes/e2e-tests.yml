@@ -28,14 +28,27 @@ spec:
             jobgroup: e2e-chrome
         spec:
           containers:
-            - command:
-                - /bin/sh
-                - -c
-                - CURRENTS_API_URL='http://director.sorry-cypress:1234' npx cypress-cloud run --env ENV=kube --browser chrome --record --key secret_key --parallel --ci-build-id chrome_`date +%Y-%m-%d_%R`
-              name: e2e-chrome
+            - name: e2e-chrome
               image: e2e:latest
               imagePullPolicy: Never
               resources: {}
+              command:
+                - /bin/sh
+                - -c
+                - |
+                  export CI_BUILD_ID=$(echo $(cat /etc/podinfo/labels | grep -oP 'job-name="\K[^"]+'))
+                  CURRENTS_API_URL='http://director.sorry-cypress:1234' npx cypress-cloud run --env ENV=kube --browser chrome --record --key secret_key --parallel --ci-build-id $CI_BUILD_ID
+              volumeMounts:
+                - name: podinfo
+                  mountPath: /etc/podinfo
+                  readOnly: true
+          volumes:
+            - name: podinfo
+              downwardAPI:
+                items:
+                  - path: "labels"
+                    fieldRef:
+                      fieldPath: metadata.labels
           restartPolicy: Never
 status: {}
 
@@ -61,14 +74,27 @@ spec:
             jobgroup: e2e-firefox
         spec:
           containers:
-            - command:
-                - /bin/sh
-                - -c
-                - CURRENTS_API_URL='http://director.sorry-cypress:1234' npx cypress-cloud run --env ENV=kube --browser firefox --record --key secret_key --parallel --ci-build-id firefox_`date +%Y-%m-%d_%R`
-              name: e2e-firefox
+            - name: e2e-firefox
               image: e2e:latest
               imagePullPolicy: Never
               resources: {}
+              command:
+                - /bin/sh
+                - -c
+                - |
+                  export CI_BUILD_ID=$(echo $(cat /etc/podinfo/labels | grep -oP 'job-name="\K[^"]+'))
+                  CURRENTS_API_URL='http://director.sorry-cypress:1234' npx cypress-cloud run --env ENV=kube --browser firefox --record --key secret_key --parallel --ci-build-id $CI_BUILD_ID
+              volumeMounts:
+                - name: podinfo
+                  mountPath: /etc/podinfo
+                  readOnly: true
+          volumes:
+            - name: podinfo
+              downwardAPI:
+                items:
+                  - path: "labels"
+                    fieldRef:
+                      fieldPath: metadata.labels
           restartPolicy: Never
 status: {}
 
@@ -94,14 +120,27 @@ spec:
             jobgroup: e2e-electron
         spec:
           containers:
-            - command:
-                - /bin/sh
-                - -c
-                - CURRENTS_API_URL='http://director.sorry-cypress:1234' npx cypress-cloud run --env ENV=kube --browser electron --record --key secret_key --parallel --ci-build-id electron_`date +%Y-%m-%d_%R`
-              name: e2e-electron
+            - name: e2e-electron
               image: e2e:latest
               imagePullPolicy: Never
               resources: {}
+              command:
+                - /bin/sh
+                - -c
+                - |
+                  export CI_BUILD_ID=$(echo $(cat /etc/podinfo/labels | grep -oP 'job-name="\K[^"]+'))
+                  CURRENTS_API_URL='http://director.sorry-cypress:1234' npx cypress-cloud run --env ENV=kube --browser electron --record --key secret_key --parallel --ci-build-id $CI_BUILD_ID
+              volumeMounts:
+                - name: podinfo
+                  mountPath: /etc/podinfo
+                  readOnly: true
+          volumes:
+            - name: podinfo
+              downwardAPI:
+                items:
+                  - path: "labels"
+                    fieldRef:
+                      fieldPath: metadata.labels
           restartPolicy: Never
 status: {}
 
@@ -127,13 +166,26 @@ spec:
             jobgroup: e2e-edge
         spec:
           containers:
-            - command:
-                - /bin/sh
-                - -c
-                - CURRENTS_API_URL='http://director.sorry-cypress:1234' npx cypress-cloud run --env ENV=kube --browser edge --record --key secret_key --parallel --ci-build-id edge_`date +%Y-%m-%d_%R`
-              name: e2e-edge
+            - name: e2e-edge
               image: e2e:latest
               imagePullPolicy: Never
               resources: {}
+              command:
+                - /bin/sh
+                - -c
+                - |
+                  export CI_BUILD_ID=$(echo $(cat /etc/podinfo/labels | grep -oP 'job-name="\K[^"]+'))
+                  CURRENTS_API_URL='http://director.sorry-cypress:1234' npx cypress-cloud run --env ENV=kube --browser edge --record --key secret_key --parallel --ci-build-id $CI_BUILD_ID
+              volumeMounts:
+                - name: podinfo
+                  mountPath: /etc/podinfo
+                  readOnly: true
+          volumes:
+            - name: podinfo
+              downwardAPI:
+                items:
+                  - path: "labels"
+                    fieldRef:
+                      fieldPath: metadata.labels
           restartPolicy: Never
 status: {}
