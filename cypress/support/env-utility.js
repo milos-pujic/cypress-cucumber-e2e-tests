@@ -1,5 +1,5 @@
 const localUrl = 'http://localhost';
-const localKubeUrl = 'http://kube.local';
+const kubeLocalUrl = 'http://kube.local';
 const prodUrl = 'https://automationintesting.online';
 const dockerUrl = 'http://rbp-proxy';
 const kubeUrl = 'http://rbp-proxy.restful-booker-platform';
@@ -11,7 +11,7 @@ export function getUrl() {
   else if (environment == 'local') return localUrl;
   else if (environment == 'docker') return dockerUrl;
   else if (environment == 'kube') return kubeUrl;
-  else if (environment == 'localKube') return localKubeUrl;
+  else if (environment == 'kubeLocal') return kubeLocalUrl;
 }
 
 export function getApiUrl() {
@@ -21,5 +21,5 @@ export function getApiUrl() {
   else if (environment == 'local') return localUrl;
   else if (environment == 'docker') return dockerUrl;
   else if (environment == 'kube') return kubeUrl;
-  else if (environment == 'localKube') return localKubeUrl;
+  else if (environment == 'kubeLocal') return kubeLocalUrl;
 }
