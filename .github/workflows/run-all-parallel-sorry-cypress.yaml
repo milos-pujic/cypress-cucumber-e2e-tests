@@ -129,11 +129,11 @@ jobs:
       - id: execute-tests
         if: ${{ inputs.skip-bugs }}
         name: Execute Cypress Tests
-        run: npm run cy:cloud:run:gha -- --env ENV=${{ inputs.environment }},TAGS='not @bug' --browser ${{ inputs.browser }}
+        run: CURRENTS_API_URL=${CYPRESS_DIRECTOR_URL} npx cypress-cloud run --record --key ${CYPRESS_RECORD_KEY} --parallel --ci-build-id ${CYPRESS_CI_BUILD_ID} --env ENV=${{ inputs.environment }},TAGS='not @bug' --browser ${{ inputs.browser }}
       - id: execute-tests-bugs
         if: ${{ !inputs.skip-bugs }}
         name: Execute Cypress Tests (incl. tests with known bugs)
-        run: npm run cy:cloud:run:gha -- --env ENV=${{ inputs.environment }} --browser ${{ inputs.browser }}
+        run: CURRENTS_API_URL=${CYPRESS_DIRECTOR_URL} npx cypress-cloud run --record --key ${CYPRESS_RECORD_KEY} --parallel --ci-build-id ${CYPRESS_CI_BUILD_ID} --env ENV=${{ inputs.environment }} --browser ${{ inputs.browser }}
 
   run-all-cypress-tests:
     if: ${{ inputs.environment == 'prod' }}
@@ -170,8 +170,8 @@ jobs:
       - id: execute-tests
         if: ${{ inputs.skip-bugs }}
         name: Execute Cypress Tests
-        run: npm run cy:cloud:run:gha -- --env ENV=${{ inputs.environment }},TAGS='not @bug' --browser ${{ inputs.browser }}
+        run: CURRENTS_API_URL=${CYPRESS_DIRECTOR_URL} npx cypress-cloud run --record --key ${CYPRESS_RECORD_KEY} --parallel --ci-build-id ${CYPRESS_CI_BUILD_ID} --env ENV=${{ inputs.environment }},TAGS='not @bug' --browser ${{ inputs.browser }}
       - id: execute-tests-bugs
         if: ${{ !inputs.skip-bugs }}
         name: Execute Cypress Tests (incl. tests with known bugs)
-        run: npm run cy:cloud:run:gha -- --env ENV=${{ inputs.environment }} --browser ${{ inputs.browser }}
+        run: CURRENTS_API_URL=${CYPRESS_DIRECTOR_URL} npx cypress-cloud run --record --key ${CYPRESS_RECORD_KEY} --parallel --ci-build-id ${CYPRESS_CI_BUILD_ID} --env ENV=${{ inputs.environment }} --browser ${{ inputs.browser }}
