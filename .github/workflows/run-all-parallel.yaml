@@ -74,6 +74,10 @@ jobs:
       - id: checkout-repository
         name: Checkout Repository
         uses: actions/checkout@v3
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 20
       - id: cypress-run
         if: ${{ inputs.skip-bugs }}
         name: Cypress Run
@@ -132,6 +136,10 @@ jobs:
       - id: checkout-repository
         name: Checkout Repository
         uses: actions/checkout@v3
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 20
       - id: cypress-run
         if: ${{ inputs.skip-bugs }}
         name: Cypress Run

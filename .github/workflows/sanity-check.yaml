@@ -69,6 +69,10 @@ jobs:
       - id: checkout-repository
         name: Checkout Repository
         uses: actions/checkout@v3
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 20
       - id: cypress-run
         name: Cypress Run
         uses: cypress-io/github-action@v5
