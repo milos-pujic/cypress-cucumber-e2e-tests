@@ -40,7 +40,7 @@ Open the terminal inside `<local_path>\cypress-cucumber-e2e-tests` and use the f
 - Execute all test cases without opening the Cypress UI against default environnement: ```npx cypress run```
 
 - Environnement variables:
-  - `ENV`, which can have value `prod` / `local` / `docker`, depending on which environnement you would like to execute your tests (if not defined, `prod` will be used by default)
+  - `ENV`, which can have value `prod` / `local` / `docker` / `kube` / `kubeLocal` , depending on which environnement you would like to execute your tests (if not defined, `prod` will be used by default)
   - `TAGS`, which can be any of available tags set in Cucumber features. If not set all scenarios will be executed. Tag expression is an infix boolean expression, some examples:
     - `@sanity` - Scenarios tagged with `@sanity` will be filtered
     - `@management and not @room-management` - Scenarios tagged with `@management` that are not also tagged with `@room-management` will be filtered
@@ -60,9 +60,9 @@ Some of predefined scripts in [`package.json`](./package.json) are doing same th
 - `npm run cy:open:local` or `npm run cy:open:prod` - Open Cypress UI to execute tests against Local or Production environnement
 - `npm run cy:run:local` or `npm run cy:run:prod` - Execute All tests without opening the Cypress UI against Local or Production environnement
 
-## Local Environment
+## Local Docker Environment with Docker for Desktop
 
-Before you proceed, you should install Docker Desktop depending on your OS and start it:
+Before you proceed, you should install Docker for Desktop depending on your OS and start it:
 
 - [Docker Desktop for Linux](https://docs.docker.com/desktop/install/linux-install/)
 - [Docker Desktop for Windows](https://docs.docker.com/desktop/install/windows-install/)
@@ -75,6 +75,18 @@ After Docker has been installed on your machine, open the terminal inside `<loca
 That will start Restful Booker Platform locally.
 
 After everything is up and running you will have Restful Booker Platform available at `http://localhost`.
+
+## Local Kubernetes Environment with minikube
+
+Before you proceed, you should install and configure minikube using [this guide](./docs/minikube-guide.md).
+
+After minikube has been properly installed and started on your machine, open the terminal inside `<local_path>\cypress-cucumber-e2e-tests` and use the following command:
+
+    kubectl apply -f .kubes/restful-booker-platform.yml 
+``
+That will start Restful Booker Platform locally.
+
+After everything is up and running you will have Restful Booker Platform available at `http://kube.local`.
 
 ## Gherkin standards and rules
 
