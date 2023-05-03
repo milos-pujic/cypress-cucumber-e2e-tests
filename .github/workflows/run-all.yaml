@@ -81,6 +81,7 @@ jobs:
         with:
           env: ENV=local,TAGS=not @bug
           browser: ${{ inputs.browser }}
+          command-prefix: '--'
       - id: cypress-run-bugs
         if: ${{ !inputs.skip-bugs }}
         name: Cypress Run (incl. tests with known bugs)
@@ -88,6 +89,7 @@ jobs:
         with:
           env: ENV=local
           browser: ${{ inputs.browser }}
+          command-prefix: '--'
       - id: upload-screenshots
         name: Upload Screenshots
         uses: actions/upload-artifact@v3
@@ -133,6 +135,7 @@ jobs:
         with:
           env: ENV=prod,TAGS=not @bug
           browser: ${{ inputs.browser }}
+          command-prefix: '--'
       - id: cypress-run-bugs
         if: ${{ !inputs.skip-bugs }}
         name: Cypress Run (incl. tests with known bugs)
@@ -140,6 +143,7 @@ jobs:
         with:
           env: ENV=prod
           browser: ${{ inputs.browser }}
+          command-prefix: '--'
       - id: upload-screenshots
         name: Upload Screenshots
         uses: actions/upload-artifact@v3

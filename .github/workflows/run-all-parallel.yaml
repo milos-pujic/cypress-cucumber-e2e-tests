@@ -85,6 +85,7 @@ jobs:
         with:
           env: ENV=local,TAGS=not @bug
           browser: ${{ inputs.browser }}
+          command-prefix: '--'
         env:
           SPLIT: ${{ strategy.job-total }}
           SPLIT_INDEX: ${{ strategy.job-index }}
@@ -95,6 +96,7 @@ jobs:
         with:
           env: ENV=local
           browser: ${{ inputs.browser }}
+          command-prefix: '--'
         env:
           SPLIT: ${{ strategy.job-total }}
           SPLIT_INDEX: ${{ strategy.job-index }}
@@ -147,6 +149,7 @@ jobs:
         with:
           env: ENV=prod,TAGS=not @bug
           browser: ${{ inputs.browser }}
+          command-prefix: '--'
         env:
           SPLIT: ${{ strategy.job-total }}
           SPLIT_INDEX: ${{ strategy.job-index }}
@@ -157,6 +160,7 @@ jobs:
         with:
           env: ENV=prod
           browser: ${{ inputs.browser }}
+          command-prefix: '--'
         env:
           SPLIT: ${{ strategy.job-total }}
           SPLIT_INDEX: ${{ strategy.job-index }}

@@ -79,6 +79,7 @@ jobs:
         with:
           env: ENV=local,TAGS=@sanity and not @bug
           browser: electron
+          command-prefix: '--'
       - id: upload-screenshots
         name: Upload Screenshots
         uses: actions/upload-artifact@v3
