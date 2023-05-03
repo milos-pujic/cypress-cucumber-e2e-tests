@@ -25,13 +25,15 @@ For Windows:
 
 1. Open the elevated (as Admin) PowerShell window, type the following command and hit Enter to remove the default networks of Docker.
 
-     `Get-HNSNetwork | Remove-HNSNetwork`
+        Get-HNSNetwork | Remove-HNSNetwork
+
 2. Run the following command to clear the program date of Docker from Windows.
 
-     `Remove-Item "C:\ProgramData\Docker" -Recurse`
+        Remove-Item "C:\ProgramData\Docker" -Recurse
+
 3. Run the following command to reboot your system to execute the uninstallation and cleanup.
 
-     `Restart-Computer -Force`
+        Restart-Computer -Force
 
 For MacOS:
 
@@ -78,67 +80,66 @@ This guide will cover installing:
 1. Open PowerShell with administrator privileges
 2. Install Chocolatey by running the following command:
 
-    `Set-ExecutionPolicy Bypass -Scope Process -Force; iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))`
+        Set-ExecutionPolicy Bypass -Scope Process -Force; iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
 
 3. Install Hyper-V by running the following command:
 
-    `choco install hyper-v -y`
+        choco install hyper-v -y
 
 4. Install Minikube by running the following command:
 
-    `choco install minikube -y`
+        choco install minikube -y
 
 5. Verify the installation by running the following command:
 
-    `minikube version`
+        minikube version
 
 6. Install Docker CLI by running the following command:
 
-    `choco install docker-cli -y`
+        choco install docker-cli -y
   
 7. Install Docker Buildx by running the following command:
 
-    `choco install docker-buildx -y`
+        choco install docker-buildx -y
 
 8. Verify the installation by running the following command:
 
-    `docker version`
+        docker version
 
 ### MacOS
 
 1. Open Terminal
 2. Install Homebrew by running the following command:
 
-    `/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"`
+        /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
 3. Install HyperKit by running the following command:
 
-    `brew install hyperkit`
+        brew install hyperkit
 
 4. Install Minikube by running the following command:
 
-    `brew install minikube`
+        brew install minikube
 
 5. Verify the installation by running the following command:
 
-    `minikube version`
+        minikube version
 
 6. Install Docker CLI by running the following command:
 
-    `brew install docker`
+        brew install docker
 
 7. Install Docker Buildx by running the following command:
 
-    `brew install docker-buildx`
+        brew install docker-buildx
 
     - docker-buildx is a Docker plugin. For Docker to find this plugin, symlink it:
 
-        `mkdir -p ~/.docker/cli-plugins`
-
-        `ln -sfn $HOMEBREW_PREFIX/opt/docker-buildx/bin/docker-buildx ~/.docker/cli-plugins/docker-buildx`
+          mkdir -p ~/.docker/cli-plugins
+          ln -sfn $HOMEBREW_PREFIX/opt/docker-buildx/bin/docker-buildx ~/.docker/cli-plugins/docker-buildx
 
 8. Verify the installation by running the following command:
 
-    `docker version`
+        docker version
 
 ## Start minikube
