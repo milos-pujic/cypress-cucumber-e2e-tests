@@ -17,4 +17,4 @@ ENV CI=1
 RUN npm ci
 
 # check if the binary was installed successfully
-RUN $(npm bin)/cypress verify
+RUN npx cypress verify
