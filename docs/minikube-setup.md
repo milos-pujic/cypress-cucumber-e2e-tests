@@ -98,11 +98,7 @@ This guide will cover installing:
 
         choco install docker-cli -y
   
-7. Install Docker Buildx by running the following command:
-
-        choco install docker-buildx -y
-
-8. Verify the installation by running the following command:
+7. Verify the installation by running the following command:
 
         docker version
 
@@ -143,3 +139,107 @@ This guide will cover installing:
         docker version
 
 ## Start minikube
+
+To start minikube, it is important that on first initial start configuration is passed with configuration flags.
+
+Recommendation is to give minikube half of machines resources, if you have 16GB or RAM, give minikube 8GB of RAM, if you have 8 core CPU, give minikube 4 cores.
+
+To be able to use ports like 80, 8080, 1234, 9090, 9000 and 4000 which are used Sorry-Cypress and Restful Booker Platform it is needed to extend NodePort range from default range 30000-32767 to 1-65535.
+
+Initial start of minikube:
+
+On Windows:
+
+1. Open PowerShell with administrator privileges
+2. Start minikube by running the following command:
+
+        minikube start --memory 8192 --cpus 4 --extra-config=apiserver.service-node-port-range=1-65535
+
+      - sometime error can occurs during initial start, in that case stop minikube, purge it and start again with same command:
+
+            minikube stop
+            minikube delete --all --purge
+            minikube start --memory 8192 --cpus 4 --extra-config=apiserver.service-node-port-range=1-65535
+
+On MacOs:
+
+1. Open Terminal
+2. Start minikube by running the following command (you will be asked for sudo rights):
+
+        minikube start --memory 8192 --cpus 4 --extra-config=apiserver.service-node-port-range=1-65535
+
+      - sometime error can occurs during initial start, in that case stop minikube, purge it and start again with same command:
+
+            minikube stop
+            minikube delete --all --purge
+            minikube start --memory 8192 --cpus 4 --extra-config=apiserver.service-node-port-range=1-65535
+
+After minikube is initially started like this, every next start can be just with the command:
+
+    minikube start
+
+When you finish testing / using minikube for the day, do not forget to stop it to conserve machine resources, with command:
+
+    minikube stop
+
+Next time when you start it it will be in same state as when you stopped it.
+
+Minikube configuration can always be checked in `~/.minikube/machines/minikube/config.json` file.
+
+## Uninstall minikube
+
+To uninstall everything use following commands:
+
+On Windows:
+
+1. Open PowerShell with administrator privileges
+2. Stop minikube by running the following command:
+
+        minikube stop
+
+3. Delete and purge minikube by running the following command:
+
+        minikube delete --all --purge
+
+4. Uninstall Hyper-V by running the following command:
+
+        choco uninstall hyper-v -y --remove-dependencies
+
+5. Uninstall Docker CLI by running the following command:
+
+        choco uninstall docker-cli -y --remove-dependencies
+
+6. Uninstall Minikube by running the following command:
+
+        choco uninstall minikube -y --remove-dependencies
+
+On MacOS:
+
+1. Open Terminal
+2. Stop minikube by running the following command:
+
+        minikube stop
+
+3. Delete and purge minikube by running the following command:
+
+        minikube delete --all --purge
+
+4. Uninstall Docker Buildx by running the following command:
+
+        brew uninstall docker-buildx
+
+5. Uninstall Docker CLI by running the following command:
+
+        brew uninstall docker
+
+6. Uninstall Minikube by running the following command:
+
+        brew uninstall minikube
+
+7. Uninstall HyperKit by running the following command:
+
+        brew uninstall hyperkit
+
+8. Remove all unused dependencies by running the following command:
+
+        brew autoremove
