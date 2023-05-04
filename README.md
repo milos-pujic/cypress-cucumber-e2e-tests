@@ -78,7 +78,7 @@ After everything is up and running you will have Restful Booker Platform availab
 
 ## Local Kubernetes Environment with minikube
 
-Before you proceed, you should install and configure minikube using [this guide](./docs/minikube-guide.md).
+Before you proceed, you should setup and start minikube using [this guide](./docs/minikube-setup.md).
 
 After minikube has been properly installed and started on your machine, open the terminal inside `<local_path>\cypress-cucumber-e2e-tests` and use the following command:
 

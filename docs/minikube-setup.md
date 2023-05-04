@@ -1,4 +1,4 @@
-[← Back to documentation](readme.md)
+[← Go Back](./../README.md)
 
 # Minikube Setup
 
@@ -75,7 +75,7 @@ This guide will cover installing:
   - Docker Build X
 - Host File Configuration
 
-### Windows
+### Install minikube on Windows
 
 1. Open PowerShell with administrator privileges
 2. Install Chocolatey by running the following command:
@@ -102,7 +102,7 @@ This guide will cover installing:
 
         docker version
 
-### MacOS
+### Install minikube on MacOS
 
 1. Open Terminal
 2. Install Homebrew by running the following command:
@@ -146,9 +146,7 @@ Recommendation is to give minikube half of machines resources, if you have 16GB 
 
 To be able to use ports like 80, 8080, 1234, 9090, 9000 and 4000 which are used Sorry-Cypress and Restful Booker Platform it is needed to extend NodePort range from default range 30000-32767 to 1-65535.
 
-Initial start of minikube:
-
-On Windows:
+### Initial start of minikube on Windows
 
 1. Open PowerShell with administrator privileges
 2. Start minikube by running the following command:
@@ -161,7 +159,7 @@ On Windows:
             minikube delete --all --purge
             minikube start --memory 8192 --cpus 4 --extra-config=apiserver.service-node-port-range=1-65535
 
-On MacOs:
+### Initial start of minikube on MacOS
 
 1. Open Terminal
 2. Start minikube by running the following command (you will be asked for sudo rights):
@@ -173,6 +171,8 @@ On MacOs:
             minikube stop
             minikube delete --all --purge
             minikube start --memory 8192 --cpus 4 --extra-config=apiserver.service-node-port-range=1-65535
+
+---
 
 After minikube is initially started like this, every next start can be just with the command:
 
@@ -186,11 +186,52 @@ Next time when you start it it will be in same state as when you stopped it.
 
 Minikube configuration can always be checked in `~/.minikube/machines/minikube/config.json` file.
 
+## Configure machine to use minikube
+
+To use minikube with ease there are couple of tips and tricks which can help you.
+
+### (optional) Minikube Dashboard
+
+Minikube Dashboard is a web-based Kubernetes user interface. To access the dashboard use following command in Powershell (on Windows) or in Terminal (on MacOS):
+
+    minikube dashboard
+
+This will enable the dashboard add-on, and open the proxy in the default web browser.
+
+### (optional) Visual Studio Code (VS Code) plugins
+
+On both Windows and MacOS there are plugins available for VS Code which provide user interface to minikube's kubernetes. Plugins which can help control minikube's kubernetes are:
+
+- [Docker VS Code Plugin](https://marketplace.visualstudio.com/items?itemName=ms-azuretools.vscode-docker)
+- [Kubernetes VS Code Plugin](https://marketplace.visualstudio.com/items?itemName=ms-kubernetes-tools.vscode-kubernetes-tools)
+
+Docker VS Code Plugin requires to configure it properly to use minikube's docker. To configure this plugin open its configuration inside of VS Code, and navigate to `Docker: Environment` section. Run following command in Powershell (on Windows) or in Terminal (on MacOS)
+
+    minikube docker-env
+
+That command will output `DOCKER_TLS_VERIFY`, `DOCKER_HOST`, `DOCKER_CERT_PATH` and `MINIKUBE_ACTIVE_DOCKERD` items. Add all 4 items with their values in `Docker: Environment` section.
+
+Kubernetes VS Code Plugin does not require any additional configuration.
+
+After that you can use both of those plugins to control your kubernetes cluster and docker inside VS Code.
+
+### Configure Windows machine to use minikube
+
+TBD
+
+### Configure MacOS host file and terminal to use minikube
+
+To be able to run docker commands with minikube inside all terminal sessions we need to configure docker-cli to use minikube. Add following entry to `~/.bashrc` or `~/.zshrc`:
+
+- `eval $(minikube docker-env)`
+
+Add minikube IP address in host file for easier access. Bellow command will add host record pointing to minikube IP and with domain names `kube.local` and `storage.sorry-cypress` (used to access object storage from sorry-cypress dashboard).
+
+    echo "`minikube ip` kube.local storage.sorry-cypress" | sudo tee -a /etc/hosts > /dev/null
+
 ## Uninstall minikube
 
-To uninstall everything use following commands:
-
-On Windows:
+### Uninstall minikube and all its dependencies on Windows
 
 1. Open PowerShell with administrator privileges
 2. Stop minikube by running the following command:
@@ -213,7 +254,7 @@ On Windows:
 
         choco uninstall minikube -y --remove-dependencies
 
-On MacOS:
+### Uninstall minikube and all its dependencies on MacOS
 
 1. Open Terminal
 2. Stop minikube by running the following command:
@@ -243,3 +284,5 @@ On MacOS:
 8. Remove all unused dependencies by running the following command:
 
         brew autoremove
+
+[← Go Back](./../README.md)
