@@ -1,5 +1,3 @@
-[← Go Back](./../README.md)
-
 # Minikube Setup
 
 Minikube is one of free alternatives to Docker for Desktop. Minikube and Docker for Desktop are both tools that allow developers to run a local Kubernetes cluster on their own machines. However, there are some key differences between the two tools:
@@ -200,7 +198,7 @@ This will enable the dashboard add-on, and open the proxy in the default web bro
 
 ### (optional) Visual Studio Code (VS Code) plugins
 
-On both Windows and MacOS there are plugins available for VS Code which provide user interface to minikube's kubernetes. Plugins which can help control minikube's kubernetes are:
+On both Windows and MacOS there are plugins available for VS Code which provide user interface to Minikube's Kubernetes. Plugins which can help control Minikube's Kubernetes are:
 
 - [Docker VS Code Plugin](https://marketplace.visualstudio.com/items?itemName=ms-azuretools.vscode-docker)
 - [Kubernetes VS Code Plugin](https://marketplace.visualstudio.com/items?itemName=ms-kubernetes-tools.vscode-kubernetes-tools)
@@ -284,5 +282,3 @@ Add minikube IP address in host file for easier access. Bellow command will add 
 8. Remove all unused dependencies by running the following command:
 
         brew autoremove
-
-[← Go Back](./../README.md)

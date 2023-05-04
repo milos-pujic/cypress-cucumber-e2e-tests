@@ -32,7 +32,7 @@ Provided tests are based on examples how to define and use utility functions, ex
 - [Husky](https://typicode.github.io/husky/#/)
 - [Lint Staged](https://github.com/okonet/lint-staged)
 
-## Launch Cypress and Execute test cases
+## Launch Cypress and Execute Test Cases
 
 Open the terminal inside `<local_path>\cypress-cucumber-e2e-tests` and use the following commands to:
 
@@ -55,7 +55,7 @@ Example of above commands with possible variables:
 - `npx cypress run --spec "**/login.feature" --env ENV=local` - Execute Login feature without opening the Cypress UI on Local environnement
 - `npx cypress run --env ENV=prod,TAGS='(@booking or @contact) and (not @bug)'` - Execute tests tagged with `@booking` or `@contact` which are not also tagged with `@bug`, without opening the Cypress UI on Production environnement
 
-Some of predefined scripts in [`package.json`](./package.json) are doing same thing as commands above:
+Some of predefined scripts in [`package.json`](/package.json) are doing same thing as commands above:
 
 - `npm run cy:open:local` or `npm run cy:open:prod` - Open Cypress UI to execute tests against Local or Production environnement
 - `npm run cy:run:local` or `npm run cy:run:prod` - Execute All tests without opening the Cypress UI against Local or Production environnement
@@ -76,9 +76,9 @@ That will start Restful Booker Platform locally.
 
 After everything is up and running you will have Restful Booker Platform available at `http://localhost`.
 
-## Local Kubernetes Environment with minikube's kubernetes
+## Local Kubernetes Environment with Minikube's Kubernetes
 
-Before you proceed, you should setup and start minikube using [this guide](./docs/minikube-setup.md).
+Before you proceed, you should setup and start minikube using [this guide](/docs/minikube-setup.md).
 
 After minikube has been properly installed and started on your machine, open the terminal inside `<local_path>\cypress-cucumber-e2e-tests` and use the following command:
 
@@ -171,327 +171,16 @@ To be able to run tests using Sorry Cypress, it must be hosted somewhere.
 
 Hosting Sorry Cypress on AWS is easiest way to get publicly accessible instance of Sorry Cypress, of course there are other options to host in on Google Cloud Platform, Microsoft Azure, Heroku, Kubernetes or Docker. More on different implementations can be found in [Sorry Cypress Docs](https://docs.sorry-cypress.dev/).
 
-In this repo there are examples on how to host Sorry Cypress:
+Guides on how to setup Sorry-Cypress Hosting:
 
-- Publicly available on AWS
-- Locally available using Docker for Desktop
-- Locally available using Minikube's Kubernetes
+- [Publicly on AWS](/docs/sorry-cypress-setup-aws.md)
+- [Locally using Docker for Desktop](/docs/sorry-cypress-setup-docker-for-desktop.md)
+- [Locally using Minikube's Kubernetes](/docs/sorry-cypress-setup-minikube.md)
 
-### Host Sorry-Cypress publicly on AWS
+## Execute E2E Cypress Cucumber Tests using CI/CD tools
 
-> :warning: **WARNING** :warning:
->
-> Hosting Sorry-Cypress on AWS is **NOT FREE**. :moneybag: :moneybag: :moneybag:
->
-> Here's a rough estimation of price / month for using the resources used. The actual usage might be higher (or lower) based on actual usage.
->
-> - Fargate pricing based on calculator 35,55 USD (1 vCPU, 2GB RAM) or 17,78 USD (0.5 vCPU, 1GB RAM)
-> - EC2 Application Load Balancer based on calculator 19,35 USD (0.5 GB / hour, 0.5 connections / second)
-> - S3 + Cloudwatch = varies based on usage
+Guides on how to execute Execute E2E Cypress Cucumber Tests using CI/CD tools:
 
-Inside this repository there is [sorry-cypress-stack.yml](./.aws/sorry-cypress-stack.yml) AWS Cloud Formation template which can be used to deploy full sorry-cypress kit in just 5 minutes on AWS. Read more on [Sorry-cypress installation instructions for AWS](https://docs.sorry-cypress.dev/cloud-setup/aws).
-
-> :bangbang: IMPORTANT :bangbang:
->
-> Stack Name - It serves a prefix name for all the entities created by the stack. Keep name of your **unique**, **short** and **with no special characters** as AWS limits service names.
-
-Template Configuration _(slightly changed than one available on `sorry-cypress.dev` page)_:
-
-- TaskCpu _(default: `512`)_ - The amount of CPU units dedicated to running the services. Sorry-cypress uses AWS Fargate as compute platform, and runs all the services as a single task, i.e. those CPU units are shared among all the services. Read more about at [AWS Documentation](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/task_definition_parameters.html#task_size).
-- TaskMemory _(default: `1024`)_ - The amount of memory units dedicated to running the services. This resource is also shared between the services and defined at task-level. Read more at [AWS Documentation](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/task_definition_parameters.html#task_size).
-- DirectorPort _(default: `8080`)_ - The port number for accessing the director service. You'll need to use it as a destination when configuring cypress agents.
-- DirectorAllowedKeys _(default: `unique-key`)_ - List of comma delimited record keys (provided to the Cypress Runner using --key option) which are accepted by the director service.
-- DirectorInactivityTimeout _(default: `600`)_ - Director uses the timeout value in seconds to define how long it should wait before checking for a run's inactivity.
-
-The stack creates [AWS Application Load Balancer](https://docs.aws.amazon.com/elasticloadbalancing/latest/application/introduction.html) to provide access to the underlying services. By default, AWS LB URL points to the web dashboard (on port 80). The director service is available via the same URL but different port.
-
-For example, if the access URL created by the stack is: `http://sorry-cypress-1502240720.us-east-1.elb.amazonaws.com`, and `DirectorPort=8080` then director service will be available at `http://sorry-cypress-1502240720.us-east-1.elb.amazonaws.com:8080`.
-
-With above example in mind, command to run your Cypress Tests with your AWS Hosted Sorry-Cypress will look like:
-
-    CURRENTS_API_URL='http://sorry-cypress-1502240720.us-east-1.elb.amazonaws.com:8080' cypress-cloud npx run --record --key ${CYPRESS_RECORD_KEY} --parallel --ci-build-id ${CYPRESS_CI_BUILD_ID}
-
-Where:
-
-- `${CYPRESS_RECORD_KEY}` - secret record key configured in Template configuration under `DirectorAllowedKeys` property
-- `${CYPRESS_CI_BUILD_ID}` - unique build identifier used by Sorry-Cypress to distinguish cypress test runs one from another, i.e. `aws-build-001`
-
-> :bangbang: IMPORTANT :bangbang:
->
-> If you want to have parallel execution, just run same command **WITH SAME** --ci-build-id flag value in multiple terminals.
-
-### Host Sorry-Cypress Locally using Docker for Desktop
-
-Before you proceed, you should install Docker Desktop depending on your OS and start it:
-
-- [Docker Desktop for Linux](https://docs.docker.com/desktop/install/linux-install/)
-- [Docker Desktop for Windows](https://docs.docker.com/desktop/install/windows-install/)
-- [Docker Desktop for Mac](https://docs.docker.com/desktop/install/mac-install/)
-
-Inside this repository there is [docker-compose-sorry-cypress.yml](./docker-compose-sorry-cypress.yml) Docker Compose file which can be used to locally start full sorry-cypress kit with Docker. Read more on [Sorry-cypress Docker Images](https://docs.sorry-cypress.dev/cloud-setup/docker-images).
-
-After Docker has been installed on your machine, open the terminal inside `<local_path>\cypress-cucumber-e2e-tests` and use the following command:
-
-    docker compose -f ./docker-compose-sorry-cypress.yml up -d 
-
-That will start full Sorry-Cypress kit, Director, API, Dashboard with MongoDB and Minio Object Storage.
-
-After everything is up and running you will have:
-
-- Sorry-Cypress Director available at `http://localhost:1234`
-- Sorry-Cypress API available at `http://localhost:4000`
-- Sorry-Cypress Dashboard available at `http://localhost:8080`
-- MongoDB available at `mongodb://sorry-cypress:cypress-sorry@mongo:27017`
-- Minio Object Storage available at `http://localhost:9000`
-  - username: `sorry-cypress`
-  - password: `cypress-sorry`
-
-It is configured that by default sorry-cypress-director will have value `secret_key` as Allowed Keys. That value must be sent for `--key` flag, other wise sorry-cypress-director will reject test results.
-
-Example of command how to run your Cypress Tests with your local Sorry-Cypress:
-
-    CURRENTS_API_URL='http://localhost:1234' cypress-cloud npx run --record --key secret_key --parallel --ci-build-id ${CYPRESS_CI_BUILD_ID}
-
-Where:
-
-- `${CYPRESS_CI_BUILD_ID}` - unique build identifier used by Sorry-Cypress to distinguish cypress test runs one from another, i.e. `docker-build-001`
-
-> :bangbang: IMPORTANT :bangbang:
->
-> If you want to have parallel execution, just run same command **WITH SAME** --ci-build-id flag value in multiple terminals.
-
-### Host Sorry-Cypress Locally using minikube's kubernetes
-
-Before you proceed, you should setup and start minikube using [this guide](./docs/minikube-setup.md).
-
-After minikube has been properly installed and started on your machine, open the terminal inside `<local_path>\cypress-cucumber-e2e-tests` and use the following command:
-
-    kubectl apply -f .kubes/sorry-cypress.yml
-
-That will start full Sorry-Cypress kit, Director, API, Dashboard with MongoDB and Minio Object Storage.
-
-After everything is up and running you will have:
-
-- Sorry-Cypress Director available at `http://kube.local:1234`
-- Sorry-Cypress API available at `http://kube.local:4000`
-- Sorry-Cypress Dashboard available at `http://kube.local:8080`
-- Minio Object Storage available at `http://kube.local:9000` and `http://storage.sorry-cypress:9000`
-  - username: `sorry-cypress`
-  - password: `cypress-sorry`
-
-It is configured that by default sorry-cypress-director will have value `secret_key` as Allowed Keys. That value must be sent for `--key` flag, other wise sorry-cypress-director will reject test results.
-
-Example of command how to run your Cypress Tests with your local Sorry-Cypress:
-
-    CURRENTS_API_URL='http://kube.local:1234' cypress-cloud npx run --record --key secret_key --parallel --ci-build-id ${CYPRESS_CI_BUILD_ID}
-
-Where:
-
-- `${CYPRESS_CI_BUILD_ID}` - unique build identifier used by Sorry-Cypress to distinguish cypress test runs one from another, i.e. `docker-build-001`
-
-> :bangbang: IMPORTANT :bangbang:
->
-> If you want to have parallel execution, just run same command **WITH SAME** --ci-build-id flag value in multiple terminals.
-
-## Execute Cypress Cucumber Tests using Github Actions Workflows
-
-All Github Actions Workflows are configured in [**GitHub Folder**](./.github/workflows/) yaml files.
-
-They all can be found by navigating to [GitHub Repository > Actions]( https://github.com/milos-pujic/cypress-cucumber-e2e-tests/actions).
-
-![GitHub Actions Workflows](/docs/imgs/GitHub-Actions.png)
-
-There are 4 GitHub Actions Workflows setup for Foleon Artie repository:
-
-- [Run All E2E Tests](https://github.com/milos-pujic/cypress-cucumber-e2e-tests/actions/workflows/run-all.yaml)
-- [Run All E2E Tests in parallel](https://github.com/milos-pujic/cypress-cucumber-e2e-tests/actions/workflows/run-all-parallel.yaml)
-- [Run All E2E Tests in parallel with Sorry-Cypress](https://github.com/milos-pujic/cypress-cucumber-e2e-tests/actions/workflows/run-all-parallel-sorry-cypress.yaml)
-- [Sanity Check](https://github.com/milos-pujic/cypress-cucumber-e2e-tests/actions/workflows/sanity-check.yaml)
-
-### Run All E2E Tests
-
-This GitHub Action Workflow Executes All Cypress Cucumber E2E Tests on `local` (default) or `prod` environnement using `electron` (default), `chrome`, `firefox` or `edge` browser from defined branch (by default it is `main`).
-
-If `local` environnement is selected, Restful Booker Platform will be started inside GitHub Services and tests will run against it.
-If `prod` environnement is selected, tests will run against live version of Restful Booker Platform available at [automationintesting.online](https://automationintesting.online/).
-
-GitHub Action Workflow configuration file of this workflow is [run-all.yaml](./.github/workflows/run-all.yaml).
-
-This workflow is only triggered Manually. Steps to trigger it:
-
-1. Open [Run All E2E Tests](https://github.com/milos-pujic/cypress-cucumber-e2e-tests/actions/workflows/run-all.yaml)
-2. Click on `Run workflow` button
-    - (which opens sub-modal where `Branch`, `Environnement to run Tests` and `Browser in which to run Tests` can be selected)
-3. Select `Branch`, `Environnement to run Tests` and `Browser in which to run Tests`
-4. Click on `Run workflow` button
-
-![Run All E2E Tests](/docs/imgs/Run-All-E2E-Tests.png)
-
-Also, on [Run All E2E Tests](https://github.com/milos-pujic/cypress-cucumber-e2e-tests/actions/workflows/run-all.yaml) page, status of all on-going and previously executed 'Run All E2E Tests' Workflow runs can be found.
-
-### Run All E2E Tests in parallel
-
-This GitHub Action Workflow Executes All Cypress Cucumber E2E Tests in parallel on `local` (default) or `prod` environnement using `electron` (default), `chrome`, `firefox` or `edge` browser from defined branch (by default it is `main`).
-
-If `local` environnement is selected, Restful Booker Platform will be started inside GitHub Services and tests will run against it.
-If `prod` environnement is selected, tests will run against live version of Restful Booker Platform available at [automationintesting.online](https://automationintesting.online/).
-
-Parallel execution is achieved using:
-
-- Cypress Split - Cypress plugin that automatically split the entire list of Cypress specs to run in parallel on any CI
-- GitHub Action Strategy Matrix - Automatically create multiple job runs, from single job, that are based on the combinations of the variables
-
-GitHub Action Workflow configuration file of this workflow is [run-all-parallel.yaml](./.github/workflows/run-all-parallel.yaml).
-
-This workflow is only triggered Manually. Steps to trigger it:
-
-1. Open [Run All E2E Tests in parallel](https://github.com/milos-pujic/cypress-cucumber-e2e-tests/actions/workflows/run-all-parallel.yaml)
-2. Click on `Run workflow` button
-    - (which opens sub-modal where `Branch`, `Environnement to run Tests` and `Browser in which to run Tests` can be selected)
-3. Select `Branch`, `Environnement to run Tests` and `Browser in which to run Tests`
-4. Click on `Run workflow` button
-
-![Run All E2E Tests in parallel](/docs/imgs/Run-All-E2E-Tests-in-parallel.png)
-
-Also, on [Run All E2E Tests in parallel](https://github.com/milos-pujic/cypress-cucumber-e2e-tests/actions/workflows/run-all-parallel.yaml) page, status of all on-going and previously executed 'Run All E2E Tests in parallel' Workflow runs can be found.
-
-### Run All E2E Tests in parallel with Sorry-Cypress
-
-This GitHub Action Workflow Executes All Cypress Cucumber E2E Tests in parallel with Sorry-Cypress on `local` (default) or `prod` environnement using `electron` (default) or `chrome` browser from defined branch (by default it is `main`).
-
-If `local` environnement is selected, Restful Booker Platform will be started inside GitHub Services and tests will run against it.
-If `prod` environnement is selected, tests will run against live version of Restful Booker Platform available at [automationintesting.online](https://automationintesting.online/).
-
-Parallel execution is achieved using:
-
-- GitHub Action Strategy Matrix - Automatically create multiple job runs, from single job, that are based on the combinations of the variables
-- Sorry Cypress - An open-source, on-premise, self-hosted alternative to Cypress Cloud
-
-GitHub Action Workflow configuration file of this workflow is [run-all-parallel-sorry-cypress.yaml](./.github/workflows/run-all-parallel-sorry-cypress.yaml).
-
-This workflow is only triggered Manually. Steps to trigger it:
-
-1. Open [Run All E2E Tests in parallel with Sorry-Cypress](https://github.com/milos-pujic/cypress-cucumber-e2e-tests/actions/workflows/run-all-parallel-sorry-cypress.yaml)
-2. Click on `Run workflow` button
-    - (which opens sub-modal where `Branch`, `Environnement to run Tests` and `Browser in which to run Tests` can be selected)
-3. Select `Branch`, `Environnement to run Tests` and `Browser in which to run Tests`
-4. Click on `Run workflow` button
-
-![Run All E2E Tests in parallel with Sorry-Cypress](/docs/imgs/Run-All-E2E-Tests-in-parallel-with-Sorry-Cypress.png)
-
-Also, on [Run All E2E Tests in parallel with Sorry-Cypress](https://github.com/milos-pujic/cypress-cucumber-e2e-tests/actions/workflows/run-all-parallel-sorry-cypress.yaml) page, status of all on-going and previously executed 'Run All E2E Tests in parallel with Sorry-Cypress' Workflow runs can be found.
-
-### Sanity Check
-
-This GitHub Action Workflow Executes `@sanity` tagged scenarios of Cucumber E2E Tests on `local` environnement using `electron` browser from `main` or Pull Request source branch.
-
-GitHub Action Workflow configuration file of this workflow is [sanity-check.yaml](.github/workflows/sanity-check.yaml).
-
-This workflow is only triggered automatically on specific events:
-
-- Merge Events on `main` branch
-- Create / Update GitHub Pull Request Events
-
-Also, on [Sanity Check](https://github.com/milos-pujic/cypress-cucumber-e2e-tests/actions/workflows/sanity-check.yaml) page, status of all on-going and previously executed 'Sanity Check' Workflow runs can be found.
-
-## Execute Cypress Cucumber Tests using Docker for Desktop locally
-
-Before you proceed, you should install Docker Desktop depending on your OS and start it:
-
-- [Docker Desktop for Linux](https://docs.docker.com/desktop/install/linux-install/)
-- [Docker Desktop for Windows](https://docs.docker.com/desktop/install/windows-install/)
-- [Docker Desktop for Mac](https://docs.docker.com/desktop/install/mac-install/)
-
-After Docker has been installed on your machine, open the terminal inside `<local_path>\cypress-cucumber-e2e-tests` and use the following commands:
-
-    docker compose build
-    docker compose up -d 
-
-That will:
-
-1. Build Docker Image containing Cypress and your Tests
-2. Start Restful Booker Platform locally
-    - Available at `http://localhost`.
-3. Start Sorry-Cypress Locally
-    - Director available at `http://localhost:1234`
-    - API available at `http://localhost:4000`
-    - Dashboard available at `http://localhost:8080`
-    - MongoDB available at `mongodb://sorry-cypress:cypress-sorry@mongo:27017`
-    - Minio Object Storage available at `http://localhost:9000`
-      - username: `sorry-cypress`
-      - password: `cypress-sorry`
-4. Execute Tests in parallel using Local Restful Booker Platform and Local Sorry Cypress.
-
-Progress and results can be followed on Sorry-Cypress Dashboard `http://localhost:8080` under run named `chrome_YYYY-MM-DD_HH:MM`.
-
-## Execute Cypress Cucumber Tests using minikube locally
-
-Before you proceed, you should setup and start minikube using [this guide](./docs/minikube-setup.md).
-
-After minikube has been properly installed and started on your machine, open the terminal inside `<local_path>\cypress-cucumber-e2e-tests` and use the following commands:
-
-    docker build . -t e2e
-    kubectl apply -f .kubes/restful-booker-platform.yml
-    kubectl apply -f .kubes/sorry-cypress.yml
-    kubectl apply -f .kubes/e2e-tests.yml
-    minikube dashboard
-
-That will:
-
-1. Build Docker Image containing Cypress and your Tests tagged with `e2e:latest`
-2. Start Restful Booker Platform in local kubernetes under `restful-booker-platform` namespace
-    - Available at `http://kube.local`.
-3. Start Sorry-Cypress in local kubernetes under `sorry-cypress` namespace
-    - Director available at `http://kube.local:1234`
-    - API available at `http://kube.local:4000`
-    - Dashboard available at `http://kube.local:8080`
-    - Minio Object Storage available at `http://kube.local:9000` and `http://storage.sorry-cypress:9000`
-      - username: `sorry-cypress`
-      - password: `cypress-sorry`
-4. Create 4 Kubernetes Cron Jobs in local kubernetes under `e2e-tests` namespace
-    - scheduled-e2e-chrome (scheduled for 9:00 each day)
-    - scheduled-e2e-firefox (scheduled for 9:10 each day)
-    - scheduled-e2e-electron (scheduled for 9:20 each day)
-    - scheduled-e2e-edge (scheduled for 9:30 each day)
-5. Start and Open Minikube Dashboard in browser
-
-Status of everything running in minikube's kubernetes can be monitored on Minikube Dashboard.
-
-To check status of Restful Booker Platform:
-
-- Open Minikube Dashboard
-- Change namespace to `restful-booker-platform`
-- Navigate to Workloads on left side panel
-
-![Restful Booker Platform Workloads](/docs/imgs/minikube-dashboard-restful-booker-platform.png)
-
-To check status of Sorry-Cypress:
-
-- Open Minikube Dashboard
-- Change namespace to `sorry-cypress`
-- Navigate to Workloads on left side panel
-
-![Sorry-Cypress Workloads](/docs/imgs/minikube-dashboard-sorry-cypress.png)
-
-To check status of E2E Tests Cron Jobs:
-
-- Open Minikube Dashboard
-- Change namespace to `e2e-tests`
-- Navigate to Workloads on left side panel
-
-![E2E Tests Cron Jobs Workloads](/docs/imgs/minikube-dashboard-e2e-tests.png)
-
-Each of E2E Tests Cron Jobs is configured to run on specific browser and with 2 parallel Cypress Agents. Than configuration is located in [e2e-tests.yml](./.kubes/e2e-tests.yml) file.
-
-To see the list of all configured Cron Jobs: Open Minikube Dashboard > Change namespace to `e2e-tests` > Navigate to Cron Jobs on left side panel.
-
-To see the list of all running or finished Jobs: Open Minikube Dashboard > Change namespace to `e2e-tests` > Navigate to Jobs on left side panel. On Jobs panel you can also monitor logs of running Cypress Agent (which are running as kubernetes pods).
-
-E2E Tests Cron Jobs can also be triggered manually by clicking on 3 dots button next to Cron Job and click on Trigger button.
-
-![E2E Tests Cron Jobs Manual Trigger](/docs/imgs/minikube-dashboard-manual-trigger.gif)
-
-Progress and results can be also followed on Sorry-Cypress Dashboard `http://kube.local:8080` under run named the same as running or finished job name:
-
-- for scheduled jobs `scheduled-e2e-[chrome|firefox|edge|electron]-########`
-- for manually triggered jobs `scheduled-e2e-[chrome|firefox|edge|electron]-manual-###`.
+- [On Github using Github Actions Workflows](/docs/execute-e2e-gha.md)
+- [Locally using Docker for Desktop](/docs/execute-e2e-docker-for-desktop.md)
+- [Locally using Minikube's Kubernetes](/docs/execute-e2e-minikube.md)
