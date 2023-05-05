@@ -41,6 +41,11 @@ Open the terminal inside `<local_path>\cypress-cucumber-e2e-tests` and use the f
 
 - Environnement variables:
   - `ENV`, which can have value `prod` / `local` / `docker` / `kube` / `kubeLocal` , depending on which environnement you would like to execute your tests (if not defined, `prod` will be used by default)
+    - `prod` uses `https://automationintesting.online` as app URL
+    - `local` uses `http://localhost` as app URL
+    - `kubeLocal` uses `http://kube.local` as app URL
+    - `docker` uses `http://rbp-proxy` as app URL
+    - `kube` uses `http://rbp-proxy.restful-booker-platform` as app URL
   - `TAGS`, which can be any of available tags set in Cucumber features. If not set all scenarios will be executed. Tag expression is an infix boolean expression, some examples:
     - `@sanity` - Scenarios tagged with `@sanity` will be filtered
     - `@management and not @room-management` - Scenarios tagged with `@management` that are not also tagged with `@room-management` will be filtered
@@ -177,9 +182,9 @@ Guides on how to setup Sorry-Cypress Hosting:
 - [Locally using Docker for Desktop](/docs/sorry-cypress-setup-docker-for-desktop.md)
 - [Locally using Minikube's Kubernetes](/docs/sorry-cypress-setup-minikube.md)
 
-## Execute E2E Cypress Cucumber Tests using CI/CD tools
+## Execute E2E Cypress Cucumber Tests using CI/CD Tools
 
-Guides on how to execute Execute E2E Cypress Cucumber Tests using CI/CD tools:
+Guides on how to execute Execute E2E Cypress Cucumber Tests using CI/CD Tools:
 
 - [On Github using Github Actions Workflows](/docs/execute-e2e-gha.md)
 - [Locally using Docker for Desktop](/docs/execute-e2e-docker-for-desktop.md)
