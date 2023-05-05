@@ -1,4 +1,4 @@
-# Host Sorry-Cypress publicly on AWS
+# Host Sorry-Cypress Publicly on AWS
 
 > :warning: **WARNING** :warning:
 >

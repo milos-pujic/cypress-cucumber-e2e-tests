@@ -1,4 +1,4 @@
-# Execute Cypress Cucumber Tests using Minikube's Kubernetes locally
+# Execute Cypress Cucumber Tests using Minikube's Kubernetes Locally
 
 Before you proceed, you should setup and start minikube using [this guide](/docs/minikube-setup.md).
 
@@ -13,16 +13,16 @@ After minikube has been properly installed and started on your machine, open the
 That will:
 
 1. Build Docker Image containing Cypress and your Tests tagged with `e2e:latest`
-2. Start Restful Booker Platform in local kubernetes under `restful-booker-platform` namespace
+2. Start Restful Booker Platform in local Kubernetes under `restful-booker-platform` namespace
     - Available at `http://kube.local`.
-3. Start Sorry-Cypress in local kubernetes under `sorry-cypress` namespace
+3. Start Sorry-Cypress in local Kubernetes under `sorry-cypress` namespace
     - Director available at `http://kube.local:1234`
     - API available at `http://kube.local:4000`
     - Dashboard available at `http://kube.local:8080`
     - Minio Object Storage available at `http://kube.local:9000` and `http://storage.sorry-cypress:9000`
       - username: `sorry-cypress`
       - password: `cypress-sorry`
-4. Create 4 Kubernetes Cron Jobs in local kubernetes under `e2e-tests` namespace
+4. Create 4 Cron Jobs in local Kubernetes under `e2e-tests` namespace
     - scheduled-e2e-chrome (scheduled for 9:00 each day)
     - scheduled-e2e-firefox (scheduled for 9:10 each day)
     - scheduled-e2e-electron (scheduled for 9:20 each day)
@@ -59,7 +59,7 @@ Each of E2E Tests Cron Jobs is configured to run on specific browser and with 2 
 
 To see the list of all configured Cron Jobs: Open Minikube Dashboard > Change namespace to `e2e-tests` > Navigate to Cron Jobs on left side panel.
 
-To see the list of all running or finished Jobs: Open Minikube Dashboard > Change namespace to `e2e-tests` > Navigate to Jobs on left side panel. On Jobs panel you can also monitor logs of running Cypress Agent (which are running as kubernetes pods).
+To see the list of all running or finished Jobs: Open Minikube Dashboard > Change namespace to `e2e-tests` > Navigate to Jobs on left side panel. On Jobs panel you can also monitor logs of running Cypress Agent (which are running as Kubernetes pods).
 
 E2E Tests Cron Jobs can also be triggered manually by clicking on 3 dots button next to Cron Job and click on Trigger button.
 

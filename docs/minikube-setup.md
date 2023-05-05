@@ -211,7 +211,7 @@ That command will output `DOCKER_TLS_VERIFY`, `DOCKER_HOST`, `DOCKER_CERT_PATH` 
 
 Kubernetes VS Code Plugin does not require any additional configuration.
 
-After that you can use both of those plugins to control your kubernetes cluster and docker inside VS Code.
+After that you can use both of those plugins to control your Kubernetes cluster and docker inside VS Code.
 
 ### Configure Windows machine to use minikube
 

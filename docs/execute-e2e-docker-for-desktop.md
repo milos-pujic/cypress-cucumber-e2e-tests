@@ -1,4 +1,4 @@
-# Execute E2E Cypress Cucumber Tests using Docker for Desktop locally
+# Execute E2E Cypress Cucumber Tests using Docker for Desktop Locally
 
 Before you proceed, you should install Docker Desktop depending on your OS and start it:
 
