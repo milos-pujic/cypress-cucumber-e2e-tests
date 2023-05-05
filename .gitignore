@@ -5,7 +5,7 @@ cypress/reports
 cypress/downloads
 
 # Docker
-.docker/*
+data
 
 # compiled output
 /dist
