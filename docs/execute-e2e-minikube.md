@@ -5,9 +5,9 @@ Before you proceed, you should setup and start minikube using [this guide](/docs
 After minikube has been properly installed and started on your machine, open the terminal inside `<local_path>\cypress-cucumber-e2e-tests` and use the following commands:
 
     docker build . -t e2e
-    kubectl apply -f .kubes/restful-booker-platform.yml
-    kubectl apply -f .kubes/sorry-cypress.yml
-    kubectl apply -f .kubes/e2e-tests.yml
+    kubectl apply -f .kube/restful-booker-platform.yml
+    kubectl apply -f .kube/sorry-cypress.yml
+    kubectl apply -f .kube/e2e-tests.yml
     minikube dashboard
 
 That will:
@@ -55,7 +55,7 @@ To check status of E2E Tests Cron Jobs:
 
 ![E2E Tests Cron Jobs Workloads](/docs/imgs/minikube-dashboard-e2e-tests.png)
 
-Each of E2E Tests Cron Jobs is configured to run on specific browser and with 2 parallel Cypress Agents. Than configuration is located in [e2e-tests.yml](/.kubes/e2e-tests.yml) file.
+Each of E2E Tests Cron Jobs is configured to run on specific browser and with 2 parallel Cypress Agents. Than configuration is located in [e2e-tests.yml](/.kube/e2e-tests.yml) file.
 
 To see the list of all configured Cron Jobs: Open Minikube Dashboard > Change namespace to `e2e-tests` > Navigate to Cron Jobs on left side panel.
 

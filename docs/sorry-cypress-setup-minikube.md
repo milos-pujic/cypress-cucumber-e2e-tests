@@ -4,7 +4,7 @@ Before you proceed, you should setup and start minikube using [this guide](/docs
 
 After minikube has been properly installed and started on your machine, open the terminal inside `<local_path>\cypress-cucumber-e2e-tests` and use the following command:
 
-    kubectl apply -f ./.kubes/sorry-cypress.yml
+    kubectl apply -f ./.kube/sorry-cypress.yml
 
 That will start full Sorry-Cypress kit, Director, API, Dashboard with MongoDB and Minio Object Storage.
 
