@@ -11,6 +11,16 @@ on:
         options:
         - local
         - prod
+      browser:
+        description: 'Browser in which to run Tests'
+        required: true
+        default: 'electron'
+        type: choice
+        options:
+        - electron
+        - chrome
+        - firefox
+        - edge
       skip-bugs:
         description: 'Skip Test with Known Bugs'
         required: true
@@ -20,15 +30,13 @@ on:
 jobs:
   start-rbp-and-run-all-e2e-tests:
     if: ${{ inputs.environment == 'local' }}
-    name: Tests on local - ${{ matrix.browser }} - ${{ matrix.runnerIndex }} of ${{ matrix.runnerTotal }}
+    name: Start Restful Booker Platform and Run All E2E Test
     runs-on: ubuntu-latest
     timeout-minutes: 30
     strategy:
       fail-fast: false
       matrix:
-        browser: [chrome, electron, firefox, edge]
-        runnerIndex: [0, 1]
-        runnerTotal: [2]
+        containers: [1, 2]
     services:
         rbp-booking:
           image: mwinteringham/restfulbookerplatform_booking:1.6.24c7b22
@@ -76,28 +84,28 @@ jobs:
         uses: cypress-io/github-action@v5
         with:
           env: ENV=local,TAGS=not @bug
-          browser: ${{ matrix.browser }}
+          browser: ${{ inputs.browser }}
           command-prefix: '--'
         env:
-          SPLIT: ${{ matrix.runnerTotal }} 
-          SPLIT_INDEX: ${{ matrix.runnerIndex }}
+          SPLIT: ${{ strategy.job-total }}
+          SPLIT_INDEX: ${{ strategy.job-index }}
       - id: cypress-run-bugs
         if: ${{ !inputs.skip-bugs }}
         name: Cypress Run (incl. tests with known bugs)
         uses: cypress-io/github-action@v5
         with:
           env: ENV=local
-          browser: ${{ matrix.browser }}
+          browser: ${{ inputs.browser }}
           command-prefix: '--'
         env:
-          SPLIT: ${{ matrix.runnerTotal }} 
-          SPLIT_INDEX: ${{ matrix.runnerIndex }}
+          SPLIT: ${{ strategy.job-total }}
+          SPLIT_INDEX: ${{ strategy.job-index }}
       - id: upload-screenshots
         name: Upload Screenshots
         uses: actions/upload-artifact@v3
         if: failure()
         with:
-          name: cypress-screenshots-(${{ matrix.browser }}-${{ matrix.runnerIndex }}-of-${{ matrix.runnerTotal }})
+          name: cypress-screenshots-(${{ matrix.containers }}-of-${{ strategy.job-total }})
           path: cypress/screenshots
           retention-days: 5
       - id: upload-videos
@@ -105,7 +113,7 @@ jobs:
         uses: actions/upload-artifact@v3
         if: always()
         with:
-          name: cypress-videos-(${{ matrix.browser }}-${{ matrix.runnerIndex }}-of-${{ matrix.runnerTotal }})
+          name: cypress-videos-(${{ matrix.containers }}-of-${{ strategy.job-total }})
           path: cypress/videos
           retention-days: 5
       - id: upload-reports
@@ -113,21 +121,19 @@ jobs:
         uses: actions/upload-artifact@v3
         if: always()
         with:
-          name: cypress-reports-(${{ matrix.browser }}-${{ matrix.runnerIndex }}-of-${{ matrix.runnerTotal }})
+          name: cypress-reports-(${{ matrix.containers }}-of-${{ strategy.job-total }})
           path: cypress/reports
           retention-days: 5
 
   run-all-e2e-tests:
     if: ${{ inputs.environment == 'prod' }}
-    name: Tests on prod - ${{ matrix.browser }} - ${{ matrix.runnerIndex }} of ${{ matrix.runnerTotal }}
+    name: Run All E2E Test
     runs-on: ubuntu-latest
     timeout-minutes: 30
     strategy:
       fail-fast: false
       matrix:
-        browser: [chrome, electron, firefox, edge]
-        runnerIndex: [0, 1]
-        runnerTotal: [2]
+        containers: [1, 2]
     steps:
       - id: checkout-repository
         name: Checkout Repository
@@ -142,28 +148,28 @@ jobs:
         uses: cypress-io/github-action@v5
         with:
           env: ENV=prod,TAGS=not @bug
-          browser: ${{ matrix.browser }}
+          browser: ${{ inputs.browser }}
           command-prefix: '--'
         env:
-          SPLIT: ${{ matrix.runnerTotal }} 
-          SPLIT_INDEX: ${{ matrix.runnerIndex }}
+          SPLIT: ${{ strategy.job-total }}
+          SPLIT_INDEX: ${{ strategy.job-index }}
       - id: cypress-run-bugs
         if: ${{ !inputs.skip-bugs }}
         name: Cypress Run (incl. tests with known bugs)
         uses: cypress-io/github-action@v5
         with:
           env: ENV=prod
-          browser: ${{ matrix.browser }}
+          browser: ${{ inputs.browser }}
           command-prefix: '--'
         env:
-          SPLIT: ${{ matrix.runnerTotal }} 
-          SPLIT_INDEX: ${{ matrix.runnerIndex }}
+          SPLIT: ${{ strategy.job-total }}
+          SPLIT_INDEX: ${{ strategy.job-index }}
       - id: upload-screenshots
         name: Upload Screenshots
         uses: actions/upload-artifact@v3
         if: failure()
         with:
-          name: cypress-screenshots-(${{ matrix.browser }}-${{ matrix.runnerIndex }}-of-${{ matrix.runnerTotal }})
+          name: cypress-screenshots-(${{ matrix.containers }}-of-${{ strategy.job-total }})
           path: cypress/screenshots
           retention-days: 5
       - id: upload-videos
@@ -171,7 +177,7 @@ jobs:
         uses: actions/upload-artifact@v3
         if: always()
         with:
-          name: cypress-videos-(${{ matrix.browser }}-${{ matrix.runnerIndex }}-of-${{ matrix.runnerTotal }})
+          name: cypress-videos-(${{ matrix.containers }}-of-${{ strategy.job-total }})
           path: cypress/videos
           retention-days: 5
       - id: upload-reports
@@ -179,6 +185,6 @@ jobs:
         uses: actions/upload-artifact@v3
         if: always()
         with:
-          name: cypress-reports-(${{ matrix.browser }}-${{ matrix.runnerIndex }}-of-${{ matrix.runnerTotal }})
+          name: cypress-reports-(${{ matrix.containers }}-of-${{ strategy.job-total }})
           path: cypress/reports
           retention-days: 5
