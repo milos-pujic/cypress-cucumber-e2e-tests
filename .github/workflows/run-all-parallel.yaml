@@ -23,9 +23,6 @@ jobs:
     name: Tests on local - ${{ matrix.browser }} - ${{ matrix.runnerIndex }} of ${{ matrix.runnerTotal }}
     runs-on: ubuntu-latest
     timeout-minutes: 30
-    container: cypress/browsers:node-18.16.0-chrome-113.0.5672.92-1-ff-113.0-edge-113.0.1774.35-1
-    env:
-      CI: 1
     strategy:
       fail-fast: false
       matrix:
@@ -69,26 +66,30 @@ jobs:
       - id: checkout-repository
         name: Checkout Repository
         uses: actions/checkout@v3
-      - id: install-dependencies
-        name: Install Dependencies
-        run: npm install
-      - id: install-cypress
-        name: Install Cypress
-        run: ./node_modules/.bin/cypress install
-      - id: execute-tests
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 20
+      - id: cypress-run
         if: ${{ inputs.skip-bugs }}
-        name: Execute Cypress Tests
-        run: npx cypress run --record --env ENV=${{ inputs.environment }},TAGS='not @bug' --browser ${{ matrix.browser }}
+        name: Cypress Run
+        uses: cypress-io/github-action@v5
+        with:
+          env: ENV=local,TAGS=not @bug
+          browser: ${{ matrix.browser }}
+          command-prefix: '--'
         env:
-          CYPRESS_CI_BUILD_ID: ${{ inputs.environment }}-${{ matrix.browser }}-${{ github.run_id }}
           SPLIT: ${{ matrix.runnerTotal }} 
           SPLIT_INDEX: ${{ matrix.runnerIndex }}
-      - id: execute-tests-bugs
+      - id: cypress-run-bugs
         if: ${{ !inputs.skip-bugs }}
-        name: Execute Cypress Tests (incl. tests with known bugs)
-        run: npx cypress run --env ENV=${{ inputs.environment }} --browser ${{ matrix.browser }}
+        name: Cypress Run (incl. tests with known bugs)
+        uses: cypress-io/github-action@v5
+        with:
+          env: ENV=local
+          browser: ${{ matrix.browser }}
+          command-prefix: '--'
         env:
-          CYPRESS_CI_BUILD_ID: ${{ inputs.environment }}-${{ matrix.browser }}-${{ github.run_id }}
           SPLIT: ${{ matrix.runnerTotal }} 
           SPLIT_INDEX: ${{ matrix.runnerIndex }}
       - id: upload-screenshots
@@ -121,9 +122,6 @@ jobs:
     name: Tests on prod - ${{ matrix.browser }} - ${{ matrix.runnerIndex }} of ${{ matrix.runnerTotal }}
     runs-on: ubuntu-latest
     timeout-minutes: 30
-    container: cypress/browsers:node-18.16.0-chrome-113.0.5672.92-1-ff-113.0-edge-113.0.1774.35-1
-    env:
-      CI: 1
     strategy:
       fail-fast: false
       matrix:
@@ -134,26 +132,30 @@ jobs:
       - id: checkout-repository
         name: Checkout Repository
         uses: actions/checkout@v3
-      - id: install-dependencies
-        name: Install Dependencies
-        run: npm install
-      - id: install-cypress
-        name: Install Cypress
-        run: ./node_modules/.bin/cypress install
-      - id: execute-tests
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 20
+      - id: cypress-run
         if: ${{ inputs.skip-bugs }}
-        name: Execute Cypress Tests
-        run: npx cypress run --record --env ENV=${{ inputs.environment }},TAGS='not @bug' --browser ${{ matrix.browser }}
+        name: Cypress Run
+        uses: cypress-io/github-action@v5
+        with:
+          env: ENV=prod,TAGS=not @bug
+          browser: ${{ matrix.browser }}
+          command-prefix: '--'
         env:
-          CYPRESS_CI_BUILD_ID: ${{ inputs.environment }}-${{ matrix.browser }}-${{ github.run_id }}
           SPLIT: ${{ matrix.runnerTotal }} 
           SPLIT_INDEX: ${{ matrix.runnerIndex }}
-      - id: execute-tests-bugs
+      - id: cypress-run-bugs
         if: ${{ !inputs.skip-bugs }}
-        name: Execute Cypress Tests (incl. tests with known bugs)
-        run: npx cypress run --env ENV=${{ inputs.environment }} --browser ${{ matrix.browser }}
+        name: Cypress Run (incl. tests with known bugs)
+        uses: cypress-io/github-action@v5
+        with:
+          env: ENV=prod
+          browser: ${{ matrix.browser }}
+          command-prefix: '--'
         env:
-          CYPRESS_CI_BUILD_ID: ${{ inputs.environment }}-${{ matrix.browser }}-${{ github.run_id }}
           SPLIT: ${{ matrix.runnerTotal }} 
           SPLIT_INDEX: ${{ matrix.runnerIndex }}
       - id: upload-screenshots
