@@ -90,8 +90,8 @@ jobs:
           browser: ${{ matrix.browser }}
           command-prefix: '--'
         env:
-          SPLIT: ${{ matrix.runnerIndex }}
-          SPLIT_INDEX: ${{ matrix.runnerTotal }}
+          SPLIT: ${{ matrix.runnerTotal }} 
+          SPLIT_INDEX: ${{ matrix.runnerIndex }}
       - id: upload-screenshots
         name: Upload Screenshots
         uses: actions/upload-artifact@v3
@@ -145,8 +145,8 @@ jobs:
           browser: ${{ matrix.browser }}
           command-prefix: '--'
         env:
-          SPLIT: ${{ strategy.job-total }}
-          SPLIT_INDEX: ${{ strategy.job-index }}
+          SPLIT: ${{ matrix.runnerTotal }} 
+          SPLIT_INDEX: ${{ matrix.runnerIndex }}
       - id: cypress-run-bugs
         if: ${{ !inputs.skip-bugs }}
         name: Cypress Run (incl. tests with known bugs)
