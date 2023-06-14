@@ -28,8 +28,8 @@ on:
       - 'package.json'
 
 jobs:
-  start-rbp-and-run-sanity-e2e-tests:
-    name: Start Restful Booker Platform and Run Sanity E2E Test
+  test:
+    name: Sanity Tests on local - electron
     runs-on: ubuntu-latest
     timeout-minutes: 30
     services:

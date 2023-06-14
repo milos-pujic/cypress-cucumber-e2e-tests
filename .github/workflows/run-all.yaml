@@ -28,9 +28,9 @@ on:
         type: boolean
 
 jobs:
-  start-rbp-and-run-all-e2e-tests:
+  test-local:
     if: ${{ inputs.environment == 'local' }}
-    name: Start Restful Booker Platform and Run All E2E Test
+    name: Tests on local - ${{ inputs.browser }}
     runs-on: ubuntu-latest
     timeout-minutes: 30
     services:
@@ -115,9 +115,9 @@ jobs:
           path: cypress/reports
           retention-days: 5
 
-  run-all-e2e-tests:
+  test-prod:
     if: ${{ inputs.environment == 'prod' }}
-    name: Run All E2E Test
+    name: Tests on prod - ${{ inputs.browser }}
     runs-on: ubuntu-latest
     timeout-minutes: 30
     steps:
