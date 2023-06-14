@@ -27,7 +27,7 @@ jobs:
       fail-fast: false
       matrix:
         browser: [chrome, electron, firefox, edge]
-        runnerIndex: [1, 2]
+        runnerIndex: [0, 1]
         runnerTotal: [2]
     services:
         rbp-booking:
@@ -126,7 +126,7 @@ jobs:
       fail-fast: false
       matrix:
         browser: [chrome, electron, firefox, edge]
-        runnerIndex: [1, 2]
+        runnerIndex: [0, 1]
         runnerTotal: [2]
     steps:
       - id: checkout-repository
