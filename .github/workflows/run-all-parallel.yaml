@@ -18,42 +18,14 @@ on:
         type: boolean
 
 jobs:
-  install-dependencies:
-    name: Install Dependencies with cache
-    runs-on: ubuntu-latest
-    timeout-minutes: 15
-    container: cypress/browsers:node-18.16.0-chrome-113.0.5672.92-1-ff-113.0-edge-113.0.1774.35-1
-    env:
-      CI: 1
-    steps:
-      - id: checkout-repository
-        name: Checkout Repository
-        uses: actions/checkout@v3
-      - id: setup-node
-        name: Setup Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: 18
-      - id: cache-node
-        name: Cache Node
-        uses: actions/cache@v3
-        env:
-          cache-name: cache-node
-        with:
-          path: node_modules
-          key: ${{ runner.os }}-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
-      - id: install-dependencies
-        name: Install Dependencies
-        if: steps.cache-node.outputs.cache-hit != 'true'
-        run: npm install
-
   start-rbp-and-run-all-e2e-tests:
     if: ${{ inputs.environment == 'local' }}
     name: Tests on local - ${{ matrix.browser }} - ${{ matrix.runnerIndex }} of ${{ matrix.runnerTotal }}
     runs-on: ubuntu-latest
     timeout-minutes: 30
-    needs: [install-dependencies]
     container: cypress/browsers:node-18.16.0-chrome-113.0.5672.92-1-ff-113.0-edge-113.0.1774.35-1
+    env:
+      CI: 1
     strategy:
       fail-fast: false
       matrix:
@@ -97,19 +69,9 @@ jobs:
       - id: checkout-repository
         name: Checkout Repository
         uses: actions/checkout@v3
-      - id: setup-node
-        name: Setup Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: 18
-      - id: cache-node
-        name: Cache Node
-        uses: actions/cache@v3
-        env:
-          cache-name: cache-node
-        with:
-          path: node_modules
-          key: ${{ runner.os }}-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+      - id: install-dependencies
+        name: Install Dependencies
+        run: npm install
       - id: install-cypress
         name: Install Cypress
         run: ./node_modules/.bin/cypress install
@@ -159,8 +121,9 @@ jobs:
     name: Tests on prod - ${{ matrix.browser }} - ${{ matrix.runnerIndex }} of ${{ matrix.runnerTotal }}
     runs-on: ubuntu-latest
     timeout-minutes: 30
-    needs: [install-dependencies]
     container: cypress/browsers:node-18.16.0-chrome-113.0.5672.92-1-ff-113.0-edge-113.0.1774.35-1
+    env:
+      CI: 1
     strategy:
       fail-fast: false
       matrix:
@@ -171,19 +134,9 @@ jobs:
       - id: checkout-repository
         name: Checkout Repository
         uses: actions/checkout@v3
-      - id: setup-node
-        name: Setup Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: 18
-      - id: cache-node
-        name: Cache Node
-        uses: actions/cache@v3
-        env:
-          cache-name: cache-node
-        with:
-          path: node_modules
-          key: ${{ runner.os }}-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+      - id: install-dependencies
+        name: Install Dependencies
+        run: npm install
       - id: install-cypress
         name: Install Cypress
         run: ./node_modules/.bin/cypress install
