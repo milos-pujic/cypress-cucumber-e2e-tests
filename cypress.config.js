@@ -5,7 +5,8 @@ const createEsbuildPlugin = require('@badeball/cypress-cucumber-preprocessor/esb
 const { cloudPlugin } = require('cypress-cloud/plugin');
 const cypressSplit = require('cypress-split');
 
-async function setupNodeEvents(on, config) {
+async function setupNodeEvents(cypressOn, config) {
+  const on = require('cypress-on-fix')(cypressOn);
   // This is required for the preprocessor to be able to generate JSON reports after each run, and more,
   await preprocessor.addCucumberPreprocessorPlugin(on, config);
 
