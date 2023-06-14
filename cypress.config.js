@@ -3,7 +3,6 @@ const createBundler = require('@bahmutov/cypress-esbuild-preprocessor');
 const preprocessor = require('@badeball/cypress-cucumber-preprocessor');
 const createEsbuildPlugin = require('@badeball/cypress-cucumber-preprocessor/esbuild');
 const { cloudPlugin } = require('cypress-cloud/plugin');
-const cypressSplit = require('cypress-split');
 
 async function setupNodeEvents(cypressOn, config) {
   const on = require('cypress-on-fix')(cypressOn);
@@ -16,7 +15,6 @@ async function setupNodeEvents(cypressOn, config) {
       plugins: [createEsbuildPlugin.default(config)]
     })
   );
-  cypressSplit(on, config);
   cloudPlugin(on, config);
   config.defaultCommandTimeout = 4000;
   // Make sure to return the config object as it might have been modified by the plugin.

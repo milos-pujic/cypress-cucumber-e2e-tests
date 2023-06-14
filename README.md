@@ -25,7 +25,6 @@ Provided tests are based on examples how to define and use utility functions, ex
 ## Used Libraries
 
 - [Cypress Cucumber Preprocessor](https://github.com/badeball/cypress-cucumber-preprocessor)
-- [Cypress Split](https://github.com/bahmutov/cypress-split)
 - [Faker JS](https://github.com/faker-js/faker)
 - [Sorry-Cypress](https://docs.sorry-cypress.dev/) and [cypress-cloud](https://github.com/currents-dev/cypress-cloud)
 - [Prettier](https://prettier.io/)
