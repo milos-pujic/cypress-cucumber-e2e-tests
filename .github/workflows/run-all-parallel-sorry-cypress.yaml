@@ -11,14 +11,6 @@ on:
         options:
         - local
         - prod
-      browser:
-        description: 'Browser in which to run Tests'
-        required: true
-        default: 'electron'
-        type: choice
-        options:
-        - electron
-        - chrome
       skip-bugs:
         description: 'Skip Test with Known Bugs'
         required: true
