@@ -54,7 +54,7 @@ jobs:
 
   start-rbp-and-run-all-e2e-tests:
     if: ${{ inputs.environment == 'local' }}
-    name: Tests on ${{ inputs.environment }} - ${{ matrix.browser }} - Runner ${{ matrix.runnerIndex }} of ${{ matrix.runnerTotal }}
+    name: Tests on ${{ inputs.environment }} - ${{ matrix.browser }} - ${{ matrix.runnerIndex }} of ${{ matrix.runnerTotal }}
     runs-on: ubuntu-latest
     timeout-minutes: 30
     needs: [install-dependencies]
