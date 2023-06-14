@@ -22,6 +22,7 @@ jobs:
     name: Install Dependencies with cache
     runs-on: ubuntu-latest
     timeout-minutes: 15
+    container: cypress/browsers:node-18.16.0-chrome-113.0.5672.92-1-ff-113.0-edge-113.0.1774.35-1
     env:
       CI: 1
     steps:
