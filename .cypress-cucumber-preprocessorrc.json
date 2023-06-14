@@ -1,5 +1,5 @@
 {
-  "stepDefinitions": ["cypress/e2e/[filepart]/*.stepdef.js", "cypress/e2e/support/**/*.js"],
+  "stepDefinitions": ["cypress/e2e/features/[filepart]/*.stepdef.js", "cypress/e2e/support/**/*.js"],
   "html": {
     "enabled": true,
     "output": "cypress/reports/html/cucumber-report.html"

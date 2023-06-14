@@ -83,7 +83,7 @@ jobs:
         name: Cypress Run
         uses: cypress-io/github-action@v5
         with:
-          env: ENV=local,TAGS=not @bug
+          env: ENV=local,filterSpecs=true,TAGS=not @bug
           browser: ${{ inputs.browser }}
           command-prefix: '--'
         env:
@@ -94,7 +94,7 @@ jobs:
         name: Cypress Run (incl. tests with known bugs)
         uses: cypress-io/github-action@v5
         with:
-          env: ENV=local
+          env: ENV=local,filterSpecs=true
           browser: ${{ inputs.browser }}
           command-prefix: '--'
         env:
@@ -147,7 +147,7 @@ jobs:
         name: Cypress Run
         uses: cypress-io/github-action@v5
         with:
-          env: ENV=prod,TAGS=not @bug
+          env: ENV=prod,filterSpecs=true,TAGS=not @bug
           browser: ${{ inputs.browser }}
           command-prefix: '--'
         env:
@@ -158,7 +158,7 @@ jobs:
         name: Cypress Run (incl. tests with known bugs)
         uses: cypress-io/github-action@v5
         with:
-          env: ENV=prod
+          env: ENV=prod,filterSpecs=true
           browser: ${{ inputs.browser }}
           command-prefix: '--'
         env:
