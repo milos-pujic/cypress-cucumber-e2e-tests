@@ -19,13 +19,6 @@ on:
       - reopened
       - synchronize
       - labeled
-    paths:
-      - 'cypress/**'
-      - '.github/workflows/sanity-check.yaml'
-      - '.cypress-cucumber-preprocessorrc.json'
-      - 'cypress.config.js'
-      - 'package-lock.json'
-      - 'package.json'
 
 jobs:
   test:
