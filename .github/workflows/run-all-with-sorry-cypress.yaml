@@ -27,7 +27,9 @@ jobs:
     name: Tests on local - ${{ matrix.browser }} - ${{ matrix.runnerIndex }} of ${{ matrix.runnerTotal }}
     runs-on: ubuntu-latest
     timeout-minutes: 30
-    container: cypress/browsers:node-18.16.0-chrome-113.0.5672.92-1-ff-113.0-edge-113.0.1774.35-1
+    container: 
+      image: cypress/browsers:node-18.16.0-chrome-113.0.5672.92-1-ff-113.0-edge-113.0.1774.35-1
+      options: --user 1001
     env:
       CI: 1
     strategy:
@@ -89,22 +91,24 @@ jobs:
       - id: execute-tests
         if: ${{ inputs.skip-bugs }}
         name: Execute Cypress Tests
-        run: CURRENTS_API_URL=${CYPRESS_DIRECTOR_URL} npx cypress-cloud run --record --key ${CYPRESS_RECORD_KEY} --parallel --ci-build-id ${CYPRESS_CI_BUILD_ID} --env ENV=${{ inputs.environment }},TAGS='not @bug' --browser ${{ matrix.browser }}
+        run: CURRENTS_API_URL=${CYPRESS_DIRECTOR_URL} npx cypress-cloud run --record --key ${CYPRESS_RECORD_KEY} --parallel --ci-build-id ${CYPRESS_CI_BUILD_ID} --env ENV=docker,TAGS='not @bug' --browser ${{ matrix.browser }}
         env:
-          CYPRESS_CI_BUILD_ID: ${{ inputs.environment }}-${{ matrix.browser }}-${{ github.run_id }}
+          CYPRESS_CI_BUILD_ID: local-${{ matrix.browser }}-${{ github.run_id }}
       - id: execute-tests-bugs
         if: ${{ !inputs.skip-bugs }}
         name: Execute Cypress Tests (incl. tests with known bugs)
-        run: CURRENTS_API_URL=${CYPRESS_DIRECTOR_URL} npx cypress-cloud run --record --key ${CYPRESS_RECORD_KEY} --parallel --ci-build-id ${CYPRESS_CI_BUILD_ID} --env ENV=${{ inputs.environment }} --browser ${{ matrix.browser }}
+        run: CURRENTS_API_URL=${CYPRESS_DIRECTOR_URL} npx cypress-cloud run --record --key ${CYPRESS_RECORD_KEY} --parallel --ci-build-id ${CYPRESS_CI_BUILD_ID} --env ENV=docker --browser ${{ matrix.browser }}
         env:
-          CYPRESS_CI_BUILD_ID: ${{ inputs.environment }}-${{ matrix.browser }}-${{ github.run_id }}
+          CYPRESS_CI_BUILD_ID: local-${{ matrix.browser }}-${{ github.run_id }}
 
   test-prod:
     if: ${{ inputs.environment == 'prod' }}
     name: Tests on prod - ${{ matrix.browser }} - ${{ matrix.runnerIndex }} of ${{ matrix.runnerTotal }}
     runs-on: ubuntu-latest
     timeout-minutes: 30
-    container: cypress/browsers:node-18.16.0-chrome-113.0.5672.92-1-ff-113.0-edge-113.0.1774.35-1
+    container: 
+      image: cypress/browsers:node-18.16.0-chrome-113.0.5672.92-1-ff-113.0-edge-113.0.1774.35-1
+      options: --user 1001
     env:
       CI: 1
     strategy:
@@ -133,12 +137,12 @@ jobs:
       - id: execute-tests
         if: ${{ inputs.skip-bugs }}
         name: Execute Cypress Tests
-        run: CURRENTS_API_URL=${CYPRESS_DIRECTOR_URL} npx cypress-cloud run --record --key ${CYPRESS_RECORD_KEY} --parallel --ci-build-id ${CYPRESS_CI_BUILD_ID} --env ENV=${{ inputs.environment }},TAGS='not @bug' --browser ${{ matrix.browser }}
+        run: CURRENTS_API_URL=${CYPRESS_DIRECTOR_URL} npx cypress-cloud run --record --key ${CYPRESS_RECORD_KEY} --parallel --ci-build-id ${CYPRESS_CI_BUILD_ID} --env ENV=prod,TAGS='not @bug' --browser ${{ matrix.browser }}
         env:
-          CYPRESS_CI_BUILD_ID: ${{ inputs.environment }}-${{ matrix.browser }}-${{ github.run_id }}
+          CYPRESS_CI_BUILD_ID: prod-${{ matrix.browser }}-${{ github.run_id }}
       - id: execute-tests-bugs
         if: ${{ !inputs.skip-bugs }}
         name: Execute Cypress Tests (incl. tests with known bugs)
-        run: CURRENTS_API_URL=${CYPRESS_DIRECTOR_URL} npx cypress-cloud run --record --key ${CYPRESS_RECORD_KEY} --parallel --ci-build-id ${CYPRESS_CI_BUILD_ID} --env ENV=${{ inputs.environment }} --browser ${{ matrix.browser }}
+        run: CURRENTS_API_URL=${CYPRESS_DIRECTOR_URL} npx cypress-cloud run --record --key ${CYPRESS_RECORD_KEY} --parallel --ci-build-id ${CYPRESS_CI_BUILD_ID} --env ENV=prod --browser ${{ matrix.browser }}
         env:
-          CYPRESS_CI_BUILD_ID: ${{ inputs.environment }}-${{ matrix.browser }}-${{ github.run_id }}
+          CYPRESS_CI_BUILD_ID: prod-${{ matrix.browser }}-${{ github.run_id }}
