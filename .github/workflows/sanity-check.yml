@@ -6,7 +6,7 @@ on:
     - main
     paths:
       - 'cypress/**'
-      - '.github/workflows/sanity-check.yaml'
+      - '.github/workflows/sanity-check.yml'
       - '.cypress-cucumber-preprocessorrc.json'
       - 'cypress.config.js'
       - 'package-lock.json'
