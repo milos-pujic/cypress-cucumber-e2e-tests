@@ -20,6 +20,7 @@ on:
 env:
   CYPRESS_DIRECTOR_URL: ${{ secrets.CYPRESS_DIRECTOR_URL }}
   CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
+  CI: 1
 
 jobs:
   test-local:
@@ -31,7 +32,6 @@ jobs:
       image: cypress/browsers:node-18.16.0-chrome-113.0.5672.92-1-ff-113.0-edge-113.0.1774.35-1
       options: --user 1001
     env:
-      CI: 1
       CYPRESS_CI_BUILD_ID: local-${{ matrix.browser }}-${{ github.run_id }}
     strategy:
       fail-fast: false
@@ -107,7 +107,6 @@ jobs:
       image: cypress/browsers:node-18.16.0-chrome-113.0.5672.92-1-ff-113.0-edge-113.0.1774.35-1
       options: --user 1001
     env:
-      CI: 1
       CYPRESS_CI_BUILD_ID: prod-${{ matrix.browser }}-${{ github.run_id }}
     strategy:
       fail-fast: false
