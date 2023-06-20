@@ -6,7 +6,7 @@ They all can be found by navigating to [GitHub Repository > Actions](https://git
 
 ![GitHub Actions Workflows](/docs/imgs/GitHub-Actions.png)
 
-There are 4 GitHub Actions Workflows setup for Foleon Artie repository:
+There are 4 GitHub Actions Workflows setup for Cypress Cucumber E2E Tests repository:
 
 - [Run All E2E Tests](https://github.com/milos-pujic/cypress-cucumber-e2e-tests/actions/workflows/run-all.yaml)
 - [Run All E2E Tests in parallel](https://github.com/milos-pujic/cypress-cucumber-e2e-tests/actions/workflows/run-all-parallel.yaml)
