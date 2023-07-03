@@ -35,7 +35,7 @@
     "cypress": "^12.16.0",
     "cypress-cloud": "^1.8.2",
     "cypress-on-fix": "^1.0.2",
-    "eslint": "^8.43.0",
+    "eslint": "^8.44.0",
     "eslint-config-prettier": "^8.8.0",
     "eslint-plugin-chai-friendly": "^0.7.2",
     "eslint-plugin-cypress": "^2.13.3",
