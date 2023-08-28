@@ -77,7 +77,7 @@ jobs:
       - id: cypress-run
         if: ${{ inputs.skip-bugs }}
         name: Cypress Run
-        uses: cypress-io/github-action@v5
+        uses: cypress-io/github-action@v6
         with:
           env: ENV=local,TAGS=not @bug
           browser: ${{ inputs.browser }}
@@ -85,7 +85,7 @@ jobs:
       - id: cypress-run-bugs
         if: ${{ !inputs.skip-bugs }}
         name: Cypress Run (incl. tests with known bugs)
-        uses: cypress-io/github-action@v5
+        uses: cypress-io/github-action@v6
         with:
           env: ENV=local
           browser: ${{ inputs.browser }}
@@ -131,7 +131,7 @@ jobs:
       - id: cypress-run
         if: ${{ inputs.skip-bugs }}
         name: Cypress Run
-        uses: cypress-io/github-action@v5
+        uses: cypress-io/github-action@v6
         with:
           env: ENV=prod,TAGS=not @bug
           browser: ${{ inputs.browser }}
@@ -139,7 +139,7 @@ jobs:
       - id: cypress-run-bugs
         if: ${{ !inputs.skip-bugs }}
         name: Cypress Run (incl. tests with known bugs)
-        uses: cypress-io/github-action@v5
+        uses: cypress-io/github-action@v6
         with:
           env: ENV=prod
           browser: ${{ inputs.browser }}
