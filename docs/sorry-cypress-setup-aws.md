@@ -10,7 +10,7 @@
 > - EC2 Application Load Balancer based on calculator 19,35 USD (0.5 GB / hour, 0.5 connections / second)
 > - S3 + Cloudwatch = varies based on usage
 
-Inside this repository there is [sorry-cypress-stack.yml](/.aws/sorry-cypress-stack.yml) AWS Cloud Formation template which can be used to deploy full sorry-cypress kit in just 5 minutes on AWS. Read more on [Sorry-cypress installation instructions for AWS](https://docs.sorry-cypress.dev/cloud-setup/aws).
+Inside this repository there is [sorry-cypress-stack.yml](/.aws/sorry-cypress-stack.yml) AWS Cloud Formation template which can be used to deploy full sorry-cypress kit in just 5 minutes on AWS. This is just a Basic AWS setup where more advanced one can be found in Sorry Cypress Documentation. Read more on [Sorry-cypress installation instructions for AWS](https://docs.sorry-cypress.dev/cloud-setup/aws).
 
 > :bangbang: IMPORTANT :bangbang:
 >
