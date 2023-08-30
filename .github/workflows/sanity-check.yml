@@ -68,7 +68,7 @@ jobs:
           node-version: 20
       - id: cypress-run
         name: Cypress Run
-        uses: cypress-io/github-action@v5
+        uses: cypress-io/github-action@v6
         with:
           env: ENV=local,TAGS=@sanity and not @bug
           browser: electron
