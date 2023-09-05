@@ -277,6 +277,10 @@ Add minikube IP address in host file for easier access. Bellow command will add 
 
         brew uninstall docker-buildx
 
+4. Uninstall Docker Compose by running the following command:
+
+        brew uninstall docker-compose
+
 5. Uninstall Docker CLI by running the following command:
 
         brew uninstall docker
