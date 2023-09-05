@@ -24,7 +24,7 @@ services:
       GITLAB_JOB_RETRIES: 'false'
       MINIO_ACCESS_KEY: 'sorry-cypress'
       MINIO_SECRET_KEY: 'cypress-sorry'
-      MINIO_ENDPOINT: 'localhost'
+      MINIO_ENDPOINT: 'localhost' # Director must be able to access minio service within your network configuration using MINIO_ENDPOINT and MINIO_PORT
       MINIO_URL: 'http://localhost'
       MINIO_PORT: '9000'
       MINIO_USESSL: 'false'

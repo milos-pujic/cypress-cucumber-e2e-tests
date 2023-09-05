@@ -149,26 +149,26 @@ To be able to use ports like 80, 8080, 1234, 9090, 9000 and 4000 which are used 
 1. Open PowerShell with administrator privileges
 2. Start minikube by running the following command:
 
-        minikube start --memory 8192 --cpus 4 --extra-config=apiserver.service-node-port-range=1-65535
+        minikube start --driver=hyperkit --container-runtime=docker --vm=true --addons=dashboard --addons=metrics-server --memory 8192 --cpus 4 --extra-config=apiserver.service-node-port-range=1-65535
 
       - sometime error can occurs during initial start, in that case stop minikube, purge it and start again with same command:
 
             minikube stop
             minikube delete --all --purge
-            minikube start --memory 8192 --cpus 4 --extra-config=apiserver.service-node-port-range=1-65535
+            minikube start --driver=hyperkit --container-runtime=docker --vm=true --addons=dashboard --addons=metrics-server --memory 8192 --cpus 4 --extra-config=apiserver.service-node-port-range=1-65535
 
 ### Initial start of minikube on MacOS
 
 1. Open Terminal
 2. Start minikube by running the following command (you will be asked for sudo rights):
 
-        minikube start --memory 8192 --cpus 4 --extra-config=apiserver.service-node-port-range=1-65535
+        minikube start --driver=hyperkit --container-runtime=docker --vm=true --addons=dashboard --addons=metrics-server --memory 8192 --cpus 4 --extra-config=apiserver.service-node-port-range=1-65535
 
       - sometime error can occurs during initial start, in that case stop minikube, purge it and start again with same command:
 
             minikube stop
             minikube delete --all --purge
-            minikube start --memory 8192 --cpus 4 --extra-config=apiserver.service-node-port-range=1-65535
+            minikube start --driver=hyperkit --container-runtime=docker --vm=true --addons=dashboard --addons=metrics-server --memory 8192 --cpus 4 --extra-config=apiserver.service-node-port-range=1-65535
 
 ---
 
