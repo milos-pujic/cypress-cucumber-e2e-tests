@@ -141,11 +141,6 @@ This guide will cover installing:
           mkdir -p ~/.docker/cli-plugins
           ln -sfn /usr/local/opt/docker-compose/bin/docker-compose ~/.docker/cli-plugins/docker-compose
 
-9. Verify the installation by running the following command:
-
-        docker version
-        docker compose version
-
 ## Start minikube
 
 To start minikube, it is important that on first initial start configuration is passed with configuration flags.
@@ -277,22 +272,22 @@ Add minikube IP address in host file for easier access. Bellow command will add 
 
         brew uninstall docker-buildx
 
-4. Uninstall Docker Compose by running the following command:
+5. Uninstall Docker Compose by running the following command:
 
         brew uninstall docker-compose
 
-5. Uninstall Docker CLI by running the following command:
+6. Uninstall Docker CLI by running the following command:
 
         brew uninstall docker
 
-6. Uninstall Minikube by running the following command:
+7. Uninstall Minikube by running the following command:
 
         brew uninstall minikube
 
-7. Uninstall HyperKit by running the following command:
+8. Uninstall HyperKit by running the following command:
 
         brew uninstall hyperkit
 
-8. Remove all unused dependencies by running the following command:
+9. Remove all unused dependencies by running the following command:
 
         brew autoremove
