@@ -10,12 +10,14 @@ services:
       - ./data/mongo/data/db:/data/db
     ports:
       - 27017:27017
+    networks:
+      - e2e-tests
 
   director:
     image: agoldis/sorry-cypress-director:latest
     environment:
       ALLOWED_KEYS: 'secret_key'
-      DASHBOARD_URL: http://localhost:8080
+      DASHBOARD_URL: http://kube.local:8080
       INACTIVITY_TIMEOUT_SECONDS: 600
       EXECUTION_DRIVER: '../execution/mongo/driver'
       MONGODB_URI: 'mongodb://sorry-cypress:cypress-sorry@mongo:27017'
@@ -24,18 +26,18 @@ services:
       GITLAB_JOB_RETRIES: 'false'
       MINIO_ACCESS_KEY: 'sorry-cypress'
       MINIO_SECRET_KEY: 'cypress-sorry'
-      MINIO_ENDPOINT: 'localhost' # Director must be able to access minio service within your network configuration using MINIO_ENDPOINT and MINIO_PORT
-      MINIO_URL: 'http://localhost'
+      MINIO_ENDPOINT: 'storage' # Director must be able to access minio service within your network configuration using MINIO_ENDPOINT and MINIO_PORT
+      MINIO_URL: 'http://storage'
       MINIO_PORT: '9000'
       MINIO_USESSL: 'false'
       MINIO_BUCKET: sorry-cypress
       PROBE_LOGGER: 'false'
     ports:
       - 1234:1234
-      - 9000:9000
-      - 9090:9090
     depends_on:
       - mongo
+    networks:
+      - e2e-tests
 
   api:
     image: agoldis/sorry-cypress-api:latest
@@ -47,11 +49,13 @@ services:
       - 4000:4000
     depends_on:
       - mongo
+    networks:
+      - e2e-tests
 
   dashboard:
     image: agoldis/sorry-cypress-dashboard:latest
     environment:
-      GRAPHQL_SCHEMA_URL: http://localhost:4000
+      GRAPHQL_SCHEMA_URL: http://kube.local:4000
       GRAPHQL_CLIENT_CREDENTIALS: ''
       PORT: 8080
       CI_URL: ''
@@ -60,20 +64,26 @@ services:
     depends_on:
       - mongo
       - api
+    networks:
+      - e2e-tests
 
   storage:
     image: minio/minio
-    network_mode: service:director
     environment:
       MINIO_ROOT_USER: 'sorry-cypress'
       MINIO_ROOT_PASSWORD: 'cypress-sorry'
     volumes:
       - ./data/minio/data:/data
     command: minio server --console-address ':9090' /data
+    ports:
+      - 9000:9000
+      - 9090:9090
+    networks:
+      - e2e-tests
 
   createbuckets:
     image: minio/mc
-    network_mode: service:director
+    network_mode: service:storage
     depends_on:
       - storage
     entrypoint: >
@@ -86,3 +96,8 @@ services:
       /usr/bin/mc anonymous set public myminio/sorry-cypress;
       exit 0;
       '
+
+networks:
+  e2e-tests:
+    name: e2e-tests
+    driver: bridge

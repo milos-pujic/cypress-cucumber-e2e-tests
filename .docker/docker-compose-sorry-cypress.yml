@@ -1,54 +1,5 @@
 version: '3.7'
 services:
-  # Restful Booker Platform Docker Compose from https://github.com/mwinteringham/restful-booker-platform repository
-  rbp-booking:
-    image: mwinteringham/restfulbookerplatform_booking:1.6.24c7b22
-    ports:
-      - 3000:3000
-    restart: always
-
-  rbp-room:
-    image: mwinteringham/restfulbookerplatform_room:1.6.24c7b22
-    ports:
-      - 3001:3001
-    restart: always
-
-  rbp-branding:
-    image: mwinteringham/restfulbookerplatform_branding:1.6.24c7b22
-    ports:
-      - 3002:3002
-    restart: always
-
-  rbp-assets:
-    image: mwinteringham/restfulbookerplatform_assets:1.6.24c7b22
-    ports:
-      - 3003:3003
-    restart: always
-
-  rbp-auth:
-    image: mwinteringham/restfulbookerplatform_auth:1.6.24c7b22
-    ports:
-      - 3004:3004
-    restart: always
-
-  rbp-report:
-    image: mwinteringham/restfulbookerplatform_report:1.6.24c7b22
-    ports:
-      - 3005:3005
-    restart: always
-
-  rbp-message:
-    image: mwinteringham/restfulbookerplatform_message:1.6.24c7b22
-    ports:
-      - 3006:3006
-    restart: always
-
-  rbp-proxy:
-    image: mwinteringham/restfulbookerplatform_proxy:latest
-    ports:
-      - 80:80
-    restart: always
-
   # Sorry Cypress Minio Docker Compose from https://github.com/sorry-cypress/sorry-cypress repository
   mongo:
     image: mongo:latest
@@ -59,10 +10,13 @@ services:
       - ./data/mongo/data/db:/data/db
     ports:
       - 27017:27017
+    networks:
+      - e2e-tests
 
   director:
     image: agoldis/sorry-cypress-director:latest
     environment:
+      ALLOWED_KEYS: 'secret_key'
       DASHBOARD_URL: http://localhost:8080
       INACTIVITY_TIMEOUT_SECONDS: 600
       EXECUTION_DRIVER: '../execution/mongo/driver'
@@ -72,7 +26,7 @@ services:
       GITLAB_JOB_RETRIES: 'false'
       MINIO_ACCESS_KEY: 'sorry-cypress'
       MINIO_SECRET_KEY: 'cypress-sorry'
-      MINIO_ENDPOINT: 'director'
+      MINIO_ENDPOINT: 'localhost' # Director must be able to access minio service within your network configuration using MINIO_ENDPOINT and MINIO_PORT
       MINIO_URL: 'http://localhost'
       MINIO_PORT: '9000'
       MINIO_USESSL: 'false'
@@ -84,6 +38,8 @@ services:
       - 9090:9090
     depends_on:
       - mongo
+    networks:
+      - e2e-tests
 
   api:
     image: agoldis/sorry-cypress-api:latest
@@ -95,6 +51,8 @@ services:
       - 4000:4000
     depends_on:
       - mongo
+    networks:
+      - e2e-tests
 
   dashboard:
     image: agoldis/sorry-cypress-dashboard:latest
@@ -108,6 +66,8 @@ services:
     depends_on:
       - mongo
       - api
+    networks:
+      - e2e-tests
 
   storage:
     image: minio/minio
@@ -134,18 +94,8 @@ services:
       /usr/bin/mc anonymous set public myminio/sorry-cypress;
       exit 0;
       '
-  e2e-chrome:
-    image: e2e
-    build: .
-    depends_on:
-      - director
-    deploy:
-      mode: replicated
-      replicas: 2
-    environment:
-      - CURRENTS_API_URL=http://director:1234
-    command:
-      - /bin/bash
-      - -c
-      - |
-        npx cypress-cloud run --env ENV=docker --browser chrome --record --key secret_key --parallel --ci-build-id chrome_`date +%Y-%m-%d_%R`
+
+networks:
+  e2e-tests:
+    name: e2e-tests
+    driver: bridge

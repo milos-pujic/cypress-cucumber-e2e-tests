@@ -10,7 +10,7 @@ Inside this repository there is [docker-compose-sorry-cypress.yml](/docker-compo
 
 After Docker has been installed on your machine, open the terminal inside `<local_path>\cypress-cucumber-e2e-tests` and use the following command:
 
-    docker compose -f ./docker-compose-sorry-cypress.yml up -d 
+    docker compose -f ./.docker/docker-compose-sorry-cypress.yml up -d 
 
 That will start full Sorry-Cypress kit, Director, API, Dashboard with MongoDB and Minio Object Storage.
 

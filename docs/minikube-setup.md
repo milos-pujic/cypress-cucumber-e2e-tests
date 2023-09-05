@@ -130,11 +130,21 @@ This guide will cover installing:
     - docker-buildx is a Docker plugin. For Docker to find this plugin, symlink it:
 
           mkdir -p ~/.docker/cli-plugins
-          ln -sfn $HOMEBREW_PREFIX/opt/docker-buildx/bin/docker-buildx ~/.docker/cli-plugins/docker-buildx
+          ln -sfn /usr/local/opt/docker-buildx/bin/docker-buildx ~/.docker/cli-plugins/docker-buildx
 
-8. Verify the installation by running the following command:
+8. Install Docker Buildx by running the following command:
+
+        brew install docker-compose
+
+    - Compose is now a Docker plugin. For Docker to find this plugin, symlink it:
+
+          mkdir -p ~/.docker/cli-plugins
+          ln -sfn /usr/local/opt/docker-compose/bin/docker-compose ~/.docker/cli-plugins/docker-compose
+
+9. Verify the installation by running the following command:
 
         docker version
+        docker compose version
 
 ## Start minikube
 
@@ -149,26 +159,26 @@ To be able to use ports like 80, 8080, 1234, 9090, 9000 and 4000 which are used 
 1. Open PowerShell with administrator privileges
 2. Start minikube by running the following command:
 
-        minikube start --driver=hyperkit --container-runtime=docker --vm=true --addons=dashboard --addons=metrics-server --memory 8192 --cpus 4 --extra-config=apiserver.service-node-port-range=1-65535
+        minikube start --addons=dashboard --addons=metrics-server --memory 8192 --cpus 4 --extra-config=apiserver.service-node-port-range=1-65535
 
       - sometime error can occurs during initial start, in that case stop minikube, purge it and start again with same command:
 
             minikube stop
             minikube delete --all --purge
-            minikube start --driver=hyperkit --container-runtime=docker --vm=true --addons=dashboard --addons=metrics-server --memory 8192 --cpus 4 --extra-config=apiserver.service-node-port-range=1-65535
+            minikube start --addons=dashboard --addons=metrics-server --memory 8192 --cpus 4 --extra-config=apiserver.service-node-port-range=1-65535
 
 ### Initial start of minikube on MacOS
 
 1. Open Terminal
 2. Start minikube by running the following command (you will be asked for sudo rights):
 
-        minikube start --driver=hyperkit --container-runtime=docker --vm=true --addons=dashboard --addons=metrics-server --memory 8192 --cpus 4 --extra-config=apiserver.service-node-port-range=1-65535
+        minikube start --addons=dashboard --addons=metrics-server --memory 8192 --cpus 4 --extra-config=apiserver.service-node-port-range=1-65535
 
       - sometime error can occurs during initial start, in that case stop minikube, purge it and start again with same command:
 
             minikube stop
             minikube delete --all --purge
-            minikube start --driver=hyperkit --container-runtime=docker --vm=true --addons=dashboard --addons=metrics-server --memory 8192 --cpus 4 --extra-config=apiserver.service-node-port-range=1-65535
+            minikube start --addons=dashboard --addons=metrics-server --memory 8192 --cpus 4 --extra-config=apiserver.service-node-port-range=1-65535
 
 ---
 
@@ -223,9 +233,9 @@ To be able to run docker commands with minikube inside all terminal sessions we 
 
 - `eval $(minikube docker-env)`
 
-Add minikube IP address in host file for easier access. Bellow command will add host record pointing to minikube IP and with domain names `kube.local` and `storage.sorry-cypress` (used to access object storage from sorry-cypress dashboard).
+Add minikube IP address in host file for easier access. Bellow command will add host record pointing to minikube IP and with domain names `kube.local`, `storage` and `storage.sorry-cypress`.
 
-    echo "`minikube ip` kube.local storage.sorry-cypress" | sudo tee -a /etc/hosts > /dev/null
+    echo "`minikube ip` kube.local storage storage.sorry-cypress" | sudo tee -a /etc/hosts > /dev/null
 
 ## Uninstall minikube
 
