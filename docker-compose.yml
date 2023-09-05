@@ -1,6 +1,5 @@
 version: '3.7'
 services:
-
   # Restful Booker Platform Docker Compose from https://github.com/mwinteringham/restful-booker-platform repository
   rbp-booking:
     image: mwinteringham/restfulbookerplatform_booking:1.6.24c7b22
@@ -31,7 +30,7 @@ services:
     ports:
       - 3004:3004
     restart: always
-    
+
   rbp-report:
     image: mwinteringham/restfulbookerplatform_report:1.6.24c7b22
     ports:
@@ -43,7 +42,7 @@ services:
     ports:
       - 3006:3006
     restart: always
-    
+
   rbp-proxy:
     image: mwinteringham/restfulbookerplatform_proxy:latest
     ports:
