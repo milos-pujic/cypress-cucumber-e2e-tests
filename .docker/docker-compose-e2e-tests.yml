@@ -1,0 +1,42 @@
+version: '3.7'
+services:
+  e2e-chrome:
+    image: e2e
+    build:
+      context: ./../
+      dockerfile: Dockerfile
+    deploy:
+      mode: replicated
+      replicas: 2
+    environment:
+      - CURRENTS_API_URL=http://director:1234
+    command:
+      - /bin/bash
+      - -c
+      - |
+        npx cypress-cloud run --env ENV=prod --browser chrome --record --key secret_key --parallel --ci-build-id chrome_`date +%Y-%m-%d_%R`
+    networks:
+      - e2e-tests
+
+  e2e-firefox:
+    image: e2e
+    build:
+      context: ./../
+      dockerfile: Dockerfile
+    deploy:
+      mode: replicated
+      replicas: 2
+    environment:
+      - CURRENTS_API_URL=http://director:1234
+    command:
+      - /bin/bash
+      - -c
+      - |
+        npx cypress-cloud run --env ENV=prod --browser firefox --record --key secret_key --parallel --ci-build-id firefox_`date +%Y-%m-%d_%R`
+    networks:
+      - e2e-tests
+
+networks:
+  e2e-tests:
+    name: e2e-tests
+    driver: bridge
