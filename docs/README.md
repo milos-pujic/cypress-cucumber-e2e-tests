@@ -7,5 +7,4 @@
   * [Locally using Minikube's Kubernetes](/docs/sorry-cypress-setup-minikube.md)
 * Execute E2E Cypress Cucumber Tests using CI/CD Tools
   * [On Github using Github Actions Workflows](/docs/execute-e2e-gha.md)
-  * [Locally using Docker for Desktop](/docs/execute-e2e-docker-for-desktop.md)
   * [Locally using Minikube's Kubernetes](/docs/execute-e2e-minikube.md)

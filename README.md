@@ -186,5 +186,4 @@ Guides on how to setup Sorry-Cypress Hosting:
 Guides on how to execute Execute E2E Cypress Cucumber Tests using CI/CD Tools:
 
 - [On Github using Github Actions Workflows](/docs/execute-e2e-gha.md)
-- [Locally using Docker for Desktop](/docs/execute-e2e-docker-for-desktop.md)
 - [Locally using Minikube's Kubernetes](/docs/execute-e2e-minikube.md)
