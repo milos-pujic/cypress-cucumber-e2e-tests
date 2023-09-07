@@ -80,6 +80,9 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 20
+      - id: install
+        name: Install Dependencies
+        run: npm install
       - id: cypress-run
         if: ${{ inputs.skip-bugs }}
         name: Cypress Run
@@ -116,6 +119,9 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 20
+      - id: install
+        name: Install Dependencies
+        run: npm install
       - id: cypress-run
         if: ${{ inputs.skip-bugs }}
         name: Cypress Run
