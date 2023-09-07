@@ -18,7 +18,7 @@ on:
         type: boolean
 
 env:
-  CYPRESS_DIRECTOR_URL: ${{ secrets.CYPRESS_DIRECTOR_URL }}
+  CURRENTS_API_URL: ${{ secrets.CYPRESS_DIRECTOR_URL }}
   CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
   CI: 1
 
