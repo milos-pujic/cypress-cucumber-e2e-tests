@@ -88,7 +88,7 @@ jobs:
         name: Cypress Run
         uses: cypress-io/github-action@v6
         with:
-          command: npx cypress-cloud run --record --key ${CYPRESS_RECORD_KEY} --parallel --ci-build-id ${CYPRESS_CI_BUILD_ID} --env ENV=local,TAGS='not @bug' --browser ${{ matrix.browser }}
+          command: npx cypress-cloud run --record --key ${CYPRESS_RECORD_KEY} --parallel --ci-build-id ${CYPRESS_CI_BUILD_ID} --env ENV=local,TAGS=not @bug --browser ${{ matrix.browser }}
       - id: cypress-run-bugs
         if: ${{ !inputs.skip-bugs }}
         name: Cypress Run (incl. tests with known bugs)
@@ -127,7 +127,7 @@ jobs:
         name: Cypress Run
         uses: cypress-io/github-action@v6
         with:
-          command: npx cypress-cloud run --record --key ${CYPRESS_RECORD_KEY} --parallel --ci-build-id ${CYPRESS_CI_BUILD_ID} --env ENV=prod,TAGS='not @bug' --browser ${{ matrix.browser }}
+          command: npx cypress-cloud run --record --key ${CYPRESS_RECORD_KEY} --parallel --ci-build-id ${CYPRESS_CI_BUILD_ID} --env ENV=prod,TAGS=not @bug --browser ${{ matrix.browser }}
       - id: cypress-run-bugs
         if: ${{ !inputs.skip-bugs }}
         name: Cypress Run (incl. tests with known bugs)
