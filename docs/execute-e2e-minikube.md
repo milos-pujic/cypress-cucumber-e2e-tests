@@ -57,15 +57,30 @@ To check status of E2E Tests Cron Jobs:
 
 Each of E2E Tests Cron Jobs is configured to run on specific browser and with 2 parallel Cypress Agents. Than configuration is located in [e2e-tests.yml](/.kube/e2e-tests.yml) file.
 
-To see the list of all configured Cron Jobs: Open Minikube Dashboard > Change namespace to `e2e-tests` > Navigate to Cron Jobs on left side panel.
+To see the list of all configured Scheduled Cron Jobs: Open Minikube Dashboard > Change namespace to `e2e-tests` > Navigate to Cron Jobs on left side panel.
+
+>To see the list of all configured Scheduled Cron Jobs using terminal, use >bellow command:
+>
+>     kubectl get cronjob --namespace=e2e-tests
 
 To see the list of all running or finished Jobs: Open Minikube Dashboard > Change namespace to `e2e-tests` > Navigate to Jobs on left side panel. On Jobs panel you can also monitor logs of running Cypress Agent (which are running as Kubernetes pods).
+
+>To see the list of all running or finished Jobs using terminal, use bellow command:
+>
+>     kubectl get jobs --namespace=e2e-tests
 
 E2E Tests Cron Jobs can also be triggered manually by clicking on 3 dots button next to Cron Job and click on Trigger button.
 
 ![E2E Tests Cron Jobs Manual Trigger](/docs/imgs/minikube-dashboard-manual-trigger.gif)
 
+>To manually trigger E2E Tests Cron Jobs using terminal, use bellow command:
+>
+>     kubectl create job --from=cronjob/<name-of-cron-job> <name-of-job> --namespace=e2e-tests
+
+Where `<name-of-cron-job` is `e2e-[chrome|firefox|edge|electron]` and  `<name-of-job>` can be whatever name you want to give to the job.
+
 Progress and results can be also followed on Sorry-Cypress Dashboard `http://kube.local:8080` under run named the same as running or finished job name:
 
-- for scheduled jobs `scheduled-e2e-[chrome|firefox|edge|electron]-########`
-- for manually triggered jobs `scheduled-e2e-[chrome|firefox|edge|electron]-manual-###`.
+- for scheduled jobs `e2e-[chrome|firefox|edge|electron]-########`
+- for manually triggered jobs via Minikube Dashboard `e2e-[chrome|firefox|edge|electron]-manual-###`.
+- for manually triggered jobs via terminal look for the name passed as `<name-of-job>` in terminal command
