@@ -16,6 +16,7 @@
 // Import commands.js using CommonJS syntax:
 require('./commands');
 require('@cypress/xpath');
+require('cypress-cloud/support');
 
 Cypress.on('uncaught:exception', (err, runnable) => {
   return false;
