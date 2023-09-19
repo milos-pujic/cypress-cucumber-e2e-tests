@@ -15,7 +15,7 @@ After everything is up and running you will have:
 - Sorry-Cypress Director available at `http://kube.local:1234`
 - Sorry-Cypress API available at `http://kube.local:4000`
 - Sorry-Cypress Dashboard available at `http://kube.local:8080`
-- Minio Object Storage available at `http://kube.local:9000` and `http://storage.sorry-cypress:9000`
+- MinIO Object Storage available at `http://kube.local:9000` and `http://storage.sorry-cypress:9000`
   - username: `sorry-cypress`
   - password: `cypress-sorry`
 
