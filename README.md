@@ -178,7 +178,7 @@ Hosting Sorry Cypress on AWS is easiest way to get publicly accessible instance 
 Guides on how to setup Sorry-Cypress Hosting:
 
 - [Publicly on AWS](/docs/sorry-cypress-setup-aws.md)
-- [Locally using Docker for Desktop](/docs/sorry-cypress-setup-docker-for-desktop.md)
+- [Locally using Docker Compose](/docs/sorry-cypress-setup-docker-compose.md)
 - [Locally using Minikube's Kubernetes](/docs/sorry-cypress-setup-minikube.md)
 
 ## Execute E2E Cypress Cucumber Tests using CI/CD Tools

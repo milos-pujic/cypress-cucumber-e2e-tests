@@ -14,9 +14,9 @@ Inside this repository there is [sorry-cypress-stack.yml](/.aws/sorry-cypress-st
 
 > :bangbang: IMPORTANT :bangbang:
 >
-> Stack Name - It serves a prefix name for all the entities created by the stack. Keep name of your **unique**, **short** and **with no special characters** as AWS limits service names.
+> Stack Name - It serves as prefix name for all the entities created by the stack. Keep name of your **unique**, **short** and **with no special characters** as AWS limits service names.
 
-Template Configuration _(slightly changed than one available on `sorry-cypress.dev` page)_:
+Template Configuration _(slightly changed than one available in [github.com/sorry-cypress/sorry-cypress](https://github.com/sorry-cypress/sorry-cypress/blob/master/cloudformation/sorry-cypress.yml) repository)_:
 
 - TaskCpu _(default: `512`)_ - The amount of CPU units dedicated to running the services. Sorry-cypress uses AWS Fargate as compute platform, and runs all the services as a single task, i.e. those CPU units are shared among all the services. Read more about at [AWS Documentation](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/task_definition_parameters.html#task_size).
 - TaskMemory _(default: `1024`)_ - The amount of memory units dedicated to running the services. This resource is also shared between the services and defined at task-level. Read more at [AWS Documentation](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/task_definition_parameters.html#task_size).
