@@ -43,7 +43,7 @@ After everything is up and running you will have:
 - MongoDB available at:
   - Docker for Desktop: `mongodb://sorry-cypress:cypress-sorry@localhost:27017`
   - minikube: `mongodb://sorry-cypress:cypress-sorry@kube.local:27017`
-- Minio Object Storage available at:
+- MinIO Object Storage available at:
   - Docker for Desktop: `http://localhost:9000`
     - username: `sorry-cypress`
     - password: `cypress-sorry`
@@ -55,7 +55,13 @@ It is configured that by default sorry-cypress-director will have value `secret_
 
 Example of command how to run your Cypress Tests with your local Sorry-Cypress:
 
-    CURRENTS_API_URL='http://localhost:1234' cypress-cloud npx run --record --key secret_key --parallel --ci-build-id ${CYPRESS_CI_BUILD_ID}
+- Docker for Desktop:
+
+      CURRENTS_API_URL='http://localhost:1234' npx cypress-cloud run --record --key secret_key --parallel --ci-build-id ${CYPRESS_CI_BUILD_ID}
+
+- minikube:
+
+      CURRENTS_API_URL='http://kube.local:1234' npx cypress-cloud run --record --key secret_key --parallel --ci-build-id ${CYPRESS_CI_BUILD_ID}
 
 Where:
 
