@@ -161,7 +161,7 @@ To run tests using Sorry-Cypress instead of Official Cypress Cloud, Currents-Dev
 
 Example of command:
 
-    CURRENTS_API_URL=${CYPRESS_DIRECTOR_URL} npx cypress-cloud run --record --key ${CYPRESS_RECORD_KEY} --parallel --ci-build-id ${CYPRESS_CI_BUILD_ID}
+    npx cross-env CURRENTS_API_URL=${CYPRESS_DIRECTOR_URL} cypress-cloud run --record --key ${CYPRESS_RECORD_KEY} --parallel --ci-build-id ${CYPRESS_CI_BUILD_ID}
 
 Where:
 

@@ -23,7 +23,7 @@ It is configured that by default sorry-cypress-director will have value `secret_
 
 Example of command how to run your Cypress Tests with your local Sorry-Cypress:
 
-    CURRENTS_API_URL='http://kube.local:1234' cypress-cloud npx run --record --key secret_key --parallel --ci-build-id ${CYPRESS_CI_BUILD_ID}
+    npx cross-env CURRENTS_API_URL='http://kube.local:1234' cypress-cloud run --record --key secret_key --parallel --ci-build-id ${CYPRESS_CI_BUILD_ID}
 
 Where:
 

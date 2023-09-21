@@ -30,7 +30,7 @@ For example, if the access URL created by the stack is: `http://sorry-cypress-15
 
 With above example in mind, command to run your Cypress Tests with your AWS Hosted Sorry-Cypress will look like:
 
-    CURRENTS_API_URL='http://sorry-cypress-1502240720.us-east-1.elb.amazonaws.com:8080' cypress-cloud npx run --record --key ${CYPRESS_RECORD_KEY} --parallel --ci-build-id ${CYPRESS_CI_BUILD_ID}
+    npx cross-env CURRENTS_API_URL='http://sorry-cypress-1502240720.us-east-1.elb.amazonaws.com:8080' cypress-cloud run --record --key ${CYPRESS_RECORD_KEY} --parallel --ci-build-id ${CYPRESS_CI_BUILD_ID}
 
 Where:
 
