@@ -66,12 +66,12 @@ Some of predefined scripts in [`package.json`](/package.json) are doing same thi
 
 ## Local Docker Environment with Docker for Desktop
 
-> Before you proceed, you should install Docker Desktop depending on your OS and start it:
+>Before you proceed, you should install Docker Desktop depending on your OS and start it:
 >
-> - [Docker Desktop for Windows](https://docs.docker.com/desktop/install/windows-install/)
-> - [Docker Desktop for Mac](https://docs.docker.com/desktop/install/mac-install/)
+>- [Docker Desktop for Windows](https://docs.docker.com/desktop/install/windows-install/)
+>- [Docker Desktop for Mac](https://docs.docker.com/desktop/install/mac-install/)
 >
-> As Docker for Desktop is **paid** software now, instead of it you can setup and start minikube using bellow guides:
+>As Docker for Desktop is **paid** software now, instead of it you can setup and start minikube using bellow guides:
 >
 >- [Minikube Setup for Windows](/docs/minikube-setup-windows.md)
 >- [Minikube Setup for Mac](/docs/minikube-setup-mac.md)

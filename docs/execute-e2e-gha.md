@@ -35,11 +35,11 @@ Also, on [Run All E2E Tests](https://github.com/milos-pujic/cypress-cucumber-e2e
 
 ## Run All E2E Tests with Sorry-Cypress
 
-> :bangbang: IMPORTANT :bangbang:
+>:bangbang: IMPORTANT :bangbang:
 >
-> If you want to execute this GitHub Action you MUST have Sorry Cypress instance accessible by GitHub Action runner, meaning that you will need to have publicly accessible Sorry-Cypress. One of the examples on how you can have publicly accessible Sorry Cypres is to [Host Sorry-Cypress Publicly on AWS](/docs/sorry-cypress-setup-aws.md).
+>If you want to execute this GitHub Action you MUST have Sorry Cypress instance accessible by GitHub Action runner, meaning that you will need to have publicly accessible Sorry-Cypress. One of the examples on how you can have publicly accessible Sorry Cypres is to [Host Sorry-Cypress Publicly on AWS](/docs/sorry-cypress-setup-aws.md).
 >
-> Workflow is configured to fetch Director URL and Allowed Keys from Project's Secretes and variables under CYPRESS_DIRECTOR_URL and CYPRESS_RECORD_KEY. They need to be populated with correct values to make integration with Sorry-Cypress working.
+>Workflow is configured to fetch Director URL and Allowed Keys from Project's Secretes and variables under CYPRESS_DIRECTOR_URL and CYPRESS_RECORD_KEY. They need to be populated with correct values to make integration with Sorry-Cypress working.
 
 This GitHub Action Workflow Executes All Cypress Cucumber E2E Tests in parallel with Sorry-Cypress on `local` (default) or `prod` environnement using all `electron`, `chrome`, `edge` and `firefox` browsers from defined branch (by default it is `main`).
 

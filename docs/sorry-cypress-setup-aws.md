@@ -1,20 +1,20 @@
 # Host Sorry-Cypress Publicly on AWS
 
-> :warning: **WARNING** :warning:
+>:warning: **WARNING** :warning:
 >
-> Hosting Sorry-Cypress on AWS is **NOT FREE**. :moneybag: :moneybag: :moneybag:
+>Hosting Sorry-Cypress on AWS is **NOT FREE**. :moneybag: :moneybag: :moneybag:
 >
-> Here's a rough estimation of price / month for using the resources used. The actual usage might be higher (or lower) based on actual usage.
+>Here's a rough estimation of price / month for using the resources used. The actual usage might be higher (or lower) based on actual usage.
 >
-> - Fargate pricing based on calculator 35,55 USD (1 vCPU, 2GB RAM) or 17,78 USD (0.5 vCPU, 1GB RAM)
-> - EC2 Application Load Balancer based on calculator 19,35 USD (0.5 GB / hour, 0.5 connections / second)
-> - S3 + Cloudwatch = varies based on usage
+>- Fargate pricing based on calculator 35,55 USD (1 vCPU, 2GB RAM) or 17,78 USD (0.5 vCPU, 1GB RAM)
+>- EC2 Application Load Balancer based on calculator 19,35 USD (0.5 GB / hour, 0.5 connections / second)
+>- S3 + Cloudwatch = varies based on usage
 
 Inside this repository there is [sorry-cypress-stack.yml](/.aws/sorry-cypress-stack.yml) AWS Cloud Formation template which can be used to deploy full sorry-cypress kit in just 5 minutes on AWS. This is just a Basic AWS setup where more advanced one can be found in Sorry Cypress Documentation. Read more on [Sorry-cypress installation instructions for AWS](https://docs.sorry-cypress.dev/cloud-setup/aws).
 
-> :bangbang: IMPORTANT :bangbang:
+>:bangbang: IMPORTANT :bangbang:
 >
-> Stack Name - It serves as prefix name for all the entities created by the stack. Keep name of your **unique**, **short** and **with no special characters** as AWS limits service names.
+>Stack Name - It serves as prefix name for all the entities created by the stack. Keep name of your **unique**, **short** and **with no special characters** as AWS limits service names.
 
 Template Configuration _(slightly changed than one available in [github.com/sorry-cypress/sorry-cypress](https://github.com/sorry-cypress/sorry-cypress/blob/master/cloudformation/sorry-cypress.yml) repository)_:
 
@@ -37,6 +37,6 @@ Where:
 - `${CYPRESS_RECORD_KEY}` - secret record key configured in Template configuration under `DirectorAllowedKeys` property
 - `${CYPRESS_CI_BUILD_ID}` - unique build identifier used by Sorry-Cypress to distinguish cypress test runs one from another, i.e. `aws-build-001`
 
-> :bangbang: IMPORTANT :bangbang:
+>:bangbang: IMPORTANT :bangbang:
 >
-> If you want to have parallel execution, just run same command **WITH SAME** --ci-build-id flag value in multiple terminals.
+>If you want to have parallel execution, just run same command **WITH SAME** --ci-build-id flag value in multiple terminals.

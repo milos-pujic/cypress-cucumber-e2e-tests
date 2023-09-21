@@ -30,6 +30,6 @@ Where:
 
 - `${CYPRESS_CI_BUILD_ID}` - unique build identifier used by Sorry-Cypress to distinguish cypress test runs one from another, i.e. `docker-build-001`
 
-> :bangbang: IMPORTANT :bangbang:
+>:bangbang: IMPORTANT :bangbang:
 >
-> If you want to have parallel execution, just run same command **WITH SAME** --ci-build-id flag value in multiple terminals.
+>If you want to have parallel execution, just run same command **WITH SAME** --ci-build-id flag value in multiple terminals.
