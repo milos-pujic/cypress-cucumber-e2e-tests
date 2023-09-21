@@ -1,6 +1,6 @@
 # Execute Cypress Cucumber Tests using Minikube's Kubernetes Locally
 
-Before you proceed, you should setup and start minikube using [this guide](/docs/minikube-setup.md).
+>Before you proceed, you should setup and start minikube using [this guide](/docs/minikube-setup.md).
 
 After minikube has been properly installed and started on your machine, open the terminal inside `<local_path>\cypress-cucumber-e2e-tests` and use the following commands:
 
@@ -59,7 +59,7 @@ Each of E2E Tests Cron Jobs is configured to run on specific browser and with 2 
 
 To see the list of all configured Scheduled Cron Jobs: Open Minikube Dashboard > Change namespace to `e2e-tests` > Navigate to Cron Jobs on left side panel.
 
->To see the list of all configured Scheduled Cron Jobs using terminal, use >bellow command:
+>To see the list of all configured Scheduled Cron Jobs using terminal, use bellow command:
 >
 >     kubectl get cronjob --namespace=e2e-tests
 

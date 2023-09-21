@@ -1,14 +1,11 @@
 # Host Sorry-Cypress Locally using Docker for Desktop
 
-Before you proceed, you should install Docker Desktop depending on your OS and start it:
-
-- [Docker Desktop for Linux](https://docs.docker.com/desktop/install/linux-install/)
-- [Docker Desktop for Windows](https://docs.docker.com/desktop/install/windows-install/)
-- [Docker Desktop for Mac](https://docs.docker.com/desktop/install/mac-install/)
-
-As Docker for Desktop is **paid** software now, instead of it you can setup and start minikube using [this guide](/docs/minikube-setup.md).
-
----
+>Before you proceed, you should install Docker Desktop depending on your OS and start it:
+>
+>- [Docker Desktop for Windows](https://docs.docker.com/desktop/install/windows-install/)
+>- [Docker Desktop for Mac](https://docs.docker.com/desktop/install/mac-install/)
+>
+>As Docker for Desktop is **paid** software now, instead of it you can setup and start minikube using [this guide](/docs/minikube-setup.md).
 
 Inside this repository there are:
 
