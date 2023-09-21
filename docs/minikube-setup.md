@@ -141,7 +141,7 @@ This guide will cover installing:
           mkdir -p ~/.docker/cli-plugins
           ln -sfn /usr/local/opt/docker-buildx/bin/docker-buildx ~/.docker/cli-plugins/docker-buildx
 
-8. Install Docker Buildx by running the following command:
+8. Install Docker Compose by running the following command:
 
         brew install docker-compose
 
@@ -196,7 +196,7 @@ When you finish testing / using minikube for the day, do not forget to stop it t
 
 Next time when you start it it will be in same state as when you stopped it.
 
-Minikube configuration can always be checked in `~/.minikube/machines/minikube/config.json` file.
+Minikube configuration can always be checked in `%USERPROFILE%\.minikube\machines\minikube\config.json` on Windows or in `~/.minikube/machines/minikube/config.json` on MacOS.
 
 ## Configure machine to use minikube
 
@@ -254,17 +254,29 @@ Add minikube IP address in host file for easier access. Bellow command will add 
 
         minikube delete --all --purge
 
-4. Uninstall Hyper-V by running the following command:
-
-        choco uninstall hyper-v -y --remove-dependencies
-
-5. Uninstall Docker CLI by running the following command:
+4. Uninstall Docker CLI by running the following command:
 
         choco uninstall docker-cli -y --remove-dependencies
+
+5. Uninstall Docker Compose by running the following command:
+
+        choco uninstall docker-compose -y --remove-dependencies
 
 6. Uninstall Minikube by running the following command:
 
         choco uninstall minikube -y --remove-dependencies
+
+7. Disable Hyper-V on Windows with bellow guide:
+
+        1. Press the Windows key + R to open the Run dialog box.
+        2. Type appwiz.cpl and press Enter.
+        3. In the Programs and Features window, select Turn Windows features on or off in the left-hand pane.
+        4. In the Windows Features window, scroll down to Hyper-V and uncheck the box next to it.
+
+      ![Windows Disabled HyperV](/docs/imgs/windows-disable-hyperv.png)
+
+        5. Click on OK and wait for the uninstallation process to complete.
+        6. Once the uninstallation is complete, click on Restart Now to restart your computer.
 
 ### Uninstall minikube and all its dependencies on MacOS
 
