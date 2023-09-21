@@ -227,21 +227,99 @@ Kubernetes VS Code Plugin does not require any additional configuration.
 
 After that you can use both of those plugins to control your Kubernetes cluster and docker inside VS Code.
 
-### Configure Windows machine to use minikube
+### Configure Windows host file and terminal to use minikube
 
-TBD
+#### Configure Windows Host File
+
+Add minikube IP address in host file for easier access. Bellow guide will add host record pointing to minikube IP and with domain names `kube.local`, `storage` and `storage.sorry-cypress`.
+
+First, fetch minikube IP address by using bellow command:
+
+    minikube ip
+
+This will output IP address of minikube. After that you can add new host record in Window by following bellow steps:
+
+1. Open Notepad as Administrator
+
+        1. Click on the Windows icon in the taskbar or press the Windows key on your keyboard to open the Start Menu.
+        2. Type "Notepad" into the search bar.
+        3. Right-click on "Notepad" in the search results.
+        4. Select "Run as administrator" from the context menu. This will open Notepad with administrative privileges, which is necessary to edit the host file.
+
+2. Open the Host File
+
+        1. In Notepad, click on "File" in the top-left corner of the window.
+        2. Choose "Open" from the menu.
+        3. In the "File Name" field of the "Open" dialog, type the following path and press Enter: C:\Windows\System32\drivers\etc\hosts
+        This will open the host file located in the specified directory.
+
+3. Add the new Host Entry
+
+        1. The host file should now be open in Notepad. Scroll to the end of the file.
+        2. Add the following line to the end of the host file:
+
+        [MINIKUBE_IP_ADDRESS] kube.local storage storage.sorry-cypress
+        
+        IMPORTANT: Replace [MINIKUBE_IP_ADDRESS] with IP address returned by 'minikube ip. command. Also, make sure there are no leading spaces or tabs in this line.
+
+4. Save the Changes
+
+        1. In Notepad, click on "File" in the top-left corner again.
+        2. Choose "Save" from the menu. This will save the changes you made to the host file.
+
+5. Close Notepad
+6. Flush DNS Cache
+
+        1. To ensure the changes take effect immediately, open PowerShell with administrative privileges. You can do this by searching for "PowerShell" in the Start Menu, right-clicking on "Windows PowerShell," and selecting "Run as administrator."
+        2. In the PowerShell window, run the following command to clear the DNS cache:
+
+        Clear-DnsClientCache
+
+#### Configure Current PowerShell Session
+
+To be able to run docker commands with minikube inside **CURRENT** PowerShell session we need to configure docker-cli to use minikube.
+
+Execute following command:
+
+    minikube docker-env
+
+It will output list of commands which you need to execute, but also, at the end, commented out, there is command which you can execute and it will do it all for you. For Windows that is following command:
 
     & minikube -p minikube docker-env --shell powershell | Invoke-Expression
 
+IMPORTANT: If you close and/or open new PowerShell session you will need again to execute above command(s) before you can use docker commands.
+
 ### Configure MacOS host file and terminal to use minikube
 
-To be able to run docker commands with minikube inside all terminal sessions we need to configure docker-cli to use minikube. Add following entry to `~/.bashrc` or `~/.zshrc`:
-
-- `eval $(minikube docker-env)`
+#### Configure MacOS Host File
 
 Add minikube IP address in host file for easier access. Bellow command will add host record pointing to minikube IP and with domain names `kube.local`, `storage` and `storage.sorry-cypress`.
 
     echo "`minikube ip` kube.local storage storage.sorry-cypress" | sudo tee -a /etc/hosts > /dev/null
+
+#### Configure Current Terminal Session
+
+If you just want to use docker commands inside current session use this guide, but if you want to use it in all terminal sessions, skip this one and use next [Configure All Terminal Sessions](#configure-all-terminal-sessions) guide.
+
+To be able to run docker commands with minikube inside **CURRENT** terminal session we need to configure docker-cli to use minikube.
+
+Execute following command:
+
+    minikube docker-env
+
+It will output list of commands which you need to execute, but also, at the end, commented out, there is command which you can execute and it will do it all for you. For MacOS that is following command:
+
+    eval $(minikube -p minikube docker-env)
+
+IMPORTANT: If you close and/or open new terminal session you will need again to execute above command(s) before you can use docker commands.
+
+#### Configure All Terminal Sessions
+
+If you just want to use docker commands inside all sessions use this guide, but if you want to use it in current terminal session, skip this one and use previous [Configure Current Terminal Session](#configure-current-terminal-session) guide.
+
+To be able to run docker commands with minikube inside **ALL** terminal sessions we need to configure docker-cli to use minikube. Add following entry to `~/.bashrc` or `~/.zshrc`:
+
+- `eval $(minikube docker-env)`
 
 ## Uninstall minikube
 
