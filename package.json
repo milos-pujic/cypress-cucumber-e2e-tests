@@ -13,8 +13,8 @@
     "cy:open:local": "npx cypress open --env ENV=local",
     "cy:run:prod": "npx cypress run --env ENV=prod",
     "cy:run:local": "npx cypress run --env ENV=local",
-    "cy:cloud:run:local": "cross-env CURRENTS_API_URL='http://localhost:1234' cypress-cloud run --record --key secret_key --parallel --ci-build-id `date +%Y-%m-%d`",
-    "cy:cloud:run:minikube": "cross-env CURRENTS_API_URL='http://kube.local:1234' cypress-cloud run --record --key secret_key --parallel --ci-build-id local_`date +%Y-%m-%d`",
+    "sorry:cy:run:local": "cross-env CURRENTS_API_URL='http://localhost:1234' cypress-cloud run --record --key secret_key --parallel --ci-build-id build-001",
+    "sorry:cy:run:minikube": "cross-env CURRENTS_API_URL='http://kube.local:1234' cypress-cloud run --record --key secret_key --parallel --ci-build-id build-001",
     "docker:build": "docker build . -t e2e",
     "docker:run:chrome": "docker run -d --network e2e-tests -e CURRENTS_API_URL=http://director:1234 e2e:latest sh -c 'npx cypress-cloud run --env ENV=prod --browser chrome --record --key secret_key --parallel --ci-build-id chrome_docker_$(date +%Y-%m-%d)'"
   },
