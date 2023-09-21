@@ -1,6 +1,8 @@
 # Setup Guides
 
-* [Minikube Setup](/docs/minikube-setup.md)
+* Minikube Setup
+  * [Minikube Setup for Windows](/docs/minikube-setup-windows.md)
+  * [Minikube Setup for Mac](/docs/minikube-setup-mac.md)
 * Host Sorry-Cypress
   * [Publicly on AWS](/docs/sorry-cypress-setup-aws.md)
   * [Locally using Docker Compose](/docs/sorry-cypress-setup-docker-compose.md)

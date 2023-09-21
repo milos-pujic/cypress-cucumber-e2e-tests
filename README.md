@@ -71,7 +71,10 @@ Some of predefined scripts in [`package.json`](/package.json) are doing same thi
 > - [Docker Desktop for Windows](https://docs.docker.com/desktop/install/windows-install/)
 > - [Docker Desktop for Mac](https://docs.docker.com/desktop/install/mac-install/)
 >
-> As Docker for Desktop is **paid** software now, instead of it you can setup and start minikube using [this guide](/docs/minikube-setup.md).
+> As Docker for Desktop is **paid** software now, instead of it you can setup and start minikube using bellow guides:
+>
+>- [Minikube Setup for Windows](/docs/minikube-setup-windows.md)
+>- [Minikube Setup for Mac](/docs/minikube-setup-mac.md)
 
 After Docker for Desktop, or minikube, has been installed on your machine, open the terminal inside `<local_path>\cypress-cucumber-e2e-tests` and use the following command:
 
@@ -86,7 +89,10 @@ After everything is up and running you will have Restful Booker Platform availab
 
 ## Local Kubernetes Environment with Minikube's Kubernetes
 
-> Before you proceed, you should setup and start minikube using [this guide](/docs/minikube-setup.md).
+>Before you proceed, you should setup and start minikube using bellow guides:
+>
+>- [Minikube Setup for Windows](/docs/minikube-setup-windows.md)
+>- [Minikube Setup for Mac](/docs/minikube-setup-mac.md)
 
 After minikube has been properly installed and started on your machine, open the terminal inside `<local_path>\cypress-cucumber-e2e-tests` and use the following command:
 

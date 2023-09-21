@@ -1,6 +1,9 @@
 # Execute Cypress Cucumber Tests using Minikube's Kubernetes Locally
 
->Before you proceed, you should setup and start minikube using [this guide](/docs/minikube-setup.md).
+>Before you proceed, you should setup and start minikube using bellow guides:
+>
+>- [Minikube Setup for Windows](/docs/minikube-setup-windows.md)
+>- [Minikube Setup for Mac](/docs/minikube-setup-mac.md)
 
 After minikube has been properly installed and started on your machine, open the terminal inside `<local_path>\cypress-cucumber-e2e-tests` and use the following commands:
 
