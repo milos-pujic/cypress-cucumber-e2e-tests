@@ -22,7 +22,7 @@ That will:
     - Director available at `http://kube.local:1234`
     - API available at `http://kube.local:4000`
     - Dashboard available at `http://kube.local:8080`
-    - Minio Object Storage available at `http://kube.local:9000` and `http://storage.sorry-cypress:9000`
+    - MinIO Object Storage available at `http://kube.local:9000` and `http://storage.sorry-cypress:9000`
       - username: `sorry-cypress`
       - password: `cypress-sorry`
 4. Create 4 Cron Jobs in local Kubernetes under `e2e-tests` namespace

@@ -9,7 +9,7 @@ After minikube has been properly installed and started on your machine, open the
 
     kubectl apply -f ./.kube/sorry-cypress.yml
 
-That will start full Sorry-Cypress kit, Director, API, Dashboard with MongoDB and Minio Object Storage.
+That will start full Sorry-Cypress kit, Director, API, Dashboard with MongoDB and MinIO Object Storage.
 
 After everything is up and running you will have:
 
