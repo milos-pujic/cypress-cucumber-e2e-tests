@@ -75,30 +75,39 @@ This guide will cover installing:
 
 ### Install minikube on Windows
 
-1. Open PowerShell with administrator privileges
-2. Install Chocolatey by running the following command:
+1. Enable Hyper-V on Windows with bellow guide:
+
+        1. Press the Windows key + R to open the Run dialog box.
+        2. Type appwiz.cpl and press Enter.
+        3. In the Programs and Features window, select Turn Windows features on or off in the left-hand pane.
+        4. In the Windows Features window, scroll down to Hyper-V and check the box next to it.
+
+      ![Windows Enable HyperV](/docs/imgs/windows-enable-hyperv.png)
+
+        5. Click on OK and wait for the installation process to complete.
+        6. Once the installation is complete, click on Restart Now to restart your computer.
+2. Open PowerShell with Administrator privileges
+3. Install Chocolatey by running the following command:
 
         Set-ExecutionPolicy Bypass -Scope Process -Force; iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
-
-3. Install Hyper-V by running the following command:
-
-        choco install hyper-v -y
 
 4. Install Minikube by running the following command:
 
         choco install minikube -y
 
-5. Verify the installation by running the following command:
-
-        minikube version
-
-6. Install Docker CLI by running the following command:
+5. Install Docker CLI by running the following command:
 
         choco install docker-cli -y
-  
-7. Verify the installation by running the following command:
 
-        docker version
+6. Install Docker Compose by running the following command:
+
+        choco install docker-compose -y
+
+7. Close and Open Again PowerShell with Administrator privileges
+
+8. Verify the installation by running the following command:
+
+        minikube version
 
 ### Install minikube on MacOS
 
