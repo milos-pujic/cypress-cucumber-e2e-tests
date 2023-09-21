@@ -68,9 +68,9 @@ This guide will cover installing:
 - Virtualization Engine
   - for Windows `Hyper-V`
   - for Mac `HyperKit`
-- Additionally needed tools and command line interfaces
+- Additionally tools and command line interfaces
   - Docker CLI
-  - Docker Build X
+  - Docker Build X (for MacOS only)
 - Host File Configuration
 
 ### Install minikube on Windows
