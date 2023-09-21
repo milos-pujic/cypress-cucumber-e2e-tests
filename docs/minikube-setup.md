@@ -231,6 +231,8 @@ After that you can use both of those plugins to control your Kubernetes cluster 
 
 TBD
 
+    & minikube -p minikube docker-env --shell powershell | Invoke-Expression
+
 ### Configure MacOS host file and terminal to use minikube
 
 To be able to run docker commands with minikube inside all terminal sessions we need to configure docker-cli to use minikube. Add following entry to `~/.bashrc` or `~/.zshrc`:
@@ -254,13 +256,13 @@ Add minikube IP address in host file for easier access. Bellow command will add 
 
         minikube delete --all --purge
 
-4. Uninstall Docker CLI by running the following command:
-
-        choco uninstall docker-cli -y --remove-dependencies
-
-5. Uninstall Docker Compose by running the following command:
+4. Uninstall Docker Compose by running the following command:
 
         choco uninstall docker-compose -y --remove-dependencies
+
+5. Uninstall Docker CLI by running the following command:
+
+        choco uninstall docker-cli -y --remove-dependencies
 
 6. Uninstall Minikube by running the following command:
 
