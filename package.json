@@ -34,7 +34,7 @@
     "@faker-js/faker": "^8.1.0",
     "cross-env": "^7.0.3",
     "cypress": "^12.17.4",
-    "cypress-cloud": "^1.9.5",
+    "cypress-cloud": "^1.9.6",
     "cypress-on-fix": "^1.0.2",
     "eslint": "^8.49.0",
     "eslint-config-prettier": "^9.0.0",
