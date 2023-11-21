@@ -33,7 +33,7 @@
     "@cypress/xpath": "^2.0.3",
     "@faker-js/faker": "^8.2.0",
     "cross-env": "^7.0.3",
-    "cypress": "^12.17.4",
+    "cypress": "12.17.4",
     "cypress-cloud": "^1.9.6",
     "cypress-on-fix": "^1.0.2",
     "eslint": "^8.53.0",
