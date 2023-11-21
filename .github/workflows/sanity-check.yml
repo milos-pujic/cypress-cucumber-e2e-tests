@@ -66,13 +66,15 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 20
-      - id: cypress-run
-        name: Cypress Run
-        uses: cypress-io/github-action@v6.5.0
-        with:
-          env: ENV=local,TAGS=@sanity and not @bug
-          browser: electron
-          command-prefix: '--'
+      - id: install
+        name: Install Dependencies
+        run: npm install
+      - id: install-cypress
+        name: Install Cypress
+        run: ./node_modules/.bin/cypress install
+      - id: execute-tests
+        name: Execute Cypress Tests
+        run: npx cypress run --env ENV=local,TAGS='@sanity and not @bug' --browser electron
       - id: upload-screenshots
         name: Upload Screenshots
         uses: actions/upload-artifact@v3
