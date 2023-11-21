@@ -66,20 +66,10 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 20
-      - name: Install dependencies
-        run: |
-          npx ci
-      - name: Unblock Cypress
-        run: |
-          CYPRESS_DOWNLOAD_MIRROR=https://cy-cdn.currents.dev npx cypress install --force
-          npx cypress verify
-          npx cypress cache list
-          npx cypress cache path
       - id: cypress-run
         name: Cypress Run
         uses: cypress-io/github-action@v6
         with:
-          install: false
           env: ENV=local,TAGS=@sanity and not @bug
           browser: electron
           command-prefix: '--'
