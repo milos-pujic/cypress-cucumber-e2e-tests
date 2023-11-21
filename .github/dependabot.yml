@@ -23,5 +23,3 @@ updates:
       day: "monday"
       time: "09:00"
       timezone: "Europe/Belgrade"
-    ignore:
-      - dependency-name: "cypress-io/github-action"
