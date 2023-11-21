@@ -5,21 +5,23 @@
 
 version: 2
 updates:
-# For npm packages
-  - package-ecosystem: 'npm'
-    directory: '/'
+  # For npm packages
+  - package-ecosystem: "npm"
+    directory: "/"
     schedule:
-      interval: 'weekly'
-      day: 'monday'
-      time: '08:30'
-      timezone: 'Europe/Belgrade'
+      interval: "weekly"
+      day: "monday"
+      time: "08:30"
+      timezone: "Europe/Belgrade"
     ignore:
       - dependency-name: "cypress"
   # For github actions
-  - package-ecosystem: 'github-actions'
-    directory: '/.github/workflows'
+  - package-ecosystem: "github-actions"
+    directory: "/.github/workflows"
     schedule:
-      interval: 'weekly'
-      day: 'monday'
-      time: '09:00'
-      timezone: 'Europe/Belgrade'
+      interval: "weekly"
+      day: "monday"
+      time: "09:00"
+      timezone: "Europe/Belgrade"
+    ignore:
+      - dependency-name: "cypress-io/github-action"
