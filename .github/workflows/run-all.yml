@@ -92,7 +92,7 @@ jobs:
           command-prefix: '--'
       - id: upload-screenshots
         name: Upload Screenshots
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         if: failure()
         with:
           name: cypress-screenshots
@@ -100,7 +100,7 @@ jobs:
           retention-days: 5
       - id: upload-videos
         name: Upload Videos
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         if: always()
         with:
           name: cypress-videos
@@ -108,7 +108,7 @@ jobs:
           retention-days: 5
       - id: upload-reports
         name: Upload Reports
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         if: always()
         with:
           name: cypress-reports
@@ -146,7 +146,7 @@ jobs:
           command-prefix: '--'
       - id: upload-screenshots
         name: Upload Screenshots
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         if: failure()
         with:
           name: cypress-screenshots
@@ -154,7 +154,7 @@ jobs:
           retention-days: 5
       - id: upload-videos
         name: Upload Videos
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         if: always()
         with:
           name: cypress-videos
@@ -162,7 +162,7 @@ jobs:
           retention-days: 5
       - id: upload-reports
         name: Upload Reports
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         if: always()
         with:
           name: cypress-reports
