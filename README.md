@@ -35,11 +35,11 @@ Provided tests are based on examples how to define and use utility functions, ex
 
 Open the terminal inside `<local_path>\cypress-cucumber-e2e-tests` and use the following commands to:
 
-- Open the Cypress UI to execute test cases against default environnement: ```npx cypress open```
-- Execute all test cases without opening the Cypress UI against default environnement: ```npx cypress run```
+- Open the Cypress UI to execute test cases against default environment: ```npx cypress open```
+- Execute all test cases without opening the Cypress UI against default environment: ```npx cypress run```
 
-- Environnement variables:
-  - `ENV`, which can have value `prod` / `local` / `docker` / `kube` / `kubeLocal` , depending on which environnement you would like to execute your tests (if not defined, `prod` will be used by default)
+- Environment variables:
+  - `ENV`, which can have value `prod` / `local` / `docker` / `kube` / `kubeLocal` , depending on which environment you would like to execute your tests (if not defined, `prod` will be used by default)
     - `prod` uses `https://automationintesting.online` as app URL
     - `local` uses `http://localhost` as app URL
     - `kubeLocal` uses `http://kube.local` as app URL
@@ -54,15 +54,15 @@ Open the terminal inside `<local_path>\cypress-cucumber-e2e-tests` and use the f
 
 Example of above commands with possible variables:
 
-- `npx cypress open --env ENV=local` - Open Cypress UI to execute tests against Local environnement
-- `npx cypress run --env ENV=prod` - Execute All tests without opening the Cypress UI against Production environnement
-- `npx cypress run --spec "**/login.feature" --env ENV=local` - Execute Login feature without opening the Cypress UI on Local environnement
-- `npx cypress run --env ENV=prod,TAGS='(@booking or @contact) and (not @bug)'` - Execute tests tagged with `@booking` or `@contact` which are not also tagged with `@bug`, without opening the Cypress UI on Production environnement
+- `npx cypress open --env ENV=local` - Open Cypress UI to execute tests against Local environment
+- `npx cypress run --env ENV=prod` - Execute All tests without opening the Cypress UI against Production environment
+- `npx cypress run --spec "**/login.feature" --env ENV=local` - Execute Login feature without opening the Cypress UI on Local environment
+- `npx cypress run --env ENV=prod,TAGS='(@booking or @contact) and (not @bug)'` - Execute tests tagged with `@booking` or `@contact` which are not also tagged with `@bug`, without opening the Cypress UI on Production environment
 
 Some of predefined scripts in [`package.json`](/package.json) are doing same thing as commands above:
 
-- `npm run cy:open:local` or `npm run cy:open:prod` - Open Cypress UI to execute tests against Local or Production environnement
-- `npm run cy:run:local` or `npm run cy:run:prod` - Execute All tests without opening the Cypress UI against Local or Production environnement
+- `npm run cy:open:local` or `npm run cy:open:prod` - Open Cypress UI to execute tests against Local or Production environment
+- `npm run cy:run:local` or `npm run cy:run:prod` - Execute All tests without opening the Cypress UI against Local or Production environment
 
 ## Local Docker Environment with Docker for Desktop
 
@@ -71,7 +71,7 @@ Some of predefined scripts in [`package.json`](/package.json) are doing same thi
 >- [Docker Desktop for Windows](https://docs.docker.com/desktop/install/windows-install/)
 >- [Docker Desktop for Mac](https://docs.docker.com/desktop/install/mac-install/)
 >
->As Docker for Desktop is **paid** software now, instead of it you can setup and start minikube using bellow guides:
+>As Docker for Desktop is **paid** software now, instead of it you can set up and start minikube using bellow guides:
 >
 >- [Minikube Setup for Windows](/docs/minikube-setup-windows.md)
 >- [Minikube Setup for Mac](/docs/minikube-setup-mac.md)
@@ -89,7 +89,7 @@ After everything is up and running you will have Restful Booker Platform availab
 
 ## Local Kubernetes Environment with Minikube's Kubernetes
 
->Before you proceed, you should setup and start minikube using bellow guides:
+>Before you proceed, you should set up and start minikube using bellow guides:
 >
 >- [Minikube Setup for Windows](/docs/minikube-setup-windows.md)
 >- [Minikube Setup for Mac](/docs/minikube-setup-mac.md)
@@ -106,7 +106,7 @@ After everything is up and running you will have Restful Booker Platform availab
 
 ### Describing Features
 
-Every feature must only contain scenarios related to that it. When grouping scenarios under one feature make sure that `@Background` for that feature is common for all of scenarios.
+Every feature must only contain scenarios related to that it. When grouping scenarios under one feature make sure that `@Background` for that feature is common for all scenarios.
 If some feature is complex and there are different `@Background` for group them in multiple feature file.
 
 If you have problems describing feature you can use next template, known as a Feature Injection template:
@@ -145,7 +145,7 @@ Also make sure that there are no **and** conjunctions in sentences. If there is,
 
 ## Sorry Cypress
 
-Sorry-Cypress is an open-source, self-hosted alternative to paid Cypress Cloud solution and it enables us to:
+Sorry-Cypress is an open-source, self-hosted alternative to paid Cypress Cloud solution, and it enables us to:
 
 - Run Cypress Tests in parallel
 - Upload screenshots and videos to your own storage
@@ -183,9 +183,9 @@ Where:
 
 To be able to run tests using Sorry Cypress, it must be hosted somewhere.
 
-Hosting Sorry Cypress on AWS is easiest way to get publicly accessible instance of Sorry Cypress, of course there are other options to host in on Google Cloud Platform, Microsoft Azure, Heroku, Kubernetes or Docker. More on different implementations can be found in [Sorry Cypress Docs](https://docs.sorry-cypress.dev/).
+Hosting Sorry Cypress on AWS is the easiest way to get publicly accessible instance of Sorry Cypress, of course there are other options to host in on Google Cloud Platform, Microsoft Azure, Heroku, Kubernetes or Docker. More on different implementations can be found in [Sorry Cypress Docs](https://docs.sorry-cypress.dev/).
 
-Guides on how to setup Sorry-Cypress Hosting:
+Guides on how to set up Sorry-Cypress Hosting:
 
 - [Publicly on AWS](/docs/sorry-cypress-setup-aws.md)
 - [Locally using Docker Compose](/docs/sorry-cypress-setup-docker-compose.md)
@@ -193,7 +193,7 @@ Guides on how to setup Sorry-Cypress Hosting:
 
 ## Execute E2E Cypress Cucumber Tests using CI/CD Tools
 
-Guides on how to execute Execute E2E Cypress Cucumber Tests using CI/CD Tools:
+Guides on how to execute E2E Cypress Cucumber Tests using CI/CD Tools:
 
-- [On Github using Github Actions Workflows](/docs/execute-e2e-gha.md)
+- [On GitHub using GitHub Actions Workflows](/docs/execute-e2e-gha.md)
 - [Locally using Minikube's Kubernetes](/docs/execute-e2e-minikube.md)
