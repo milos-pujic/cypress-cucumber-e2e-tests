@@ -38,7 +38,7 @@
     "cypress-on-fix": "^1.0.3",
     "eslint": "^9.5.0",
     "eslint-config-prettier": "^9.1.0",
-    "eslint-plugin-chai-friendly": "^0.8.0",
+    "eslint-plugin-chai-friendly": "^1.0.0",
     "eslint-plugin-cypress": "^3.3.0",
     "eslint-plugin-import": "^2.29.1",
     "eslint-plugin-prettier": "^5.1.3",
