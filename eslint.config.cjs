@@ -71,14 +71,7 @@ module.exports = [
 
       'cypress/no-unnecessary-waiting': 'off',
       'cypress/no-pause': 'error',
-      'prettier/prettier': ['error'] //,
-
-      // 'import/no-unused-modules': [
-      //   1,
-      //   {
-      //     unusedExports: true
-      //   }
-      // ]
+      'prettier/prettier': ['error']
     }
   }
 ];
