@@ -1,28 +1,13 @@
-name: Sanity Check
+name: Run All E2E Tests in Electron
 
 on:
-  push:
-    branches:
-      - main
-    paths:
-      - 'cypress/**'
-      - '.github/workflows/sanity-check.yml'
-      - '.cypress-cucumber-preprocessorrc.json'
-      - 'cypress.config.js'
-      - 'package-lock.json'
-      - 'package.json'
-  pull_request:
-    branches:
-      - main
-    types:
-      - opened
-      - reopened
-      - synchronize
-      - labeled
+  workflow_dispatch:
+  schedule:
+    - cron: '0 9 * * 1'
 
 jobs:
-  test:
-    name: Sanity Tests on local - electron
+  test-electron-local:
+    name: Tests - Electron - Local
     runs-on: ubuntu-latest
     timeout-minutes: 30
     services:
@@ -59,41 +44,42 @@ jobs:
         ports:
           - 80:80
     steps:
-      - id: checkout-repository
-        name: Checkout Repository
+      - name: Checkout Repository
+        id: checkout-repository
         uses: actions/checkout@v4
       - name: Setup Node
+        id: setup-node
         uses: actions/setup-node@v4
         with:
           node-version: 22
-      - id: cypress-run
-        name: Cypress Run
+      - name: Run Cypress Tests
+        id: cypress-run
         uses: cypress-io/github-action@v6
         with:
-          env: ENV=local,TAGS=@sanity and not @bug
+          env: ENV=local,TAGS=not @bug
           browser: electron
           command-prefix: '--'
-      - id: upload-screenshots
-        name: Upload Screenshots
+      - name: Upload Screenshots
+        id: upload-screenshots
         uses: actions/upload-artifact@v4
         if: failure()
         with:
           name: cypress-screenshots
           path: cypress/screenshots
-          retention-days: 1
-      - id: upload-videos
-        name: Upload Videos
+          retention-days: 5
+      - name: Upload Videos
+        id: upload-videos
         uses: actions/upload-artifact@v4
         if: always()
         with:
           name: cypress-videos
           path: cypress/videos
-          retention-days: 1
-      - id: upload-reports
-        name: Upload Reports
+          retention-days: 5
+      - name: Upload Reports
+        id: upload-reports
         uses: actions/upload-artifact@v4
         if: always()
         with:
           name: cypress-reports
           path: cypress/reports
-          retention-days: 1
+          retention-days: 5

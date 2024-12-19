@@ -1,5 +1,0 @@
-*.json
-pnpm-lock.yaml
-*.md
-.eslintignore
-*.feature

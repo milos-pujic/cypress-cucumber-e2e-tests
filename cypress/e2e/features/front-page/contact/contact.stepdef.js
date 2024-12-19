@@ -37,13 +37,13 @@ When(
 );
 
 When('Visitor {string} tries to contact property by filling up subject with value length of {int} characters', (fullName, subjectLength) => {
-  cy.sendMessage(fullName, faker.internet.email(), faker.phone.number(), faker.random.alpha(subjectLength), faker.lorem.lines(5));
+  cy.sendMessage(fullName, faker.internet.email(), faker.phone.number(), faker.string.alpha(subjectLength), faker.lorem.lines(5));
 });
 
 When(
   'Visitor {string} tries to contact property regarding {string} by filling up message with value length of {int} characters',
   (fullName, subject, messageLength) => {
-    cy.sendMessage(fullName, faker.internet.email(), faker.phone.number(), subject, faker.random.alpha(messageLength));
+    cy.sendMessage(fullName, faker.internet.email(), faker.phone.number(), subject, faker.string.alpha(messageLength));
   }
 );
 

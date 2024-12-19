@@ -2,7 +2,6 @@ const { defineConfig } = require('cypress');
 const createBundler = require('@bahmutov/cypress-esbuild-preprocessor');
 const preprocessor = require('@badeball/cypress-cucumber-preprocessor');
 const createEsbuildPlugin = require('@badeball/cypress-cucumber-preprocessor/esbuild');
-const { cloudPlugin } = require('cypress-cloud/plugin');
 
 async function setupNodeEvents(cypressOn, config) {
   const on = require('cypress-on-fix')(cypressOn);
@@ -15,7 +14,6 @@ async function setupNodeEvents(cypressOn, config) {
       plugins: [createEsbuildPlugin.default(config)]
     })
   );
-  cloudPlugin(on, config);
   config.defaultCommandTimeout = 4000;
   // Make sure to return the config object as it might have been modified by the plugin.
   return config;
@@ -27,9 +25,9 @@ module.exports = defineConfig({
   viewportHeight: 1080,
   trashAssetsBeforeRuns: false,
   screenshotsFolder: 'cypress/screenshots',
+  videosFolder: 'cypress/videos',
   screenshotOnRunFailure: true,
   video: true,
-  videoUploadOnPasses: true,
   retries: {
     runMode: 1,
     openMode: 0
