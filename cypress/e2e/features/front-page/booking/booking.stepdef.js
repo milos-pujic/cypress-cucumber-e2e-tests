@@ -19,7 +19,7 @@ When(
 When(
   'Visitor {string} with an email {string} and phone number {string} tries to book a room {string} by filling up first name with value length of {int} characters',
   (lastName, email, phone, roomName, firstNameLength) => {
-    const firstName = faker.random.alpha(firstNameLength);
+    const firstName = faker.string.alpha(firstNameLength);
     Step(this, `Visitor '${firstName}' '${lastName}' with an email '${email}' and phone number '${phone}' tries to book a room '${roomName}'`);
   }
 );
@@ -34,7 +34,7 @@ When(
 When(
   'Visitor {string} with an email {string} and phone number {string} tries to book a room {string} by filling up last name with value length of {int} characters',
   (firstName, email, phone, roomName, lastNameLength) => {
-    const lastName = faker.random.alpha(lastNameLength);
+    const lastName = faker.string.alpha(lastNameLength);
     Step(this, `Visitor '${firstName}' '${lastName}' with an email '${email}' and phone number '${phone}' tries to book a room '${roomName}'`);
   }
 );
