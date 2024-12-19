@@ -98,7 +98,7 @@ To start minikube, it is important that on first initial start configuration is 
 
 Recommendation is to give minikube half of machines resources, if you have 16GB or RAM, give minikube 8GB of RAM, if you have 8 core CPU, give minikube 4 cores.
 
-To be able to use ports like 80, 8080, 1234, 9090, 9000 and 4000 which are used Sorry-Cypress and Restful Booker Platform it is needed to extend NodePort range from default range 30000-32767 to 1-65535.
+To be able to use ports like 80 which is used by Restful Booker Platform, it is needed to extend NodePort range from default range 30000-32767 to 1-65535.
 
 ### Initial start of minikube
 
@@ -160,9 +160,9 @@ After that you can use both of those plugins to control your Kubernetes cluster 
 
 #### Configure Host File
 
-Add minikube IP address in host file for easier access. Bellow command will add host record pointing to minikube IP and with domain names `kube.local`, `storage` and `storage.sorry-cypress`.
+Add minikube IP address in host file for easier access. Bellow command will add host record pointing to minikube IP and with domain name `kube.local`.
 
-    echo "`minikube ip` kube.local storage storage.sorry-cypress" | sudo tee -a /etc/hosts > /dev/null
+    echo "`minikube ip` kube.local" | sudo tee -a /etc/hosts > /dev/null
 
 #### Configure Current Terminal Session
 

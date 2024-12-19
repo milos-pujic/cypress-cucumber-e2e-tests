@@ -131,7 +131,7 @@ jobs:
       - id: cypress-run
         if: ${{ inputs.skip-bugs }}
         name: Cypress Run
-        uses: .0cypress-io/github-action@v6
+        uses: cypress-io/github-action@v6
         with:
           env: ENV=prod,TAGS=not @bug
           browser: ${{ inputs.browser }}
