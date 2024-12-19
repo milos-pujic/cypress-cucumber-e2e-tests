@@ -56,7 +56,7 @@ When(
 When(
   'Visitor {string} {string} with an email {string} tries to book a room {string} by filling up phone with value length of {int} characters',
   (firstName, lastName, email, roomName, phoneLength) => {
-    const phone = faker.random.numeric(phoneLength);
+    const phone = faker.string.numeric(phoneLength);
     Step(this, `Visitor '${firstName}' '${lastName}' with an email '${email}' and phone number '${phone}' tries to book a room '${roomName}'`);
   }
 );
