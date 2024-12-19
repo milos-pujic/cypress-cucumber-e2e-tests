@@ -9,6 +9,7 @@ They all can be found by navigating to [GitHub Repository > Actions](https://git
 There are 3 GitHub Actions Workflows setup for Cypress Cucumber E2E Tests repository:
 
 - [Run All E2E Tests](https://github.com/milos-pujic/cypress-cucumber-e2e-tests/actions/workflows/run-all.yml)
+- [Run All E2E Tests in Electron](https://github.com/milos-pujic/cypress-cucumber-e2e-tests/actions/workflows/run-all-electron-local.yml)
 - [Sanity Check](https://github.com/milos-pujic/cypress-cucumber-e2e-tests/actions/workflows/sanity-check.yml)
 
 ## Run All E2E Tests

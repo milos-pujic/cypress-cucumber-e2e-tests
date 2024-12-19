@@ -1,0 +1,85 @@
+name: Run All E2E Tests in Electron
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 9 * * 1'
+
+jobs:
+  test-electron-local:
+    name: Tests - Electron - Local
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    services:
+      rbp-booking:
+        image: mwinteringham/restfulbookerplatform_booking:1.6.24c7b22
+        ports:
+          - 3000:3000
+      rbp-room:
+        image: mwinteringham/restfulbookerplatform_room:1.6.24c7b22
+        ports:
+          - 3001:3001
+      rbp-branding:
+        image: mwinteringham/restfulbookerplatform_branding:1.6.24c7b22
+        ports:
+          - 3002:3002
+      rbp-assets:
+        image: mwinteringham/restfulbookerplatform_assets:1.6.24c7b22
+        ports:
+          - 3003:3003
+      rbp-auth:
+        image: mwinteringham/restfulbookerplatform_auth:1.6.24c7b22
+        ports:
+          - 3004:3004
+      rbp-report:
+        image: mwinteringham/restfulbookerplatform_report:1.6.24c7b22
+        ports:
+          - 3005:3005
+      rbp-message:
+        image: mwinteringham/restfulbookerplatform_message:1.6.24c7b22
+        ports:
+          - 3006:3006
+      rbp-proxy:
+        image: mwinteringham/restfulbookerplatform_proxy:latest
+        ports:
+          - 80:80
+    steps:
+      - name: Checkout Repository
+        id: checkout-repository
+        uses: actions/checkout@v4
+      - name: Setup Node
+        id: setup-node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Run Cypress Tests
+        id: cypress-run
+        uses: cypress-io/github-action@v6
+        with:
+          env: ENV=local,TAGS=not @bug
+          browser: electron
+          command-prefix: '--'
+      - name: Upload Screenshots
+        id: upload-screenshots
+        uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: cypress-screenshots
+          path: cypress/screenshots
+          retention-days: 5
+      - name: Upload Videos
+        id: upload-videos
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: cypress-videos
+          path: cypress/videos
+          retention-days: 5
+      - name: Upload Reports
+        id: upload-reports
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: cypress-reports
+          path: cypress/reports
+          retention-days: 5
