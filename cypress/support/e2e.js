@@ -16,7 +16,6 @@
 // Import commands.js using CommonJS syntax:
 require('./commands');
 require('@cypress/xpath');
-require('allure-cypress');
 
 Cypress.on('uncaught:exception', (err, runnable) => {
   return false;

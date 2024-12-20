@@ -13,10 +13,7 @@
     "cy:open:local": "npx cypress open --env ENV=local",
     "cy:run:prod": "npx cypress run --env ENV=prod",
     "cy:run:local": "npx cypress run --env ENV=local",
-    "docker:build": "docker build . -t e2e",
-    "allure:generate": "allure generate cypress/reports/allure-results -o cypress/reports/allure-report --clean",
-    "allure:generate:html": "allure generate --single-file cypress/reports/allure-results -o cypress/reports/allure-report-html --clean",
-    "allure:open": "allure open cypress/reports/allure-report"
+    "docker:build": "docker build . -t e2e"
   },
   "keywords": [
     "Cypress",
@@ -35,8 +32,6 @@
     "@eslint/eslintrc": "^3.2.0",
     "@eslint/js": "^9.17.0",
     "@faker-js/faker": "^9.3.0",
-    "allure-commandline": "^2.32.0",
-    "allure-cypress": "^3.0.7",
     "cypress": "^13.17.0",
     "cypress-on-fix": "^1.0.3",
     "eslint": "^9.17.0",

@@ -2,7 +2,7 @@
   "stepDefinitions": ["cypress/e2e/features/[filepart]/*.stepdef.js", "cypress/e2e/support/**/*.js"],
   "html": {
     "enabled": true,
-    "output": "cypress/reports/html/cucumber-report.html"
+    "output": "cypress/reports/html/index.html"
   },
   "messages": {
     "enabled": true,
