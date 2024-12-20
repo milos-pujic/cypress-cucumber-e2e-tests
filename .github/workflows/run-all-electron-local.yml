@@ -133,11 +133,11 @@ jobs:
       - name: Generate Allure Report
         id: generate-allure-report
         run: |
-          curl --create-dirs -o ./allure-results/history/categories-trend.json https://milos-pujic.github.io/cypress-cucumber-e2e-tests/allure/history/categories-trend.json
-          curl --create-dirs -o ./allure-results/history/duration-trend.json https://milos-pujic.github.io/cypress-cucumber-e2e-tests/allure/history/duration-trend.json
-          curl --create-dirs -o ./allure-results/history/history-trend.json https://milos-pujic.github.io/cypress-cucumber-e2e-tests/allure/history/history-trend.json
-          curl --create-dirs -o ./allure-results/history/history.json https://milos-pujic.github.io/cypress-cucumber-e2e-tests/allure/history/history.json
-          curl --create-dirs -o ./allure-results/history/retry-trend.json https://milos-pujic.github.io/cypress-cucumber-e2e-tests/allure/history/retry-trend.json
+          curl --create-dirs -o ./cypress-reports/allure-results/history/categories-trend.json https://milos-pujic.github.io/cypress-cucumber-e2e-tests/allure/history/categories-trend.json
+          curl --create-dirs -o ./cypress-reports/allure-results/history/duration-trend.json https://milos-pujic.github.io/cypress-cucumber-e2e-tests/allure/history/duration-trend.json
+          curl --create-dirs -o ./cypress-reports/allure-results/history/history-trend.json https://milos-pujic.github.io/cypress-cucumber-e2e-tests/allure/history/history-trend.json
+          curl --create-dirs -o ./cypress-reports/allure-results/history/history.json https://milos-pujic.github.io/cypress-cucumber-e2e-tests/allure/history/history.json
+          curl --create-dirs -o ./cypress-reports/allure-results/history/retry-trend.json https://milos-pujic.github.io/cypress-cucumber-e2e-tests/allure/history/retry-trend.json
           npx allure generate cypress-reports/allure-results -o cypress-reports/allure-report --clean
       - name: Prepare Reports
         id: prepare-reports
