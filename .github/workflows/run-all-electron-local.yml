@@ -162,7 +162,6 @@ jobs:
         run: |
           tree
           mv cypress-cucumber-html-report reports/cucumber
-          mv cypress-allure-report reports/allure/report
           mv cypress-allure-html-report reports/allure
         shell: bash
       - name: Setup Pages
