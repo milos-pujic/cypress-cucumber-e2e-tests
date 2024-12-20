@@ -88,7 +88,7 @@ jobs:
         if: always()
         with:
           name: cypress-cucumber-html-report
-          path: cypress/reports/html/
+          path: cypress/reports/html
           retention-days: 5
       - name: Upload Cypress Cucumber JSON Report
         id: upload-cypress-cucumber-json-report
@@ -96,7 +96,7 @@ jobs:
         if: always()
         with:
           name: cypress-cucumber-json-report
-          path: cypress/reports/json/
+          path: cypress/reports/json
           retention-days: 5
       - name: Upload Cypress Allure Results
         id: upload-cypress-allure-results
@@ -104,7 +104,7 @@ jobs:
         if: always()
         with:
           name: cypress-allure-results
-          path: cypress/reports/allure-results/
+          path: cypress/reports/allure-results
           retention-days: 5
 
   report:
@@ -155,13 +155,13 @@ jobs:
       - name: Generate Allure Report
         id: generate-allure-report
         run: |
-          npx allure generate cypress-allure-results -o cypress-allure-report --clean
-          npx allure generate --single-file cypress-allure-results -o cypress-allure-html-report --clean
+          npx allure generate cypress-allure-results/cypress-allure-results -o cypress-allure-report --clean
+          npx allure generate --single-file cypress-allure-results/cypress-allure-results -o cypress-allure-html-report --clean
       - name: Move to Reports folder
         id: move-to-reports-folder
         run: |
           tree
-          mv cypress-cucumber-html-report reports/cucumber
+          mv cypress-cucumber-html-report/cypress-cucumber-html-report reports/cucumber
           mv cypress-allure-html-report reports/allure
         shell: bash
       - name: Setup Pages
