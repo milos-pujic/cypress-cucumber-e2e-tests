@@ -13,8 +13,6 @@ updates:
       day: "monday"
       time: "08:30"
       timezone: "Europe/Belgrade"
-    ignore:
-      - dependency-name: "cypress"
   # For github actions
   - package-ecosystem: "github-actions"
     directory: "/.github/workflows"
