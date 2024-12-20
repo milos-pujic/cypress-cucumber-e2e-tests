@@ -4,7 +4,7 @@
   "description": "Cypress Cucumber E2E Test Framework",
   "main": "index.js",
   "scripts": {
-    "prepare": "husky install",
+    "prepare": "husky",
     "test": "echo \"Error: no test specified\" && exit 1",
     "clean": "npm run clean:results && npm run clean:modules",
     "clean:modules": "rimraf ./node_modules",
@@ -13,10 +13,7 @@
     "cy:open:local": "npx cypress open --env ENV=local",
     "cy:run:prod": "npx cypress run --env ENV=prod",
     "cy:run:local": "npx cypress run --env ENV=local",
-    "sorry:cy:run:local": "cross-env CURRENTS_API_URL='http://localhost:1234' cypress-cloud run --record --key secret_key --parallel --ci-build-id build-001",
-    "sorry:cy:run:minikube": "cross-env CURRENTS_API_URL='http://kube.local:1234' cypress-cloud run --record --key secret_key --parallel --ci-build-id build-001",
-    "docker:build": "docker build . -t e2e",
-    "docker:run:chrome": "docker run -d --network e2e-tests -e CURRENTS_API_URL=http://director:1234 e2e:latest sh -c \"npx cypress-cloud run --env ENV=prod --browser chrome --record --key secret_key --parallel --ci-build-id chrome_docker_$(date +%Y-%m-%d)\""
+    "docker:build": "docker build . -t e2e"
   },
   "keywords": [
     "Cypress",
@@ -31,10 +28,11 @@
     "@badeball/cypress-cucumber-preprocessor": "^21.0.3",
     "@bahmutov/cypress-esbuild-preprocessor": "^2.2.4",
     "@cypress/xpath": "^2.0.3",
+    "@eslint/compat": "^1.2.4",
+    "@eslint/eslintrc": "^3.2.0",
+    "@eslint/js": "^9.17.0",
     "@faker-js/faker": "^9.3.0",
-    "cross-env": "^7.0.3",
-    "cypress": "12.0.2",
-    "cypress-cloud": "^1.13.0",
+    "cypress": "^13.17.0",
     "cypress-on-fix": "^1.0.3",
     "eslint": "^9.17.0",
     "eslint-config-prettier": "^9.1.0",
@@ -42,13 +40,10 @@
     "eslint-plugin-cypress": "^4.1.0",
     "eslint-plugin-import": "^2.31.0",
     "eslint-plugin-prettier": "^5.2.1",
+    "globals": "^15.14.0",
     "husky": "^9.1.7",
     "lint-staged": "^15.2.11",
-    "prettier": "^3.4.2"
-  },
-  "overrides": {
-    "eslint-plugin-import": {
-      "eslint": "$eslint"
-    }
+    "prettier": "^3.4.2",
+    "rimraf": "^6.0.1"
   }
 }

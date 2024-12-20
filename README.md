@@ -26,7 +26,6 @@ Provided tests are based on examples how to define and use utility functions, ex
 
 - [Cypress Cucumber Preprocessor](https://github.com/badeball/cypress-cucumber-preprocessor)
 - [Faker JS](https://github.com/faker-js/faker)
-- [Sorry-Cypress](https://docs.sorry-cypress.dev/) and [cypress-cloud](https://github.com/currents-dev/cypress-cloud)
 - [Prettier](https://prettier.io/)
 - [Husky](https://typicode.github.io/husky/#/)
 - [Lint Staged](https://github.com/okonet/lint-staged)
@@ -143,57 +142,50 @@ Also make sure that there are no **and** conjunctions in sentences. If there is,
   - [Alternative text](https://github.com/cucumber/cucumber-expressions#alternative-text)
   - [Escaping](https://github.com/cucumber/cucumber-expressions#escaping)
 
-## Sorry Cypress
+## Execute E2E Cypress Cucumber Tests using GitHub Actions Workflows on GitHub
 
-Sorry-Cypress is an open-source, self-hosted alternative to paid Cypress Cloud solution, and it enables us to:
+All Github Actions Workflows are configured in [**GitHub Folder**](/.github/workflows/) yml files.
 
-- Run Cypress Tests in parallel
-- Upload screenshots and videos to your own storage
-- Browse test results, failures, screenshots and video recordings
+They all can be found by navigating to [GitHub Repository > Actions](https://github.com/milos-pujic/cypress-cucumber-e2e-tests/actions).
 
-Sorry-Cypress is actually 3 separate applications:
+![GitHub Actions Workflows](/docs/imgs/GitHub-Actions.png)
 
-- sorry-cypress-director
-  - parallelization and coordination of test runs
-  - 3rd party integration using webhooks
-  - saving tests results
-  - generating signed upload URL for saving failed tests screenshots
-- sorry-cypress-api
-  - GraphQL wrapper to query the data stored by sorry-cypress-director
-  - interface for the sorry-cypress-dashboard
-- sorry-cypress-dashboard
-  - track test runs progress
-  - browser test results, videos, and failures screenshots
-  - set projects configuration like WebHooks, Slack, MS Teams and GitHub integration
-  - create and delete entries (projects, runs)
+There are 3 GitHub Actions Workflows setup for Cypress Cucumber E2E Tests repository:
 
-To run tests using Sorry-Cypress instead of Official Cypress Cloud, Currents-Dev Cypress Cloud `cypress-cloud` npm package must be used to integrate Cypress with Sorry-Cypress. It does that by setting the environment variable `CURRENTS_API_URL` to point to our **sorry-cypress-director** app.
+- [Run All E2E Tests](https://github.com/milos-pujic/cypress-cucumber-e2e-tests/actions/workflows/run-all.yml)
+- [Run All E2E Tests in Electron](https://github.com/milos-pujic/cypress-cucumber-e2e-tests/actions/workflows/run-all-electron-local.yml)
+- [Sanity Check](https://github.com/milos-pujic/cypress-cucumber-e2e-tests/actions/workflows/sanity-check.yml)
 
-Example of command:
+### Run All E2E Tests
 
-    npx cross-env CURRENTS_API_URL=${CYPRESS_DIRECTOR_URL} cypress-cloud run --record --key ${CYPRESS_RECORD_KEY} --parallel --ci-build-id ${CYPRESS_CI_BUILD_ID}
+This GitHub Action Workflow Executes All Cypress Cucumber E2E Tests on `local` (default) or `prod` environnement using `electron` (default), `chrome`, `firefox` or `edge` browser from defined branch (by default it is `main`).
 
-Where:
+If `local` environnement is selected, Restful Booker Platform will be started inside GitHub Services and tests will run against it.
+If `prod` environnement is selected, tests will run against live version of Restful Booker Platform available at [automationintesting.online](https://automationintesting.online/).
 
-- `${CYPRESS_DIRECTOR_URL}` - sorry-cypress-director url
-- `${CYPRESS_RECORD_KEY}` - secret record key, sorry-cypress-director only allows test results with know, predefined, record keys
-- `${CYPRESS_CI_BUILD_ID}` - unique build identifier used by Sorry-Cypress to distinguish cypress test runs one from another
+GitHub Action Workflow configuration file of this workflow is [run-all.yml](/.github/workflows/run-all.yml).
 
-## Hosting Sorry-Cypress
+This workflow is only triggered Manually. Steps to trigger it:
 
-To be able to run tests using Sorry Cypress, it must be hosted somewhere.
+1. Open [Run All E2E Tests](https://github.com/milos-pujic/cypress-cucumber-e2e-tests/actions/workflows/run-all.yml)
+2. Click on `Run workflow` button
+    - (which opens sub-modal where `Branch`, `Environnement to run Tests`, `Browser in which to run Tests` and `Skip Test with Known Bugs` can be selected)
+3. Select `Branch`, `Environnement to run Tests`, `Browser in which to run Tests` and `Skip Test with Known Bugs`
+4. Click on `Run workflow` button
 
-Hosting Sorry Cypress on AWS is the easiest way to get publicly accessible instance of Sorry Cypress, of course there are other options to host in on Google Cloud Platform, Microsoft Azure, Heroku, Kubernetes or Docker. More on different implementations can be found in [Sorry Cypress Docs](https://docs.sorry-cypress.dev/).
+![Run All E2E Tests](/docs/imgs/Run-All-E2E-Tests.png)
 
-Guides on how to set up Sorry-Cypress Hosting:
+Also, on [Run All E2E Tests](https://github.com/milos-pujic/cypress-cucumber-e2e-tests/actions/workflows/run-all.yml) page, status of all on-going and previously executed 'Run All E2E Tests' Workflow runs can be found.
 
-- [Publicly on AWS](/docs/sorry-cypress-setup-aws.md)
-- [Locally using Docker Compose](/docs/sorry-cypress-setup-docker-compose.md)
-- [Locally using Minikube's Kubernetes](/docs/sorry-cypress-setup-minikube.md)
+### Sanity Check
 
-## Execute E2E Cypress Cucumber Tests using CI/CD Tools
+This GitHub Action Workflow Executes `@sanity` tagged scenarios of Cucumber E2E Tests on `local` environnement using `electron` browser from `main` or Pull Request source branch.
 
-Guides on how to execute E2E Cypress Cucumber Tests using CI/CD Tools:
+GitHub Action Workflow configuration file of this workflow is [sanity-check.yml](/.github/workflows/sanity-check.yml).
 
-- [On GitHub using GitHub Actions Workflows](/docs/execute-e2e-gha.md)
-- [Locally using Minikube's Kubernetes](/docs/execute-e2e-minikube.md)
+This workflow is only triggered automatically on specific events:
+
+- Merge Events on `main` branch
+- Create / Update GitHub Pull Request Events
+
+Also, on [Sanity Check](https://github.com/milos-pujic/cypress-cucumber-e2e-tests/actions/workflows/sanity-check.yml) page, status of all on-going and previously executed 'Sanity Check' Workflow runs can be found.
