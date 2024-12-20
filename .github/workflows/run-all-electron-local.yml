@@ -66,22 +66,6 @@ jobs:
           env: ENV=local,TAGS=not @bug
           browser: electron
           command-prefix: '--'
-      - name: Upload Screenshots
-        id: upload-screenshots
-        uses: actions/upload-artifact@v4
-        if: failure()
-        with:
-          name: cypress-screenshots
-          path: cypress/screenshots
-          retention-days: 1
-      - name: Upload Videos
-        id: upload-videos
-        uses: actions/upload-artifact@v4
-        if: always()
-        with:
-          name: cypress-videos
-          path: cypress/videos
-          retention-days: 1
       - name: Upload Reports
         id: upload-reports
         uses: actions/upload-artifact@v4
@@ -157,3 +141,10 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+      - name: Delete Unnecessary Artifacts
+        id: delete-unnecessary-artifacts
+        uses: geekyeggo/delete-artifact@v5
+        with:
+          name: |
+            cypress-reports
+          failOnError: false
