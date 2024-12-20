@@ -59,8 +59,8 @@ jobs:
         ports:
           - 80:80
     steps:
-      - id: checkout-repository
-        name: Checkout Repository
+      - name: Checkout Repository
+        id: checkout-repository
         uses: actions/checkout@v4
       - name: Setup Node
         uses: actions/setup-node@v4
@@ -73,31 +73,35 @@ jobs:
           path: |
             node_modules
           key: modules-${{ hashFiles('package-lock.json') }}
-      - id: cypress-run
-        name: Cypress Run
+      - name: Cypress Run
+        id: cypress-run
         uses: cypress-io/github-action@v6
         with:
           env: ENV=local,TAGS=@sanity and not @bug
           browser: electron
           command-prefix: '--'
-      - id: upload-screenshots
-        name: Upload Screenshots
+      - name: Generate Allure Report
+        id: generate-allure-report
+        run: |
+          npx allure generate --single-file cypress/reports/allure-results -o cypress/reports/allure-report-html --clean
+      - name: Upload Screenshots
+        id: upload-screenshots
         uses: actions/upload-artifact@v4
         if: failure()
         with:
           name: cypress-screenshots
           path: cypress/screenshots
           retention-days: 1
-      - id: upload-videos
-        name: Upload Videos
+      - name: Upload Videos
+        id: upload-videos
         uses: actions/upload-artifact@v4
         if: always()
         with:
           name: cypress-videos
           path: cypress/videos
           retention-days: 1
-      - id: upload-reports
-        name: Upload Reports
+      - name: Upload Reports
+        id: upload-reports
         uses: actions/upload-artifact@v4
         if: always()
         with:

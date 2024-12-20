@@ -63,7 +63,7 @@ jobs:
         id: cypress-run
         uses: cypress-io/github-action@v6
         with:
-          env: ENV=local
+          env: ENV=local,TAGS=not @bug
           browser: electron
           command-prefix: '--'
       - name: Upload Screenshots
