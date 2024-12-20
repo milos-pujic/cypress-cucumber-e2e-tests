@@ -109,16 +109,46 @@ jobs:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
+      - name: Checkout Repository
+        id: checkout-repository
+        uses: actions/checkout@v4
+      - name: Setup Node
+        id: setup-node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Cache Node Modules
+        id: cache-node-modules
+        uses: actions/cache@v4
+        with:
+          path: |
+            node_modules
+          key: modules-${{ hashFiles('package-lock.json') }}
       - name: Download Cypress Reports
         id: download-cypress-reports
         uses: actions/download-artifact@v4
         with:
           name: cypress-reports
-      - name: Rename HTML Report
-        id: rename-html-report
+          path: cypress-reports
+      - name: Move Cucumber HTML Report
+        id: move-cucumber-html-report
         run: |
-          mv html/cucumber.html html/index.html
+          tree
+          mv cypress-reports/html/cucumber.html reports/cucumber/index.html
         shell: bash
+      - name: Generate Allure Report
+        id: generate-allure-report
+        run: |
+          curl --create-dirs -o ./allure-results/history/categories-trend.json https://milos-pujic.github.io/cypress-cucumber-e2e-tests/allure/history/categories-trend.json
+          curl --create-dirs -o ./allure-results/history/duration-trend.json https://milos-pujic.github.io/cypress-cucumber-e2e-tests/allure/history/duration-trend.json
+          curl --create-dirs -o ./allure-results/history/history-trend.json https://milos-pujic.github.io/cypress-cucumber-e2e-tests/allure/history/history-trend.json
+          curl --create-dirs -o ./allure-results/history/history.json https://milos-pujic.github.io/cypress-cucumber-e2e-tests/allure/history/history.json
+          curl --create-dirs -o ./allure-results/history/retry-trend.json https://milos-pujic.github.io/cypress-cucumber-e2e-tests/allure/history/retry-trend.json
+          npx allure generate cypress-reports/allure-results -o cypress-reports/allure-report --clean
+      - name: Move to Allure Report
+        id: move-allure-report
+        run: |
+          mv cypress-reports/allure-report reports/allure
       - name: Setup Pages
         id: setup-pages
         uses: actions/configure-pages@v5
@@ -126,7 +156,7 @@ jobs:
         id: upload-pages-artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: html/
+          path: reports/
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4

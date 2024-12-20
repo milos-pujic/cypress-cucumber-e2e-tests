@@ -2,6 +2,8 @@ const { defineConfig } = require('cypress');
 const createBundler = require('@bahmutov/cypress-esbuild-preprocessor');
 const preprocessor = require('@badeball/cypress-cucumber-preprocessor');
 const createEsbuildPlugin = require('@badeball/cypress-cucumber-preprocessor/esbuild');
+const { allureCypress } = require('allure-cypress/reporter');
+const os = require('node:os');
 
 async function setupNodeEvents(cypressOn, config) {
   const on = require('cypress-on-fix')(cypressOn);
@@ -14,6 +16,15 @@ async function setupNodeEvents(cypressOn, config) {
       plugins: [createEsbuildPlugin.default(config)]
     })
   );
+  allureCypress(on, config, {
+    resultsDir: 'cypress/reports/allure-results',
+    environmentInfo: {
+      os_platform: os.platform(),
+      os_release: os.release(),
+      os_version: os.version(),
+      node_version: process.version
+    }
+  });
   config.defaultCommandTimeout = 4000;
   // Make sure to return the config object as it might have been modified by the plugin.
   return config;
