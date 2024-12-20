@@ -6,7 +6,7 @@ on:
     - cron: '0 9 * * 1'
 
 jobs:
-  test-electron-local:
+  test:
     name: Tests - Electron - Local
     runs-on: ubuntu-latest
     timeout-minutes: 30
@@ -52,6 +52,13 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 22
+      - name: Cache Node Modules
+        id: cache-node-modules
+        uses: actions/cache@v4
+        with:
+          path: |
+            node_modules
+          key: modules-${{ hashFiles('package-lock.json') }}
       - name: Run Cypress Tests
         id: cypress-run
         uses: cypress-io/github-action@v6
@@ -75,11 +82,94 @@ jobs:
           name: cypress-videos
           path: cypress/videos
           retention-days: 5
-      - name: Upload Reports
-        id: upload-reports
+      - name: Upload Cypress Cucumber HTML Report
+        id: upload-cypress-cucumber-html-report
         uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: cypress-reports
-          path: cypress/reports
+          name: cypress-cucumber-html-report
+          path: cypress/reports/html/
           retention-days: 5
+      - name: Upload Cypress Cucumber JSON Report
+        id: upload-cypress-cucumber-json-report
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: cypress-cucumber-json-report
+          path: cypress/reports/json/
+          retention-days: 5
+      - name: Upload Cypress Allure Results
+        id: upload-cypress-allure-results
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: cypress-allure-results
+          path: cypress/reports/allure-results/
+          retention-days: 5
+
+  report:
+    name: Publish Reports
+    if: ${{ always() }}
+    runs-on: ubuntu-latest
+    needs: [test]
+    timeout-minutes: 30
+    permissions:
+      actions: write
+      contents: read
+      pages: write
+      id-token: write
+    concurrency:
+      group: 'pages'
+      cancel-in-progress: true
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Checkout Repository
+        id: checkout-repository
+        uses: actions/checkout@v4
+      - name: Setup Node
+        id: setup-node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Cache Node Modules
+        id: cache-node-modules
+        uses: actions/cache@v4
+        with:
+          path: |
+            node_modules
+          key: modules-${{ hashFiles('package-lock.json') }}
+      - name: Download Cucumber HTML Report
+        id: download-cucumber-html-report
+        uses: actions/download-artifact@v4
+        with:
+          path: cypress-cucumber-html-report
+          pattern: cypress-cucumber-html-report
+      - name: Download Allure Results
+        id: download-allure-results
+        uses: actions/download-artifact@v4
+        with:
+          path: cypress-allure-results
+          pattern: cypress-allure-results
+      - name: Generate Allure Report
+        id: generate-allure-report
+        run: |
+          npx allure generate cypress-allure-results -o cypress-allure-report --clean
+      - name: Move to Reports folder
+        id: move-to-reports-folder
+        run: |
+          mv cypress-cucumber-html-report reports/cucumber
+          mv cypress-allure-report reports/allure
+        shell: bash
+      - name: Setup Pages
+        id: setup-pages
+        uses: actions/configure-pages@v5
+      - name: Upload Pages Artifact
+        id: upload-pages-artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: reports/
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
