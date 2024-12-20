@@ -114,6 +114,11 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: cypress-reports
+      - name: List
+        id: list
+        run: |
+          tree
+        shell: bash
       - name: Setup Pages
         id: setup-pages
         uses: actions/configure-pages@v5
@@ -121,7 +126,7 @@ jobs:
         id: upload-pages-artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: cypress-reports/cypress-reports/html/
+          path: cypress-reports/html/
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
