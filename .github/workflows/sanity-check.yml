@@ -66,6 +66,13 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 22
+      - name: Cache Node Modules
+        id: cache-node-modules
+        uses: actions/cache@v4
+        with:
+          path: |
+            node_modules
+          key: modules-${{ hashFiles('package-lock.json') }}
       - id: cypress-run
         name: Cypress Run
         uses: cypress-io/github-action@v6
