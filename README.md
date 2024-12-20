@@ -152,42 +152,59 @@ They all can be found by navigating to [GitHub Repository > Actions](https://git
 
 There are 3 GitHub Actions Workflows setup for Cypress Cucumber E2E Tests repository:
 
-- [Run All E2E Tests](https://github.com/milos-pujic/cypress-cucumber-e2e-tests/actions/workflows/run-all.yml)
-- [Run All E2E Tests in Electron](https://github.com/milos-pujic/cypress-cucumber-e2e-tests/actions/workflows/run-all-electron-local.yml)
-- [Sanity Check](https://github.com/milos-pujic/cypress-cucumber-e2e-tests/actions/workflows/sanity-check.yml)
+- [Cypress Tests](https://github.com/milos-pujic/cypress-cucumber-e2e-tests/actions/workflows/cypress.yml): Used to manually trigger execution set of Cypress Tests, using specified browser and environment.
+- [Cypress Tests in Electron](https://github.com/milos-pujic/cypress-cucumber-e2e-tests/actions/workflows/cypress-electron.yml): Used for scheduled (and manual) execution of all Cypress Tests, using `electron` and `local` environment and publishing of test results on GitHub Pages.
+- [Sanity Check](https://github.com/milos-pujic/cypress-cucumber-e2e-tests/actions/workflows/sanity-check.yml) - Used for scheduled execution of Sanity Cypress Tests, using `electron` and `local` environment, on merge events on `main` branch and create / update pull request events
 
-### Run All E2E Tests
+### Cypress Tests
 
 This GitHub Action Workflow Executes All Cypress Cucumber E2E Tests on `local` (default) or `prod` environnement using `electron` (default), `chrome`, `firefox` or `edge` browser from defined branch (by default it is `main`).
 
 If `local` environnement is selected, Restful Booker Platform will be started inside GitHub Services and tests will run against it.
 If `prod` environnement is selected, tests will run against live version of Restful Booker Platform available at [automationintesting.online](https://automationintesting.online/).
 
-GitHub Action Workflow configuration file of this workflow is [run-all.yml](/.github/workflows/run-all.yml).
+GitHub Action Workflow configuration file of this workflow is [cypress.yml](/.github/workflows/cypress.yml).
 
 This workflow is only triggered Manually. Steps to trigger it:
 
-1. Open [Run All E2E Tests](https://github.com/milos-pujic/cypress-cucumber-e2e-tests/actions/workflows/run-all.yml)
+1. Open [Cypress Tests](https://github.com/milos-pujic/cypress-cucumber-e2e-tests/actions/workflows/cypress.yml)
 2. Click on `Run workflow` button
     - (which opens sub-modal where `Branch`, `Environnement to run Tests`, `Browser in which to run Tests` and `Skip Test with Known Bugs` can be selected)
 3. Select `Branch`, `Environnement to run Tests`, `Browser in which to run Tests` and `Skip Test with Known Bugs`
 4. Click on `Run workflow` button
 
-![Run All E2E Tests](/docs/imgs/Run-All-E2E-Tests.png)
+![Cypress Tests](/docs/imgs/Cypress-Tests.png)
 
-Also, on [Run All E2E Tests](https://github.com/milos-pujic/cypress-cucumber-e2e-tests/actions/workflows/run-all.yml) page, status of all on-going and previously executed 'Run All E2E Tests' Workflow runs can be found.
+On [Cypress Tests](https://github.com/milos-pujic/cypress-cucumber-e2e-tests/actions/workflows/cypress.yml) page, status of all on-going and previously executed 'Cypress Tests' Workflow runs can be found.
 
-### Run All E2E Tests Electron
+### Cypress Tests Electron
 
 This GitHub Action Workflow Executes All Cypress Cucumber E2E Tests on `local` environnement using `electron` browser from defined branch (by default it is `main`).
 
+:warning: This GitHub Actions publishes report on GitHub pages and beacuse of that it can **ONLY** be executed on **main** branch. :warning:
+
 Environment `local` means that, Restful Booker Platform will be started inside GitHub Services and tests will run against it.
 
-GitHub Action Workflow configuration file of this workflow is [run-all-electron-local.yml](/.github/workflows/run-all-electron-local.yml).
+GitHub Action Workflow configuration file of this workflow is [cypress-electron.yml](/.github/workflows/cypress-electron.yml).
 
-This workflow has only scheduled trigger. It is triggered At 09:00 on every Monday, using cron expression `0 9 * * 1`.
+This workflow has two triggers:
 
-Also, on [Run All E2E Tests Electron](https://github.com/milos-pujic/cypress-cucumber-e2e-tests/actions/workflows/run-all-electron-local.yml) page, status of all on-going and previously executed 'Run All E2E Tests' Workflow runs can be found.
+1. Scheduled Trigger at 09:00 on every Monday, using cron expression `0 9 * * 1`
+2. Manual Trigger
+
+Steps to trigger it manually:
+
+1. Open [Cypress Tests Electron](https://github.com/milos-pujic/cypress-cucumber-e2e-tests/actions/workflows/cypress-electron.yml)
+2. Click on `Run workflow` button
+    - (which opens sub-modal where `Branch` can be selected)
+3. Select `Branch` (:warning: **main** branch must be used :warning:)
+4. Click on `Run workflow` button
+
+![Cypress Tests Electron](/docs/imgs/Cypress-Tests-Electron.png)
+
+On [Cypress Tests Electron](https://github.com/milos-pujic/cypress-cucumber-e2e-tests/actions/workflows/cypress-electron.yml) page, status of all on-going and previously executed 'Cypress Tests' Workflow runs can be found.
+
+This GitHub Action publishes Cucumber HTML and Allure Report on GitHub Pages of this project, located [here](https://milos-pujic.github.io/cypress-cucumber-e2e-tests/).
 
 ### Sanity Check
 
@@ -200,4 +217,4 @@ This workflow is only triggered automatically on specific events:
 - Merge Events on `main` branch
 - Create / Update GitHub Pull Request Events
 
-Also, on [Sanity Check](https://github.com/milos-pujic/cypress-cucumber-e2e-tests/actions/workflows/sanity-check.yml) page, status of all on-going and previously executed 'Sanity Check' Workflow runs can be found.
+On [Sanity Check](https://github.com/milos-pujic/cypress-cucumber-e2e-tests/actions/workflows/sanity-check.yml) page, status of all on-going and previously executed 'Sanity Check' Workflow runs can be found.
