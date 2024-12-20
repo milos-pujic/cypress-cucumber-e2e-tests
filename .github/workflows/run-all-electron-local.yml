@@ -63,7 +63,7 @@ jobs:
         id: cypress-run
         uses: cypress-io/github-action@v6
         with:
-          env: ENV=local,TAGS=not @bug
+          env: ENV=local,TAGS=@sanity
           browser: electron
           command-prefix: '--'
       - name: Upload Screenshots
@@ -156,11 +156,13 @@ jobs:
         id: generate-allure-report
         run: |
           npx allure generate cypress-allure-results -o cypress-allure-report --clean
+          npx allure generate --single-file cypress-allure-results -o cypress-allure-html-report --clean
       - name: Move to Reports folder
         id: move-to-reports-folder
         run: |
           mv cypress-cucumber-html-report reports/cucumber
-          mv cypress-allure-report reports/allure
+          mv cypress-allure-report/history reports/allure/history
+          mv cypress-allure-html-report reports/allure
         shell: bash
       - name: Setup Pages
         id: setup-pages
