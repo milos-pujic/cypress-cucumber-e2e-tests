@@ -22,7 +22,7 @@ on:
 
 jobs:
   test:
-    name: Sanity Tests on local - electron
+    name: Sanity Tests - local - electron
     runs-on: ubuntu-latest
     timeout-minutes: 30
     services:
