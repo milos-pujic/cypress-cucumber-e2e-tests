@@ -130,12 +130,6 @@ jobs:
         with:
           name: cypress-reports
           path: cypress-reports
-      - name: Move Cucumber HTML Report
-        id: move-cucumber-html-report
-        run: |
-          tree
-          mv cypress-reports/html/cucumber.html reports/cucumber/index.html
-        shell: bash
       - name: Generate Allure Report
         id: generate-allure-report
         run: |
@@ -145,10 +139,13 @@ jobs:
           curl --create-dirs -o ./allure-results/history/history.json https://milos-pujic.github.io/cypress-cucumber-e2e-tests/allure/history/history.json
           curl --create-dirs -o ./allure-results/history/retry-trend.json https://milos-pujic.github.io/cypress-cucumber-e2e-tests/allure/history/retry-trend.json
           npx allure generate cypress-reports/allure-results -o cypress-reports/allure-report --clean
-      - name: Move to Allure Report
-        id: move-allure-report
+      - name: Prepare Reports
+        id: prepare-reports
         run: |
+          mkdir reports/cucumber
+          mv cypress-reports/html/cucumber.html reports/cucumber/index.html
           mv cypress-reports/allure-report reports/allure
+        shell: bash
       - name: Setup Pages
         id: setup-pages
         uses: actions/configure-pages@v5
