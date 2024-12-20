@@ -2,15 +2,15 @@
   "stepDefinitions": ["cypress/e2e/features/[filepart]/*.stepdef.js", "cypress/e2e/support/**/*.js"],
   "html": {
     "enabled": true,
-    "output": "cypress/reports/html/index.html"
+    "output": "cypress/reports/html/cucumber.html"
   },
   "messages": {
     "enabled": true,
-    "output": "cypress/reports/messages/cucumber-messages.ndjson"
+    "output": "cypress/reports/messages/cucumber.ndjson"
   },
   "json": {
     "enabled": true,
-    "output": "cypress/reports/json/cucumber-report.json"
+    "output": "cypress/reports/json/cucumber.json"
   },
   "filterSpecs": true,
   "omitFiltered": true

@@ -114,10 +114,10 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: cypress-reports
-      - name: List
-        id: list
+      - name: Rename HTML Report
+        id: rename-html-report
         run: |
-          tree
+          mv html/cucumber.html html/index.html
         shell: bash
       - name: Setup Pages
         id: setup-pages
@@ -126,7 +126,7 @@ jobs:
         id: upload-pages-artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: cypress-reports/html/
+          path: html/
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
