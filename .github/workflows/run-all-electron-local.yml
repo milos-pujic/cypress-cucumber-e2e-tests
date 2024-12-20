@@ -161,7 +161,7 @@ jobs:
         id: move-to-reports-folder
         run: |
           mv cypress-cucumber-html-report reports/cucumber
-          mv cypress-allure-report/history reports/allure/history
+          mv cypress-allure-report reports/allure/report
           mv cypress-allure-html-report reports/allure
         shell: bash
       - name: Setup Pages
