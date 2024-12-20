@@ -84,27 +84,19 @@ jobs:
         id: generate-allure-report
         run: |
           npx allure generate --single-file cypress/reports/allure-results -o cypress/reports/allure-report-html --clean
-      - name: Upload Screenshots
-        id: upload-screenshots
-        uses: actions/upload-artifact@v4
-        if: failure()
-        with:
-          name: cypress-screenshots
-          path: cypress/screenshots
-          retention-days: 1
-      - name: Upload Videos
-        id: upload-videos
+      - name: Upload Cucumber Report
+        id: upload-cucumber-report
         uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: cypress-videos
-          path: cypress/videos
+          name: cucumber-report
+          path: cypress/reports/html
           retention-days: 1
-      - name: Upload Reports
-        id: upload-reports
+      - name: Upload Allure Report
+        id: upload-allure-report
         uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: cypress-reports
-          path: cypress/reports
+          name: allure-report
+          path: cypress/reports/allure-report-html
           retention-days: 1
