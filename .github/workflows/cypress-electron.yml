@@ -1,4 +1,4 @@
-name: Run All E2E Tests in Electron
+name: Cypress Tests in Electron
 
 on:
   workflow_dispatch:
@@ -7,7 +7,7 @@ on:
 
 jobs:
   test:
-    name: Tests - Electron - Local
+    name: Tests - electron - local
     runs-on: ubuntu-latest
     timeout-minutes: 30
     services:
