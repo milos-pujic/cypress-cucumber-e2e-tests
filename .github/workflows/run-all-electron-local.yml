@@ -109,27 +109,11 @@ jobs:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
-      - name: Checkout Repository
-        id: checkout-repository
-        uses: actions/checkout@v4
-      - name: Setup Node
-        id: setup-node
-        uses: actions/setup-node@v4
-        with:
-          node-version: 22
-      - name: Cache Node Modules
-        id: cache-node-modules
-        uses: actions/cache@v4
-        with:
-          path: |
-            node_modules
-          key: modules-${{ hashFiles('package-lock.json') }}
       - name: Download Cypress Reports
         id: download-cypress-reports
         uses: actions/download-artifact@v4
         with:
-          path: cypress-reports
-          pattern: cypress-reports
+          name: cypress-reports
       - name: Setup Pages
         id: setup-pages
         uses: actions/configure-pages@v5
@@ -137,7 +121,7 @@ jobs:
         id: upload-pages-artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: cypress-reports/cypress-reports/html/
+          path: cypress-reports/html/
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
