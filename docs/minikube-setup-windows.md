@@ -84,7 +84,7 @@ To start minikube, it is important that on first initial start configuration is 
 
 Recommendation is to give minikube half of machines resources, if you have 16GB or RAM, give minikube 8GB of RAM, if you have 8 core CPU, give minikube 4 cores.
 
-To be able to use ports like 80 which is used by Restful Booker Platform, it is needed to extend NodePort range from default range 30000-32767 to 1-65535.
+To be able to use ports like 80 and 8080 it is needed to extend NodePort range from default range 30000-32767 to 1-65535.
 
 ### Initial start of minikube
 
