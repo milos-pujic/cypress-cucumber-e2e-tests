@@ -121,7 +121,7 @@ jobs:
         id: upload-pages-artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: cypress-reports/html/
+          path: cypress-reports/cypress-reports/html/
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
