@@ -160,6 +160,7 @@ jobs:
       - name: Move to Reports folder
         id: move-to-reports-folder
         run: |
+          tree
           mv cypress-cucumber-html-report reports/cucumber
           mv cypress-allure-report reports/allure/report
           mv cypress-allure-html-report reports/allure
