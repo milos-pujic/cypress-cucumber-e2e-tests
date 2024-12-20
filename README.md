@@ -156,6 +156,8 @@ There are 3 GitHub Actions Workflows setup for Cypress Cucumber E2E Tests reposi
 - [Cypress Tests in Electron](https://github.com/milos-pujic/cypress-cucumber-e2e-tests/actions/workflows/cypress-electron.yml): Used for scheduled (and manual) execution of all Cypress Tests, using `electron` and `local` environment and publishing of test results on GitHub Pages.
 - [Sanity Check](https://github.com/milos-pujic/cypress-cucumber-e2e-tests/actions/workflows/sanity-check.yml) - Used for scheduled execution of Sanity Cypress Tests, using `electron` and `local` environment, on merge events on `main` branch and create / update pull request events
 
+---
+
 ### Cypress Tests
 
 This GitHub Action Workflow Executes All Cypress Cucumber E2E Tests on `local` (default) or `prod` environnement using `electron` (default), `chrome`, `firefox` or `edge` browser from defined branch (by default it is `main`).
@@ -176,6 +178,8 @@ This workflow is only triggered Manually. Steps to trigger it:
 ![Cypress Tests](/docs/imgs/Cypress-Tests.png)
 
 On [Cypress Tests](https://github.com/milos-pujic/cypress-cucumber-e2e-tests/actions/workflows/cypress.yml) page, status of all on-going and previously executed 'Cypress Tests' Workflow runs can be found.
+
+---
 
 ### Cypress Tests Electron
 
@@ -205,6 +209,8 @@ Steps to trigger it manually:
 On [Cypress Tests Electron](https://github.com/milos-pujic/cypress-cucumber-e2e-tests/actions/workflows/cypress-electron.yml) page, status of all on-going and previously executed 'Cypress Tests' Workflow runs can be found.
 
 This GitHub Action publishes Cucumber HTML and Allure Report on GitHub Pages of this project, located [here](https://milos-pujic.github.io/cypress-cucumber-e2e-tests/).
+
+---
 
 ### Sanity Check
 
