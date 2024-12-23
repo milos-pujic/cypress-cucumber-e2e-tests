@@ -148,79 +148,103 @@ All Github Actions Workflows are configured in [**GitHub Folder**](/.github/work
 
 They all can be found by navigating to [GitHub Repository > Actions](https://github.com/milos-pujic/cypress-cucumber-e2e-tests/actions).
 
-![GitHub Actions Workflows](/docs/imgs/GitHub-Actions.png)
+There are 2 GitHub Actions Workflows setup for Cypress Cucumber E2E Tests repository:
 
-There are 3 GitHub Actions Workflows setup for Cypress Cucumber E2E Tests repository:
-
-- [Cypress Tests](https://github.com/milos-pujic/cypress-cucumber-e2e-tests/actions/workflows/cypress.yml): Used to manually trigger execution set of Cypress Tests, using specified browser and environment.
-- [Cypress Tests in Electron](https://github.com/milos-pujic/cypress-cucumber-e2e-tests/actions/workflows/cypress-electron.yml): Used for scheduled (and manual) execution of all Cypress Tests, using `electron` and `local` environment and publishing of test results on GitHub Pages.
-- [Sanity Check](https://github.com/milos-pujic/cypress-cucumber-e2e-tests/actions/workflows/sanity-check.yml) - Used for scheduled execution of Sanity Cypress Tests, using `electron` and `local` environment, on merge events on `main` branch and create / update pull request events
+- [Cypress Tests](https://github.com/milos-pujic/cypress-cucumber-e2e-tests/actions/workflows/cypress.yml): Used for scheduled (and manual) execution of all Cypress Tests across all supported browsers (electron, chrome, firefox and edge) on `local` environment and publishing of test results on GitHub Pages.
+- [Sanity Check](https://github.com/milos-pujic/cypress-cucumber-e2e-tests/actions/workflows/sanity-check.yml) - Used for scheduled execution of Sanity Cypress Tests, using only `electron` and `local` environment, on merge events on `main` branch and create / update pull request events
 
 ---
 
 ### Cypress Tests
 
-This GitHub Action Workflow Executes All Cypress Cucumber E2E Tests on `local` (default) or `prod` environnement using `electron` (default), `chrome`, `firefox` or `edge` browser from defined branch (by default it is `main`).
-
-If `local` environnement is selected, Restful Booker Platform will be started inside GitHub Services and tests will run against it.
-If `prod` environnement is selected, tests will run against live version of Restful Booker Platform available at [automationintesting.online](https://automationintesting.online/).
-
 GitHub Action Workflow configuration file of this workflow is [cypress.yml](/.github/workflows/cypress.yml).
 
-This workflow is only triggered Manually. Steps to trigger it:
+This GitHub Actions workflow automates the execution of Cypress tests, organizes the results, and publishes detailed test reports. The pipeline is designed for reliability, scalability, and ease of maintenance, supporting multiple browsers and concurrent test runs.
 
-1. Open [Cypress Tests](https://github.com/milos-pujic/cypress-cucumber-e2e-tests/actions/workflows/cypress.yml)
-2. Click on `Run workflow` button
-    - (which opens sub-modal where `Branch`, `Environnement to run Tests`, `Browser in which to run Tests` and `Skip Test with Known Bugs` can be selected)
-3. Select `Branch`, `Environnement to run Tests`, `Browser in which to run Tests` and `Skip Test with Known Bugs`
-4. Click on `Run workflow` button
+#### Cypress Tests: Key Features
 
-![Cypress Tests](/docs/imgs/Cypress-Tests.png)
+- **Scheduled Execution:** Automatically runs every Monday at 9:00 AM UTC via a cron schedule. Manual execution is also supported.
+- **Multi-Browser Testing:** Tests run concurrently on Electron, Chrome, Firefox, and Edge browsers.
+- **Parallel Execution:** Tests are split into multiple parts to optimize runtime and improve efficiency.
+- **Service Containers:** Utilizes service containers to spin up dependencies (e.g., Restful Booker Platform services) required for testing.
+- **Allure Reports:** Generates and publishes detailed Allure reports, including execution history.
+- **Cucumber HTML Reports:** Provides human-readable HTML reports for Cucumber tests.
+- **GitHub Pages Deployment:** Automatically deploys reports to GitHub Pages for easy access and sharing.
+- **Artifact Management:** Uploads and organizes test artifacts, with optional deletion of unnecessary files to maintain cleanliness.
 
-On [Cypress Tests](https://github.com/milos-pujic/cypress-cucumber-e2e-tests/actions/workflows/cypress.yml) page, status of all on-going and previously executed 'Cypress Tests' Workflow runs can be found.
+#### Cypress Tests: Workflow Overview
 
----
+1. **Install Job:**
+   - Sets up the testing environment with Node.js and caches dependencies for faster execution.
 
-### Cypress Tests Electron
+2. **Test Job:**
+   - Executes Cypress tests for each browser, divided into multiple parts for parallelism.
+      - Firefox tests are specifically configured with `video=false` as video recording currently doesn't work on Firefox.
+   - Generates test artifacts (Allure results and Cucumber messages).
+   - Uploads artifacts for further processing.
 
-This GitHub Action Workflow Executes All Cypress Cucumber E2E Tests on `local` environnement using `electron` browser from defined branch (by default it is `main`).
+3. **Report Job:**
+   - Downloads and Merges Cucumber Messages (per browser) and Allure Results.
+   - Generates consolidated Cucumber HTML reports (per browser) and Allure Report.
+   - Deploys reports to GitHub Pages for easy access.
+   - Cleans up unnecessary artifacts after deployment.
 
-:warning: This GitHub Actions publishes report on GitHub pages and beacuse of that it can **ONLY** be executed on **main** branch. :warning:
+#### Cypress Tests: Usage
 
-Environment `local` means that, Restful Booker Platform will be started inside GitHub Services and tests will run against it.
+To trigger the workflow:
 
-GitHub Action Workflow configuration file of this workflow is [cypress-electron.yml](/.github/workflows/cypress-electron.yml).
+1. **Manual Run:** Go to the "Actions" tab in your GitHub repository, select the workflow, and click "Run workflow." :warning: This GitHub Actions publishes report on GitHub pages and because of that it can **ONLY** be executed on **main** branch. :warning:
+2. **Scheduled Run:** The workflow automatically runs every Monday at 9:00 AM UTC.
 
-This workflow has two triggers:
+#### Cypress Tests: Reports
 
-1. Scheduled Trigger at 09:00 on every Monday, using cron expression `0 9 * * 1`
-2. Manual Trigger
+- **Allure Report:** Comprehensive test reports with execution history and trends.
+- **Cucumber HTML Report:** Browser-specific detailed test results.
 
-Steps to trigger it manually:
-
-1. Open [Cypress Tests Electron](https://github.com/milos-pujic/cypress-cucumber-e2e-tests/actions/workflows/cypress-electron.yml)
-2. Click on `Run workflow` button
-    - (which opens sub-modal where `Branch` can be selected)
-3. Select `Branch` (:warning: **main** branch must be used :warning:)
-4. Click on `Run workflow` button
-
-![Cypress Tests Electron](/docs/imgs/Cypress-Tests-Electron.png)
-
-On [Cypress Tests Electron](https://github.com/milos-pujic/cypress-cucumber-e2e-tests/actions/workflows/cypress-electron.yml) page, status of all on-going and previously executed 'Cypress Tests' Workflow runs can be found.
-
-This GitHub Action publishes Cucumber HTML and Allure Report on GitHub Pages of this project, located [here](https://milos-pujic.github.io/cypress-cucumber-e2e-tests/).
+Access the reports via the GitHub Pages link provided in the workflow logs after execution, or click [here](https://milos-pujic.github.io/cypress-cucumber-e2e-tests/).
 
 ---
 
 ### Sanity Check
 
-This GitHub Action Workflow Executes `@sanity` tagged scenarios of Cucumber E2E Tests on `local` environnement using `electron` browser from `main` or Pull Request source branch.
-
 GitHub Action Workflow configuration file of this workflow is [sanity-check.yml](/.github/workflows/sanity-check.yml).
 
-This workflow is only triggered automatically on specific events:
+This GitHub Actions workflow ensures that critical components of the codebase are functional by running a set of sanity tests. It is triggered automatically on relevant code changes or pull requests and validates the application's core functionality using Cypress.
 
-- Merge Events on `main` branch
-- Create / Update GitHub Pull Request Events
+#### Sanity Check: Key Features
 
-On [Sanity Check](https://github.com/milos-pujic/cypress-cucumber-e2e-tests/actions/workflows/sanity-check.yml) page, status of all on-going and previously executed 'Sanity Check' Workflow runs can be found.
+- **Trigger Conditions:**  
+  The workflow runs automatically in the following cases:
+  - **Push to the `main` branch:** When changes affect key files such as Cypress tests, configuration files, or dependencies.
+  - **Pull Requests to the `main` branch:** On events like opening, updating, or labeling a pull request, ensuring the changes are tested before merging.
+- **Service Containers:** Utilizes service containers to spin up dependencies (e.g., Restful Booker Platform services) required for testing.
+- **Test Execution:** Runs a targeted suite of sanity tests on the Electron browser with the `@sanity` tag to verify critical workflows, while skipping tests labeled as `@bug`.
+- **Allure Reporting:** Generates an Allure report for visualizing test results and trends, making it easy to assess the state of the codebase.
+- **Artifact Management:** Uploads the following artifacts for further review or sharing:
+  - **Cucumber Report:** HTML reports summarizing test results.
+  - **Allure Report:** A detailed report for deeper insights into test execution.
+
+#### Sanity Check: Workflow Overview
+
+1. **Trigger Conditions:**
+   - Runs on pushes to the `main` branch that involve critical files like Cypress tests, configuration files, or package dependencies.
+   - Runs on pull requests targeting the `main` branch for validation before merging.
+
+2. **Environment Setup:**
+   - Spins up required service containers for backend support.
+   - Installs Node.js dependencies and caches them for improved speed.
+
+3. **Test Execution:**
+   - Executes sanity tests using the Cypress Electron browser with the `@sanity` tag.
+
+4. **Reporting:**
+   - Generates and uploads Allure and Cucumber HTML Reports as workflow artifacts for review.
+
+5. **Artifacts Retention:**
+   - Test reports are retained for one day, providing quick access for debugging and analysis.
+
+#### Sanity Check: Benefits
+
+- Ensures critical functionality remains intact with every code change.
+- Provides rapid feedback during development and pull request reviews.
+- Simplifies debugging with detailed and easily accessible reports.
