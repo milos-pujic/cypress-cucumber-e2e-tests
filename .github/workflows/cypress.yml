@@ -188,13 +188,13 @@ jobs:
         run: |
           tree
           mkdir cucumber-html-reports
-          npx cucumber-merge-messages cucumber-messages/cucumber-messages-electron-*.ndjson > cucumber-messages/cucumber-electron-messages.ndjson
+          npx cucumber-merge-messages cucumber-messages-electron-*.ndjson > cucumber-messages/cucumber-electron-messages.ndjson
           npx cucumber-html-formatter < cucumber-messages/cucumber-electron-messages.ndjson > cucumber-html-reports/cucumber-electron-report.html
-          npx cucumber-merge-messages cucumber-messages/cucumber-messages-chrome-*.ndjson > cucumber-messages/cucumber-chrome-messages.ndjson
+          npx cucumber-merge-messages cucumber-messages-chrome-*.ndjson > cucumber-messages/cucumber-chrome-messages.ndjson
           npx cucumber-html-formatter < cucumber-messages/cucumber-chrome-messages.ndjson > cucumber-html-reports/cucumber-chrome-report.html
-          npx cucumber-merge-messages cucumber-messages/cucumber-messages-firefox-*.ndjson > cucumber-messages/cucumber-firefox-messages.ndjson
+          npx cucumber-merge-messages cucumber-messages-firefox-*.ndjson > cucumber-messages/cucumber-firefox-messages.ndjson
           npx cucumber-html-formatter < cucumber-messages/cucumber-firefox-messages.ndjson > cucumber-html-reports/cucumber-firefox-report.html
-          npx cucumber-merge-messages cucumber-messages/cucumber-messages-edge-*.ndjson > cucumber-messages/cucumber-edge-messages.ndjson
+          npx cucumber-merge-messages cucumber-messages-edge-*.ndjson > cucumber-messages/cucumber-edge-messages.ndjson
           npx cucumber-html-formatter < cucumber-messages/cucumber-edge-messages.ndjson > cucumber-html-reports/cucumber-edge-report.html
       - name: Upload Cucumber HTML Reports
         id: upload-cucumber-html-reports
