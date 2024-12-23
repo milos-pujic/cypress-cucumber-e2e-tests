@@ -89,9 +89,13 @@ jobs:
         id: cypress-run
         uses: cypress-io/github-action@v6
         with:
-          env: ENV=local,TAGS=not @bug,split=${{ matrix.splitTotal }},splitIndex=${{ matrix.splitIndex }}
+          env: ENV=local,TAGS=not @bug
           browser: ${{ matrix.browser }}
           command-prefix: '--'
+        env:
+          SPLIT: ${{ matrix.splitTotal }}
+          SPLIT_INDEX: ${{ matrix.splitIndex }}
+
       - name: Upload Cypress Allure Results
         id: upload-cypress-allure-results
         uses: actions/upload-artifact@v4
