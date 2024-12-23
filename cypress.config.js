@@ -4,7 +4,6 @@ const preprocessor = require('@badeball/cypress-cucumber-preprocessor');
 const createEsbuildPlugin = require('@badeball/cypress-cucumber-preprocessor/esbuild');
 const { allureCypress } = require('allure-cypress/reporter');
 const cypressSplit = require('cypress-split');
-const os = require('node:os');
 
 async function setupNodeEvents(cypressOn, config) {
   const on = require('cypress-on-fix')(cypressOn);
