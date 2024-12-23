@@ -95,7 +95,6 @@ jobs:
         env:
           SPLIT: ${{ matrix.splitTotal }}
           SPLIT_INDEX: ${{ matrix.splitIndex }}
-
       - name: Upload Cypress Allure Results
         id: upload-cypress-allure-results
         uses: actions/upload-artifact@v4
@@ -103,6 +102,15 @@ jobs:
         with:
           name: cypress-allure-results-${{ matrix.browser }}-${{ matrix.splitIndex }}_${{ matrix.splitTotal }}
           path: cypress/reports/allure-results/
+          if-no-files-found: ignore
+          retention-days: 1
+      - name: Upload Cucumber Messages
+        id: upload-cucumber-messages
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: cucumber-messages-${{ matrix.browser }}-${{ matrix.splitIndex }}_${{ matrix.splitTotal }}.ndjson
+          path: cypress/reports/messages/cucumber.ndjson
           if-no-files-found: ignore
           retention-days: 1
 
