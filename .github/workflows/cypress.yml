@@ -96,6 +96,7 @@ jobs:
         env:
           SPLIT: ${{ matrix.splitTotal }}
           SPLIT_INDEX: ${{ matrix.splitIndex }}
+          CYPRESS_messagesOutput: cypress/reports/messages/cucumber-${{ matrix.browser }}-${{ matrix.splitIndex }}_${{ matrix.splitTotal }}.ndjson
       - name: Cypress Run (for Firefox)
         id: cypress-run-firefox
         if: ${{ matrix.browser == 'firefox' }}
@@ -108,12 +109,12 @@ jobs:
         env:
           SPLIT: ${{ matrix.splitTotal }}
           SPLIT_INDEX: ${{ matrix.splitIndex }}
-      - name: Upload Cypress Allure Results
-        id: upload-cypress-allure-results
+      - name: Upload Allure Results
+        id: upload-allure-results
         uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: cypress-allure-results-${{ matrix.browser }}-${{ matrix.splitIndex }}_${{ matrix.splitTotal }}
+          name: allure-results-${{ matrix.browser }}-${{ matrix.splitIndex }}_${{ matrix.splitTotal }}
           path: cypress/reports/allure-results/
           if-no-files-found: ignore
           retention-days: 1
@@ -122,8 +123,8 @@ jobs:
         uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: cucumber-messages-${{ matrix.browser }}-${{ matrix.splitIndex }}_${{ matrix.splitTotal }}.ndjson
-          path: cypress/reports/messages/cucumber.ndjson
+          name: cucumber-messages-${{ matrix.browser }}-${{ matrix.splitIndex }}_${{ matrix.splitTotal }}
+          path: cypress/reports/messages/
           if-no-files-found: ignore
           retention-days: 1
 
@@ -163,18 +164,46 @@ jobs:
         id: download-allure-results
         uses: actions/download-artifact@v4
         with:
-          path: cypress-allure-results
-          pattern: cypress-allure-results-*
+          path: allure-results
+          pattern: allure-results-*
           merge-multiple: true
       - name: Generate Allure Report
         id: generate-allure-report
         run: |
-          curl --create-dirs -o ./cypress-allure-results/history/categories-trend.json https://milos-pujic.github.io/cypress-cucumber-e2e-tests/history/categories-trend.json
-          curl --create-dirs -o ./cypress-allure-results/history/duration-trend.json https://milos-pujic.github.io/cypress-cucumber-e2e-tests/history/duration-trend.json
-          curl --create-dirs -o ./cypress-allure-results/history/history-trend.json https://milos-pujic.github.io/cypress-cucumber-e2e-tests/history/history-trend.json
-          curl --create-dirs -o ./cypress-allure-results/history/history.json https://milos-pujic.github.io/cypress-cucumber-e2e-tests/history/history.json
-          curl --create-dirs -o ./cypress-allure-results/history/retry-trend.json https://milos-pujic.github.io/cypress-cucumber-e2e-tests/history/retry-trend.json
-          npx allure generate cypress-allure-results -o cypress-allure-report --clean
+          curl --create-dirs -o ./allure-results/history/categories-trend.json https://milos-pujic.github.io/cypress-cucumber-e2e-tests/history/categories-trend.json
+          curl --create-dirs -o ./allure-results/history/duration-trend.json https://milos-pujic.github.io/cypress-cucumber-e2e-tests/history/duration-trend.json
+          curl --create-dirs -o ./allure-results/history/history-trend.json https://milos-pujic.github.io/cypress-cucumber-e2e-tests/history/history-trend.json
+          curl --create-dirs -o ./allure-results/history/history.json https://milos-pujic.github.io/cypress-cucumber-e2e-tests/history/history.json
+          curl --create-dirs -o ./allure-results/history/retry-trend.json https://milos-pujic.github.io/cypress-cucumber-e2e-tests/history/retry-trend.json
+          npx allure generate allure-results -o allure-report --clean
+      - name: Download Cucumber Messages
+        id: download-cucumber-messages
+        uses: actions/download-artifact@v4
+        with:
+          path: cucumber-messages
+          pattern: cucumber-messages-*
+          merge-multiple: true
+      - name: Generate HTML Reports
+        id: generate-html-reports
+        run: |
+          mkdir cucumber-html-reports
+          npx cucumber-merge-messages cucumber-messages/cucumber-messages-electron-*.ndjson > cucumber-messages/cucumber-electron-messages.ndjson
+          npx cucumber-html-formatter < cucumber-messages/cucumber-electron-messages.ndjson > cucumber-html-reports/cucumber-electron-report.html
+          npx cucumber-merge-messages cucumber-messages/cucumber-messages-chrome-*.ndjson > cucumber-messages/cucumber-chrome-messages.ndjson
+          npx cucumber-html-formatter < cucumber-messages/cucumber-chrome-messages.ndjson > cucumber-html-reports/cucumber-chrome-report.html
+          npx cucumber-merge-messages cucumber-messages/cucumber-messages-firefox-*.ndjson > cucumber-messages/cucumber-firefox-messages.ndjson
+          npx cucumber-html-formatter < cucumber-messages/cucumber-firefox-messages.ndjson > cucumber-html-reports/cucumber-firefox-report.html
+          npx cucumber-merge-messages cucumber-messages/cucumber-messages-edge-*.ndjson > cucumber-messages/cucumber-edge-messages.ndjson
+          npx cucumber-html-formatter < cucumber-messages/cucumber-edge-messages.ndjson > cucumber-html-reports/cucumber-edge-report.html
+      - name: Upload Cucumber HTML Reports
+        id: upload-cucumber-html-reports
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: cucumber-html-reports
+          path: cucumber-html-reports/
+          if-no-files-found: ignore
+          retention-days: 5
       - name: Setup Pages
         id: setup-pages
         uses: actions/configure-pages@v5
@@ -182,7 +211,7 @@ jobs:
         id: upload-pages-artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: cypress-allure-report/
+          path: allure-report/
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
@@ -191,5 +220,6 @@ jobs:
         uses: geekyeggo/delete-artifact@v5
         with:
           name: |
-            cypress-allure-results-*
+            allure-results-*
+            cucumber-messages-*
           failOnError: false
