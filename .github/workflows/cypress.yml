@@ -186,6 +186,7 @@ jobs:
       - name: Generate HTML Reports
         id: generate-html-reports
         run: |
+          tree
           mkdir cucumber-html-reports
           npx cucumber-merge-messages cucumber-messages/cucumber-messages-electron-*.ndjson > cucumber-messages/cucumber-electron-messages.ndjson
           npx cucumber-html-formatter < cucumber-messages/cucumber-electron-messages.ndjson > cucumber-html-reports/cucumber-electron-report.html
