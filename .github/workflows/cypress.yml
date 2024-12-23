@@ -209,7 +209,7 @@ jobs:
         id: upload-pages-artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: allure-report/
+          path: reports/
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
