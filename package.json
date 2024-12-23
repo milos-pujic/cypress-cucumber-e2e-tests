@@ -37,8 +37,10 @@
     "@faker-js/faker": "^9.3.0",
     "allure-commandline": "^2.32.0",
     "allure-cypress": "^3.0.7",
+    "allure-js-commons": "^3.0.7",
     "cypress": "^13.17.0",
     "cypress-on-fix": "^1.0.3",
+    "cypress-split": "^1.24.7",
     "eslint": "^9.17.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-chai-friendly": "^1.0.1",
@@ -49,6 +51,7 @@
     "husky": "^9.1.7",
     "lint-staged": "^15.2.11",
     "prettier": "^3.4.2",
-    "rimraf": "^6.0.1"
+    "rimraf": "^6.0.1",
+    "uuid": "^11.0.3"
   }
 }

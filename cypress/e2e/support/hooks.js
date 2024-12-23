@@ -1,6 +1,9 @@
 const { Before, After } = require('@badeball/cypress-cucumber-preprocessor');
+const allure = require('allure-js-commons');
+const { v5 } = require('uuid');
 
 Before(() => {
+  updateTestNameAndHistoryIdForAllure();
   if (Cypress.isBrowser('!firefox')) cy.setCookie('banner', 'true');
   cy.wrap([]).as('roomIds');
   cy.wrap([]).as('roomNames');
@@ -26,3 +29,15 @@ After(() => {
     }
   });
 });
+
+function updateTestNameAndHistoryIdForAllure() {
+  const newName = `${Cypress.browser.name}: ${Cypress.currentTest.title}`;
+  allure.displayName(newName);
+  const newHistoryId = generateConsistentHistoryId(newName);
+  allure.historyId(newHistoryId);
+}
+
+function generateConsistentHistoryId(name) {
+  const NAMESPACE = 'b0dd5ec1-6e89-4851-8b7f-f50b09f4678a';
+  return v5(name, NAMESPACE);
+}

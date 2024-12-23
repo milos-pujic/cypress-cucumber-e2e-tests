@@ -3,6 +3,7 @@ const createBundler = require('@bahmutov/cypress-esbuild-preprocessor');
 const preprocessor = require('@badeball/cypress-cucumber-preprocessor');
 const createEsbuildPlugin = require('@badeball/cypress-cucumber-preprocessor/esbuild');
 const { allureCypress } = require('allure-cypress/reporter');
+const cypressSplit = require('cypress-split');
 const os = require('node:os');
 
 async function setupNodeEvents(cypressOn, config) {
@@ -17,14 +18,9 @@ async function setupNodeEvents(cypressOn, config) {
     })
   );
   allureCypress(on, config, {
-    resultsDir: 'cypress/reports/allure-results',
-    environmentInfo: {
-      os_platform: os.platform(),
-      os_release: os.release(),
-      os_version: os.version(),
-      node_version: process.version
-    }
+    resultsDir: 'cypress/reports/allure-results'
   });
+  cypressSplit(on, config);
   config.defaultCommandTimeout = 4000;
   // Make sure to return the config object as it might have been modified by the plugin.
   return config;
@@ -39,10 +35,7 @@ module.exports = defineConfig({
   videosFolder: 'cypress/videos',
   screenshotOnRunFailure: true,
   video: true,
-  retries: {
-    runMode: 1,
-    openMode: 0
-  },
+  retries: 1,
   defaultCommandTimeout: 4000,
   responseTimeout: 30000,
   pageLoadTimeout: 60000,
