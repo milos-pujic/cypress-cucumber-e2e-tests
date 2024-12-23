@@ -31,7 +31,7 @@ After(() => {
 });
 
 function updateTestNameAndHistoryIdForAllure() {
-  const newName = `${Cypress.browser.name}: ${Cypress.currentTest.title}`;
+  const newName = `[${Cypress.browser.name}] ${Cypress.currentTest.title}`;
   allure.displayName(newName);
   const newHistoryId = generateConsistentHistoryId(newName);
   allure.historyId(newHistoryId);
