@@ -2,37 +2,39 @@ name: Cypress Tests
 
 on:
   workflow_dispatch:
-    inputs:
-      environment:
-        description: 'Environment to run Tests'
-        required: true
-        default: 'local'
-        type: choice
-        options:
-          - local
-          - prod
-      browser:
-        description: 'Browser in which to run Tests'
-        required: true
-        default: 'electron'
-        type: choice
-        options:
-          - electron
-          - chrome
-          - firefox
-          - edge
-      skip-bugs:
-        description: 'Skip Test with Known Bugs'
-        required: true
-        default: true
-        type: boolean
 
 jobs:
-  test-local:
-    if: ${{ inputs.environment == 'local' }}
-    name: Tests - ${{ inputs.browser }} - local
+  install:
+    name: Install
     runs-on: ubuntu-latest
     timeout-minutes: 30
+    steps:
+      - name: Checkout Repository
+        id: checkout-repository
+        uses: actions/checkout@v4
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Cache Node Modules
+        id: cache-node-modules
+        uses: actions/cache@v4
+        with:
+          path: |
+            node_modules
+          key: modules-${{ hashFiles('package-lock.json') }}
+
+  test:
+    name: Tests - ${{ matrix.browser }} - local
+    runs-on: ubuntu-latest
+    needs: [install]
+    timeout-minutes: 60
+    strategy:
+      fail-fast: false
+      matrix:
+        browser: [electron, chrome, firefox, edge]
+        shardIndex: [0, 1]
+        shardTotal: [2]
     services:
       rbp-booking:
         image: mwinteringham/restfulbookerplatform_booking:1.6.24c7b22
@@ -83,46 +85,38 @@ jobs:
           key: modules-${{ hashFiles('package-lock.json') }}
       - name: Cypress Run
         id: cypress-run
-        if: ${{ inputs.skip-bugs }}
         uses: cypress-io/github-action@v6
         with:
-          env: ENV=local,TAGS=not @bug
-          browser: ${{ inputs.browser }}
+          env: ENV=local,TAGS=not @bug,split=${{ matrix.shardTotal }},splitIndex=${{ matrix.shardIndex }}
+          browser: ${{ matrix.browser }}
           command-prefix: '--'
-      - name: Cypress Run (incl. tests with known bugs)
-        id: cypress-run-bugs
-        if: ${{ !inputs.skip-bugs }}
-        uses: cypress-io/github-action@v6
-        with:
-          env: ENV=local
-          browser: ${{ inputs.browser }}
-          command-prefix: '--'
-      - name: Generate Allure Report
-        id: generate-allure-report
-        run: |
-          npx allure generate --single-file cypress/reports/allure-results -o cypress/reports/allure-report-html --clean
-      - name: Upload Cucumber Report
-        id: upload-cucumber-report
+      - name: Upload Cypress Allure Results
+        id: upload-cypress-allure-results
         uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: cucumber-report
-          path: cypress/reports/html
-          retention-days: 5
-      - name: Upload Allure Report
-        id: upload-allure-report
-        uses: actions/upload-artifact@v4
-        if: always()
-        with:
-          name: allure-report
-          path: cypress/reports/allure-report-html
-          retention-days: 5
+          name: cypress-allure-results-${{ matrix.browser }}-${{ matrix.shardIndex }}_${{ matrix.shardTotal }}
+          path: cypress/reports/allure-results/
+          if-no-files-found: ignore
+          retention-days: 1
 
-  test-prod:
-    if: ${{ inputs.environment == 'prod' }}
-    name: Tests - ${{ inputs.browser }} - prod
+  report:
+    name: Merge and Publish Reports
+    if: ${{ always() }}
     runs-on: ubuntu-latest
+    needs: [test]
     timeout-minutes: 30
+    permissions:
+      actions: write
+      contents: read
+      pages: write
+      id-token: write
+    concurrency:
+      group: 'pages'
+      cancel-in-progress: true
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - name: Checkout Repository
         id: checkout-repository
@@ -138,39 +132,30 @@ jobs:
           path: |
             node_modules
           key: modules-${{ hashFiles('package-lock.json') }}
-      - name: Cypress Run
-        id: cypress-run
-        if: ${{ inputs.skip-bugs }}
-        uses: cypress-io/github-action@v6
+      - name: Download Allure Results
+        id: download-allure-results
+        uses: actions/download-artifact@v4
         with:
-          env: ENV=prod,TAGS=not @bug
-          browser: ${{ inputs.browser }}
-          command-prefix: '--'
-      - name: Cypress Run (incl. tests with known bugs)
-        id: cypress-run-bugs
-        if: ${{ !inputs.skip-bugs }}
-        uses: cypress-io/github-action@v6
-        with:
-          env: ENV=prod
-          browser: ${{ inputs.browser }}
-          command-prefix: '--'
+          path: cypress-allure-results
+          pattern: cypress-allure-results-*
+          merge-multiple: true
       - name: Generate Allure Report
         id: generate-allure-report
         run: |
-          npx allure generate --single-file cypress/reports/allure-results -o cypress/reports/allure-report-html --clean
-      - name: Upload Cucumber Report
-        id: upload-cucumber-report
-        uses: actions/upload-artifact@v4
-        if: always()
+          curl --create-dirs -o ./cypress-allure-results/history/categories-trend.json https://milos-pujic.github.io/cypress-cucumber-e2e-tests/allure/history/categories-trend.json
+          curl --create-dirs -o ./cypress-allure-results/history/duration-trend.json https://milos-pujic.github.io/cypress-cucumber-e2e-tests/allure/history/duration-trend.json
+          curl --create-dirs -o ./cypress-allure-results/history/history-trend.json https://milos-pujic.github.io/cypress-cucumber-e2e-tests/allure/history/history-trend.json
+          curl --create-dirs -o ./cypress-allure-results/history/history.json https://milos-pujic.github.io/cypress-cucumber-e2e-tests/allure/history/history.json
+          curl --create-dirs -o ./cypress-allure-results/history/retry-trend.json https://milos-pujic.github.io/cypress-cucumber-e2e-tests/allure/history/retry-trend.json
+          npx allure generate cypress-allure-results -o cypress-allure-report --clean
+      - name: Setup Pages
+        id: setup-pages
+        uses: actions/configure-pages@v5
+      - name: Upload Pages Artifact
+        id: upload-pages-artifact
+        uses: actions/upload-pages-artifact@v3
         with:
-          name: cucumber-report
-          path: cypress/reports/html
-          retention-days: 5
-      - name: Upload Allure Report
-        id: upload-allure-report
-        uses: actions/upload-artifact@v4
-        if: always()
-        with:
-          name: allure-report
-          path: cypress/reports/allure-report-html
-          retention-days: 5
+          path: cypress-allure-report/
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
