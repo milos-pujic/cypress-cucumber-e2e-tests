@@ -96,7 +96,7 @@ jobs:
         env:
           SPLIT: ${{ matrix.splitTotal }}
           SPLIT_INDEX: ${{ matrix.splitIndex }}
-      - name: Cypress Run
+      - name: Cypress Run (for Firefox)
         id: cypress-run-firefox
         if: ${{ matrix.browser == 'firefox' }}
         uses: cypress-io/github-action@v6
