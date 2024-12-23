@@ -1,0 +1,134 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="description" content="" />
+    <title>Cypress E2E Test Reports</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+      }
+
+      #header {
+        background-color: #333;
+        color: #fff;
+        padding: 20px;
+        text-align: center;
+      }
+
+      #header img {
+        display: block;
+        margin: 0 auto;
+        max-width: 400px;
+      }
+
+      #main {
+        margin: 20px;
+        text-align: center;
+      }
+
+      ul {
+        list-style-type: none;
+        background-color: #f2f2f2;
+        display: inline-flexbox;
+        border-radius: 5px;
+        padding: 1em;
+      }
+
+      li {
+        margin-top: 40px;
+        margin-bottom: 40px;
+      }
+
+      p {
+        text-align: center;
+      }
+
+      a {
+        color: #333;
+        text-decoration: none;
+        font-weight: bold;
+        padding: 10px 20px;
+        border: 2px solid #333;
+        border-radius: 5px;
+        transition: background-color 0.3s ease;
+      }
+
+      a:hover {
+        background-color: #333;
+        color: #fff;
+      }
+
+      .row {
+        display: flex;
+        margin: 1%;
+        border: 1px solid #ccc;
+        padding: 1%;
+      }
+
+      .column {
+        flex: 1;
+        margin: 1%;
+        padding: 1%;
+        align-content: center;
+      }
+
+      .box {
+        flex: 1;
+        margin: 1%;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        padding: 1%;
+      }
+
+      #footer {
+        background-color: #f5f5f5;
+        padding: 10px;
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body>
+    <section id="header">
+      <img src="./cypress-logo.png" alt="cypress-logo" />
+    </section>
+
+    <section id="main">
+      <div class="row">
+        <div class="column">
+          <img alt="allure-logo" height="50" src="allure-logo.png" />
+          <h1>Allure Report</h1>
+          <p>
+            The Allure Report shows the latest test results and execution history across all supported browsers: Electron, Chrome, Firefox, and Edge.
+          </p>
+          <p>
+            Test results are prefixed with the browser name for easy identification, and you can filter results by searching for a specific browser.
+          </p>
+        </div>
+        <div class="column">
+          <ul>
+            <li><a href="./allure/index.html">Allure Report</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="row">
+        <div class="column">
+          <img alt="cucumber-logo" height="50" src="cucumber-logo.png" />
+          <h1>Cucumber Reports</h1>
+          <p>Latest Cucumber Reports in HTML format per browser.</p>
+        </div>
+        <div class="column">
+          <ul>
+            <li><a href="./cucumber/cucumber-electron.html">Electron Report</a></li>
+            <li><a href="./cucumber/cucumber-chrome.html">Chrome Report</a></li>
+            <li><a href="./cucumber/cucumber-firefox.html">Firefox Report</a></li>
+            <li><a href="./cucumber/cucumber-edge.html">Edge Report</a></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+    <section id="footer">Cypress E2E Test Reports</section>
+  </body>
+</html>

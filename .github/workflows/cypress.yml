@@ -161,6 +161,25 @@ jobs:
           path: |
             node_modules
           key: modules-${{ hashFiles('package-lock.json') }}
+      - name: Download Cucumber Messages
+        id: download-cucumber-messages
+        uses: actions/download-artifact@v4
+        with:
+          path: cucumber-messages
+          pattern: cucumber-messages-*
+          merge-multiple: true
+      - name: Generate Cucumber HTML Reports
+        id: generate-cucumber-html-reports
+        run: |
+          mkdir cucumber-html-reports
+          npx cucumber-merge-messages cucumber-messages/*electron*.ndjson > cucumber-messages/cucumber-electron.ndjson
+          npx cucumber-html-formatter < cucumber-messages/cucumber-electron.ndjson > cucumber-html-reports/cucumber-electron.html
+          npx cucumber-merge-messages cucumber-messages/*chrome-*.ndjson > cucumber-messages/cucumber-chrome.ndjson
+          npx cucumber-html-formatter < cucumber-messages/cucumber-chrome.ndjson > cucumber-html-reports/cucumber-chrome.html
+          npx cucumber-merge-messages cucumber-messages/*firefox-*.ndjson > cucumber-messages/cucumber-firefox.ndjson
+          npx cucumber-html-formatter < cucumber-messages/cucumber-firefox.ndjson > cucumber-html-reports/cucumber-firefox.html
+          npx cucumber-merge-messages cucumber-messages/*edge-*.ndjson > cucumber-messages/cucumber-edge.ndjson
+          npx cucumber-html-formatter < cucumber-messages/cucumber-edge.ndjson > cucumber-html-reports/cucumber-edge.html
       - name: Download Allure Results
         id: download-allure-results
         uses: actions/download-artifact@v4
@@ -177,34 +196,12 @@ jobs:
           curl --create-dirs -o ./allure-results/history/history.json https://milos-pujic.github.io/cypress-cucumber-e2e-tests/history/history.json
           curl --create-dirs -o ./allure-results/history/retry-trend.json https://milos-pujic.github.io/cypress-cucumber-e2e-tests/history/retry-trend.json
           npx allure generate allure-results -o allure-report --clean
-      - name: Download Cucumber Messages
-        id: download-cucumber-messages
-        uses: actions/download-artifact@v4
-        with:
-          path: cucumber-messages
-          pattern: cucumber-messages-*
-          merge-multiple: true
-      - name: Generate HTML Reports
-        id: generate-html-reports
+      - name: Move to Reports Folder
+        id: move-to-reports-folder
         run: |
-          mkdir cucumber-html-reports
-          npx cucumber-merge-messages cucumber-messages/*electron*.ndjson > cucumber-messages/cucumber-electron.ndjson
-          npx cucumber-html-formatter < cucumber-messages/cucumber-electron.ndjson > cucumber-html-reports/cucumber-electron.html
-          npx cucumber-merge-messages cucumber-messages/*chrome-*.ndjson > cucumber-messages/cucumber-chrome.ndjson
-          npx cucumber-html-formatter < cucumber-messages/cucumber-chrome.ndjson > cucumber-html-reports/cucumber-chrome.html
-          npx cucumber-merge-messages cucumber-messages/*firefox-*.ndjson > cucumber-messages/cucumber-firefox.ndjson
-          npx cucumber-html-formatter < cucumber-messages/cucumber-firefox.ndjson > cucumber-html-reports/cucumber-firefox.html
-          npx cucumber-merge-messages cucumber-messages/*edge-*.ndjson > cucumber-messages/cucumber-edge.ndjson
-          npx cucumber-html-formatter < cucumber-messages/cucumber-edge.ndjson > cucumber-html-reports/cucumber-edge.html
-      - name: Upload Cucumber HTML Reports
-        id: upload-cucumber-html-reports
-        uses: actions/upload-artifact@v4
-        if: always()
-        with:
-          name: cucumber-html-reports
-          path: cucumber-html-reports/
-          if-no-files-found: ignore
-          retention-days: 5
+          mv cucumber-html-reports reports/cucumber
+          mv allure-report reports/allure
+        shell: bash
       - name: Setup Pages
         id: setup-pages
         uses: actions/configure-pages@v5
