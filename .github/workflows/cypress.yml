@@ -25,7 +25,7 @@ jobs:
           key: modules-${{ hashFiles('package-lock.json') }}
 
   test:
-    name: Tests - ${{ matrix.browser }} - local
+    name: Tests - ${{ matrix.browser }} - Split ${{ matrix.splitIndex }} of ${{ matrix.splitTotal }}
     runs-on: ubuntu-latest
     needs: [install]
     timeout-minutes: 60
@@ -33,8 +33,8 @@ jobs:
       fail-fast: false
       matrix:
         browser: [electron, chrome, firefox, edge]
-        shardIndex: [0, 1]
-        shardTotal: [2]
+        splitIndex: [0, 1]
+        splitTotal: [2]
     services:
       rbp-booking:
         image: mwinteringham/restfulbookerplatform_booking:1.6.24c7b22
@@ -87,7 +87,7 @@ jobs:
         id: cypress-run
         uses: cypress-io/github-action@v6
         with:
-          env: ENV=local,TAGS=not @bug,split=${{ matrix.shardTotal }},splitIndex=${{ matrix.shardIndex }}
+          env: ENV=local,TAGS=not @bug,split=${{ matrix.splitTotal }},splitIndex=${{ matrix.splitIndex }}
           browser: ${{ matrix.browser }}
           command-prefix: '--'
       - name: Upload Cypress Allure Results
@@ -95,7 +95,7 @@ jobs:
         uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: cypress-allure-results-${{ matrix.browser }}-${{ matrix.shardIndex }}_${{ matrix.shardTotal }}
+          name: cypress-allure-results-${{ matrix.browser }}-${{ matrix.splitIndex }}_${{ matrix.splitTotal }}
           path: cypress/reports/allure-results/
           if-no-files-found: ignore
           retention-days: 1
@@ -142,11 +142,11 @@ jobs:
       - name: Generate Allure Report
         id: generate-allure-report
         run: |
-          curl --create-dirs -o ./cypress-allure-results/history/categories-trend.json https://milos-pujic.github.io/cypress-cucumber-e2e-tests/allure/history/categories-trend.json
-          curl --create-dirs -o ./cypress-allure-results/history/duration-trend.json https://milos-pujic.github.io/cypress-cucumber-e2e-tests/allure/history/duration-trend.json
-          curl --create-dirs -o ./cypress-allure-results/history/history-trend.json https://milos-pujic.github.io/cypress-cucumber-e2e-tests/allure/history/history-trend.json
-          curl --create-dirs -o ./cypress-allure-results/history/history.json https://milos-pujic.github.io/cypress-cucumber-e2e-tests/allure/history/history.json
-          curl --create-dirs -o ./cypress-allure-results/history/retry-trend.json https://milos-pujic.github.io/cypress-cucumber-e2e-tests/allure/history/retry-trend.json
+          curl --create-dirs -o ./cypress-allure-results/history/categories-trend.json https://milos-pujic.github.io/cypress-cucumber-e2e-tests/history/categories-trend.json
+          curl --create-dirs -o ./cypress-allure-results/history/duration-trend.json https://milos-pujic.github.io/cypress-cucumber-e2e-tests/history/duration-trend.json
+          curl --create-dirs -o ./cypress-allure-results/history/history-trend.json https://milos-pujic.github.io/cypress-cucumber-e2e-tests/history/history-trend.json
+          curl --create-dirs -o ./cypress-allure-results/history/history.json https://milos-pujic.github.io/cypress-cucumber-e2e-tests/history/history.json
+          curl --create-dirs -o ./cypress-allure-results/history/retry-trend.json https://milos-pujic.github.io/cypress-cucumber-e2e-tests/history/retry-trend.json
           npx allure generate cypress-allure-results -o cypress-allure-report --clean
       - name: Setup Pages
         id: setup-pages
