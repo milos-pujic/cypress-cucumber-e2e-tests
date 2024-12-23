@@ -109,6 +109,7 @@ jobs:
         env:
           SPLIT: ${{ matrix.splitTotal }}
           SPLIT_INDEX: ${{ matrix.splitIndex }}
+          CYPRESS_messagesOutput: cypress/reports/messages/cucumber-${{ matrix.browser }}-${{ matrix.splitIndex }}_${{ matrix.splitTotal }}.ndjson
       - name: Upload Allure Results
         id: upload-allure-results
         uses: actions/upload-artifact@v4
@@ -188,14 +189,14 @@ jobs:
         run: |
           tree
           mkdir cucumber-html-reports
-          npx cucumber-merge-messages cucumber-messages-electron-*.ndjson > cucumber-messages/cucumber-electron-messages.ndjson
-          npx cucumber-html-formatter < cucumber-messages/cucumber-electron-messages.ndjson > cucumber-html-reports/cucumber-electron-report.html
-          npx cucumber-merge-messages cucumber-messages-chrome-*.ndjson > cucumber-messages/cucumber-chrome-messages.ndjson
-          npx cucumber-html-formatter < cucumber-messages/cucumber-chrome-messages.ndjson > cucumber-html-reports/cucumber-chrome-report.html
-          npx cucumber-merge-messages cucumber-messages-firefox-*.ndjson > cucumber-messages/cucumber-firefox-messages.ndjson
-          npx cucumber-html-formatter < cucumber-messages/cucumber-firefox-messages.ndjson > cucumber-html-reports/cucumber-firefox-report.html
-          npx cucumber-merge-messages cucumber-messages-edge-*.ndjson > cucumber-messages/cucumber-edge-messages.ndjson
-          npx cucumber-html-formatter < cucumber-messages/cucumber-edge-messages.ndjson > cucumber-html-reports/cucumber-edge-report.html
+          npx cucumber-merge-messages cucumber-electron-*.ndjson > cucumber-messages/cucumber-electron.ndjson
+          npx cucumber-html-formatter < cucumber-messages/cucumber-electron.ndjson > cucumber-html-reports/cucumber-electron.html
+          npx cucumber-merge-messages cucumber-chrome-*.ndjson > cucumber-messages/cucumber-chrome.ndjson
+          npx cucumber-html-formatter < cucumber-messages/cucumber-chrome.ndjson > cucumber-html-reports/cucumber-chrome.html
+          npx cucumber-merge-messages cucumber-firefox-*.ndjson > cucumber-messages/cucumber-firefox.ndjson
+          npx cucumber-html-formatter < cucumber-messages/cucumber-firefox.ndjson > cucumber-html-reports/cucumber-firefox.html
+          npx cucumber-merge-messages cucumber-edge-*.ndjson > cucumber-messages/cucumber-edge.ndjson
+          npx cucumber-html-formatter < cucumber-messages/cucumber-edge.ndjson > cucumber-html-reports/cucumber-edge.html
       - name: Upload Cucumber HTML Reports
         id: upload-cucumber-html-reports
         uses: actions/upload-artifact@v4
