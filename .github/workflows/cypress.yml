@@ -161,3 +161,10 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+      - name: Delete Unnecessary Artifacts
+        id: delete-unnecessary-artifacts
+        uses: geekyeggo/delete-artifact@v5
+        with:
+          name: |
+            cypress-allure-results-*
+          failOnError: false
