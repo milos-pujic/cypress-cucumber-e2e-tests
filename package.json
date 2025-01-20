@@ -34,7 +34,7 @@
     "@eslint/compat": "^1.2.5",
     "@eslint/eslintrc": "^3.2.0",
     "@eslint/js": "^9.17.0",
-    "@faker-js/faker": "^9.3.0",
+    "@faker-js/faker": "^9.4.0",
     "allure-commandline": "^2.32.0",
     "allure-cypress": "^3.0.8",
     "allure-js-commons": "^3.0.8",
