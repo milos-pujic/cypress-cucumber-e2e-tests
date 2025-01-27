@@ -28,7 +28,7 @@
   "author": "Levi9",
   "license": "ISC",
   "devDependencies": {
-    "@badeball/cypress-cucumber-preprocessor": "^21.0.3",
+    "@badeball/cypress-cucumber-preprocessor": "^22.0.0",
     "@bahmutov/cypress-esbuild-preprocessor": "^2.2.4",
     "@cypress/xpath": "^2.0.3",
     "@eslint/compat": "^1.2.5",
