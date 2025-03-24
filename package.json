@@ -33,7 +33,7 @@
     "@cypress/xpath": "^2.0.3",
     "@eslint/compat": "^1.2.7",
     "@eslint/eslintrc": "^3.3.0",
-    "@eslint/js": "^9.21.0",
+    "@eslint/js": "^9.23.0",
     "@faker-js/faker": "^9.6.0",
     "allure-commandline": "^2.33.0",
     "allure-cypress": "^3.2.0",
