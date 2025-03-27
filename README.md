@@ -146,12 +146,12 @@ Also make sure that there are no **and** conjunctions in sentences. If there is,
 
 All Github Actions Workflows are configured in [**GitHub Folder**](/.github/workflows/) yml files.
 
-They all can be found by navigating to [GitHub Repository > Actions](https://github.com/milos-pujic/cypress-cucumber-e2e-tests/actions).
+They all can be found by navigating to [GitHub Repository > Actions](https://github.com/m-pujic-levi9-com/cypress-cucumber-e2e-tests/actions).
 
 There are 2 GitHub Actions Workflows setup for Cypress Cucumber E2E Tests repository:
 
-- [Cypress Tests](https://github.com/milos-pujic/cypress-cucumber-e2e-tests/actions/workflows/cypress.yml): Used for scheduled (and manual) execution of all Cypress Tests across all supported browsers (electron, chrome, firefox and edge) on `local` environment and publishing of test results on GitHub Pages.
-- [Sanity Check](https://github.com/milos-pujic/cypress-cucumber-e2e-tests/actions/workflows/sanity-check.yml) - Used for scheduled execution of Sanity Cypress Tests, using only `electron` and `local` environment, on merge events on `main` branch and create / update pull request events
+- [Cypress Tests](https://github.com/m-pujic-levi9-com/cypress-cucumber-e2e-tests/actions/workflows/cypress.yml): Used for scheduled (and manual) execution of all Cypress Tests across all supported browsers (electron, chrome, firefox and edge) on `local` environment and publishing of test results on GitHub Pages.
+- [Sanity Check](https://github.com/m-pujic-levi9-com/cypress-cucumber-e2e-tests/actions/workflows/sanity-check.yml) - Used for scheduled execution of Sanity Cypress Tests, using only `electron` and `local` environment, on merge events on `main` branch and create / update pull request events
 
 ---
 
@@ -201,7 +201,7 @@ To trigger the workflow:
 - **Allure Report:** Comprehensive test reports with execution history and trends.
 - **Cucumber HTML Report:** Browser-specific detailed test results.
 
-Access the reports via the GitHub Pages link provided in the workflow logs after execution, or click [here](https://milos-pujic.github.io/cypress-cucumber-e2e-tests/).
+Access the reports via the GitHub Pages link provided in the workflow logs after execution, or click [here](https://m-pujic-levi9-com.github.io/cypress-cucumber-e2e-tests/).
 
 ---
 
